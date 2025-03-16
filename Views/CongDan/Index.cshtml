@@ -3,7 +3,21 @@
 @{
     ViewData["Title"] = "Danh sách Công Dân";
 }
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 <div class="container mt-4">
     <div class="card shadow-lg p-4 rounded-3">
         <h1 class="text-primary text-center"><i class="bi bi-people-fill"></i> Danh sách Công Dân</h1>

@@ -15,11 +15,11 @@ public partial class DkthiGplx
 
     public int MaTtsh { get; set; }
 
-    public virtual CongDan CccdNavigation { get; set; } = null!;
+    public virtual CongDan? CccdNavigation { get; set; } = null!;
 
     public virtual KetQuaThiGplx? KetQuaThiGplx { get; set; }
 
-    public virtual LoaiGplx MaLoaiNavigation { get; set; } = null!;
+    public virtual LoaiGplx? MaLoaiNavigation { get; set; } = null!;
 
-    public virtual TrungTamSatHach MaTtshNavigation { get; set; } = null!;
+    public virtual TrungTamSatHach? MaTtshNavigation { get; set; } = null!;
 }

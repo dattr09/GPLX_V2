@@ -1,6 +1,15 @@
 @model GPLX.Models.DkthiGplx
 
 <h2 class="mb-3">📝 Thêm Đăng Ký Thi GPLX</h2>
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}
 
 <form asp-action="Create">
     <div class="form-group">

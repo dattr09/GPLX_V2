@@ -54,63 +54,74 @@ namespace GPLX.Controllers
         // POST: DkthiGplx/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MaDkthiGplx,Cccd,MaLoai,NgayThi,MaTtsh")] DkthiGplx dktGplx)
+       public async Task<IActionResult> Create([Bind("Cccd,MaLoai,NgayThi,MaTtsh")] DkthiGplx dktGplx)
+{
+    if (!ModelState.IsValid)
+    {
+        foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(dktGplx);
-                await _context.SaveChangesAsync();
-                TempData["Success"] = "Thêm đăng ký thi GPLX thành công!";
-                return RedirectToAction(nameof(Index));
-            }
-
-            LoadDropdownData(dktGplx);
-            return View(dktGplx);
+            Console.WriteLine(error.ErrorMessage); // Debug lỗi
         }
+
+        LoadDropdownData(dktGplx); 
+        return View(dktGplx);
+    }
+
+    _context.Add(dktGplx);
+    await _context.SaveChangesAsync();
+    TempData["Success"] = "Thêm đăng ký thi GPLX thành công!";
+    return RedirectToAction(nameof(Index));
+}
 
         // GET: DkthiGplx/Edit/5
         public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-                return NotFound();
+{
+    if (id == null)
+        return NotFound();
 
-            var dktGplx = await _context.DkthiGplxes.FindAsync(id);
-            if (dktGplx == null)
-                return NotFound();
+    var dktGplx = await _context.DkthiGplxes.FindAsync(id);
+    if (dktGplx == null)
+        return NotFound();
 
-            LoadDropdownData(dktGplx);
-            return View(dktGplx);
-        }
+    // Load dropdown với giá trị hiện tại
+    LoadDropdownData(dktGplx);
+
+    return View(dktGplx);
+}
+
 
         // POST: DkthiGplx/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MaDkthiGplx,Cccd,MaLoai,NgayThi,MaTtsh")] DkthiGplx dktGplx)
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> Edit(int id, [Bind("MaDkthiGplx,Cccd,MaLoai,NgayThi,MaTtsh")] DkthiGplx dktGplx)
+{
+    if (id != dktGplx.MaDkthiGplx)
+        return NotFound();
+
+    if (ModelState.IsValid)
+    {
+        try
         {
-            if (id != dktGplx.MaDkthiGplx)
-                return NotFound();
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(dktGplx);
-                    await _context.SaveChangesAsync();
-                    TempData["Success"] = "Cập nhật đăng ký thi GPLX thành công!";
-                    return RedirectToAction(nameof(Index));
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!DktGplxExists(dktGplx.MaDkthiGplx))
-                        return NotFound();
-                    else
-                        ModelState.AddModelError("", "Lỗi cập nhật dữ liệu. Vui lòng thử lại!");
-                }
-            }
-
-            LoadDropdownData(dktGplx);
-            return View(dktGplx);
+            _context.Update(dktGplx);
+            await _context.SaveChangesAsync();
+            TempData["Success"] = "Cập nhật đăng ký thi GPLX thành công!";
+            return RedirectToAction(nameof(Index));
         }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!DktGplxExists(dktGplx.MaDkthiGplx))
+                return NotFound();
+            else
+                ModelState.AddModelError("", "Lỗi cập nhật dữ liệu. Vui lòng thử lại!");
+        }
+    }
+
+    // 🔥 Load lại dropdown nếu có lỗi nhập liệu
+    LoadDropdownData(dktGplx);
+    return View(dktGplx);
+}
+
+
 
         // GET: DkthiGplx/Delete/5
         public async Task<IActionResult> Delete(int? id)
