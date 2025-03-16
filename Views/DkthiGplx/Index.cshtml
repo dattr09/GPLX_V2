@@ -1,4 +1,31 @@
 @model IEnumerable<GPLX.Models.DkthiGplx>
+<!-- Thêm thư viện SweetAlert2 để hiển thị thông báo đẹp -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if (TempData["Success"] != null)
+{
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Thành công!',
+            @* text: '@TempData["Success"]', *@
+            showConfirmButton: false,
+            timer: 3000
+        });
+    </script>
+}
+
+@if (TempData["Error"] != null)
+{
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Lỗi!',
+            @* text: '@TempData["Error"]', *@
+            showConfirmButton: true
+        });
+    </script>
+}
 
 <h2 class="mb-3 text-primary">📋 Danh Sách Đăng Ký Thi GPLX</h2>
 

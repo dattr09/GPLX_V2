@@ -144,22 +144,35 @@ public async Task<IActionResult> Edit(int id, [Bind("MaDkthiGplx,Cccd,MaLoai,Nga
         // POST: DkthiGplx/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+ public async Task<IActionResult> DeleteConfirmed(int id)
+{
+    try
+    {
+        var dktGplx = await _context.DkthiGplxes.FindAsync(id);
+        if (dktGplx == null)
         {
-            var dktGplx = await _context.DkthiGplxes.FindAsync(id);
-            if (dktGplx != null)
-            {
-                _context.DkthiGplxes.Remove(dktGplx);
-                await _context.SaveChangesAsync();
-                TempData["Success"] = "Xóa đăng ký thi GPLX thành công!";
-            }
-            else
-            {
-                TempData["Error"] = "Không tìm thấy đăng ký thi để xóa!";
-            }
-
+            TempData["Error"] = "Không tìm thấy đăng ký thi để xóa!";
             return RedirectToAction(nameof(Index));
         }
+
+        _context.DkthiGplxes.Remove(dktGplx);
+        await _context.SaveChangesAsync();
+        TempData["Success"] = "Xóa đăng ký thi GPLX thành công!";
+    }
+    catch (DbUpdateException)
+    {
+        // Lỗi do ràng buộc dữ liệu (ví dụ: khóa ngoại)
+        TempData["Error"] = "Không thể xóa đăng ký thi GPLX vì đang có dữ liệu liên quan!";
+    }
+    catch (Exception ex)
+    {
+        // Ghi log lỗi nếu cần
+        TempData["Error"] = "Đã xảy ra lỗi trong quá trình xóa!";
+    }
+
+    return RedirectToAction(nameof(Index));
+}
+
 
         private bool DktGplxExists(int id)
         {
