@@ -1,0 +1,52 @@
+@model GPLX.Models.KetQuaThiGplx
+
+@{
+    ViewData["Title"] = "Xóa kết quả thi GPLX";
+}
+
+<h1 class="text-danger text-center">@ViewData["Title"]</h1>
+
+<div class="alert alert-danger">
+    <strong>Cảnh báo!</strong> Bạn có chắc chắn muốn xóa kết quả thi này không? Hành động này không thể hoàn tác!
+</div>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Mã Kết Quả</th>
+        <td>@Model.MaKetQua</td>
+    </tr>
+    <tr>
+        <th>Mã Đăng Ký</th>
+        <td>@Model.MaDkthiGplx</td>
+    </tr>
+    <tr>
+        <th>Điểm Lý Thuyết</th>
+        <td>@Model.DiemLyThuyet</td>
+    </tr>
+    <tr>
+        <th>Điểm Thực Hành</th>
+        <td>@Model.DiemThucHanh</td>
+    </tr>
+    <tr>
+        <th>Điểm Mô Phỏng</th>
+        <td>@Model.DiemMoPhong</td>
+    </tr>
+    <tr>
+        <th>Điểm Đường Trường</th>
+        <td>@Model.DiemDuongTruong</td>
+    </tr>
+    <tr>
+        <th>Kết Quả</th>
+        <td>@Model.KetQua</td>
+    </tr>
+    <tr>
+        <th>Ghi Chú</th>
+        <td>@Model.GhiChu</td>
+    </tr>
+</table>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="MaKetQua" />
+    <button type="submit" class="btn btn-danger btn-lg">🗑️ Xóa</button>
+    <a asp-action="Index" class="btn btn-secondary btn-lg">🔙 Hủy</a>
+</form>

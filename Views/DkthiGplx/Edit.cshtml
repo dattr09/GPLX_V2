@@ -1,0 +1,27 @@
+@model GPLX.Models.DkthiGplx
+
+<h2 class="mb-3 text-primary">✏️ Chỉnh Sửa Đăng Ký Thi GPLX</h2>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="MaDkthiGplx" />
+
+    <div class="form-group">
+        <label>CCCD</label>
+        <select asp-for="Cccd" asp-items="ViewBag.Cccd" class="form-control" disabled></select>
+    </div>
+    <div class="form-group">
+        <label>Loại GPLX</label>
+        <select asp-for="MaLoai" asp-items="ViewBag.MaLoai" class="form-control"></select>
+    </div>
+    <div class="form-group">
+        <label>📅 Ngày Thi</label>
+        <input asp-for="NgayThi" type="date" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>🏛️ Trung Tâm Sát Hạch</label>
+        <select asp-for="MaTtsh" asp-items="ViewBag.MaTtsh" class="form-control"></select>
+    </div>
+
+    <button type="submit" class="btn btn-success">💾 Lưu</button>
+    <a asp-action="Index" class="btn btn-secondary">🔙 Quay lại</a>
+</form>

@@ -1,0 +1,47 @@
+@model IEnumerable<GPLX.Models.TrungTamSatHach>
+
+@{
+    ViewData["Title"] = "Danh sách Trung Tâm Sát Hạch";
+}
+
+<h1><i class="bi bi-list-ul"></i> @ViewData["Title"]</h1>
+
+<div class="mb-3">
+    <a href="@Url.Action("Create", "TrungTamSatHach")" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> Tạo mới Trung Tâm
+    </a>
+</div>
+
+<table class="table table-hover table-bordered shadow-sm">
+    <thead class="table-dark">
+        <tr>
+            <th class="text-center">Mã TTSH</th>
+            <th>Tên Trung Tâm</th>
+            <th>Địa Chỉ</th>
+            <th>Số Điện Thoại</th>
+            <th class="text-center">Hành Động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Select((value, index) => new { Value = value, Index = index + 1 }))
+        {
+            <tr>
+                <td class="text-center">@item.Value.MaTtsh</td>
+                <td>@item.Value.TenTrungTam</td>
+                <td>@(string.IsNullOrEmpty(item.Value.DiaChi) ? "Chưa cập nhật" : item.Value.DiaChi)</td>
+                <td>@(string.IsNullOrEmpty(item.Value.SoDt) ? "Chưa có" : item.Value.SoDt)</td>
+                <td class="text-center">
+                    <a href="@Url.Action("Details", "TrungTamSatHach", new { id = item.Value.MaTtsh })" class="btn btn-info btn-sm">
+                        <i class="bi bi-eye"></i> Chi tiết
+                    </a>
+                    <a href="@Url.Action("Edit", "TrungTamSatHach", new { id = item.Value.MaTtsh })" class="btn btn-warning btn-sm">
+                        <i class="bi bi-pencil-square"></i> Sửa
+                    </a>
+                    <a href="@Url.Action("Delete", "TrungTamSatHach", new { id = item.Value.MaTtsh })" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa trung tâm này?');">
+                        <i class="bi bi-trash"></i> Xóa
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

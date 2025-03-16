@@ -1,0 +1,29 @@
+@model GPLX.Models.DkthiGplx
+
+<h2 class="mb-3 text-danger">❌ Xóa Đăng Ký Thi GPLX</h2>
+<p class="alert alert-warning">⚠️ Bạn có chắc chắn muốn xóa đăng ký này không?</p>
+
+<table class="table table-bordered">
+    <tr>
+        <th>CCCD</th>
+        <td>@Model.CccdNavigation.HoTen (@Model.Cccd)</td>
+    </tr>
+    <tr>
+        <th>Loại GPLX</th>
+        <td>@Model.MaLoaiNavigation.TenLoai</td>
+    </tr>
+    <tr>
+        <th>📅 Ngày Thi</th>
+        <td>@Model.NgayThi.ToString("dd/MM/yyyy")</td>
+    </tr>
+    <tr>
+        <th>🏛️ Trung Tâm</th>
+        <td>@Model.MaTtshNavigation.TenTrungTam</td>
+    </tr>
+</table>
+
+<form asp-action="Delete" onsubmit="return confirm('Bạn có chắc chắn muốn xóa đăng ký này không?');">
+    <input type="hidden" asp-for="MaDkthiGplx" />
+    <button type="submit" class="btn btn-danger">❌ Xóa</button>
+    <a asp-action="Index" class="btn btn-secondary">🔙 Quay lại</a>
+</form>

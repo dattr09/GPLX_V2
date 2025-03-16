@@ -1,0 +1,36 @@
+@model GPLX.Models.LoaiGplx
+@{
+    ViewData["Title"] = "Chỉnh sửa loại GPLX";
+}
+<h1 class="text-primary"><i class="bi bi-pencil-square"></i> @ViewData["Title"]</h1>
+<hr />
+
+<div class="card shadow-sm p-4">
+    <form asp-action="Edit">
+        <input type="hidden" asp-for="MaLoai" />
+
+        <div class="mb-3">
+            <label asp-for="TenLoai" class="form-label fw-bold">Tên Loại</label>
+            <input asp-for="TenLoai" class="form-control" placeholder="Nhập tên loại GPLX" required />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="MoTa" class="form-label fw-bold">Mô Tả</label>
+            <textarea asp-for="MoTa" class="form-control" rows="3" placeholder="Nhập mô tả (nếu có)"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="DoTuoiDuocCap" class="form-label fw-bold">Độ Tuổi Được Cấp</label>
+            <input asp-for="DoTuoiDuocCap" class="form-control" type="number" min="18" max="100" required />
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-success">
+                <i class="bi bi-check-circle"></i> Lưu thay đổi
+            </button>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Quay lại
+            </a>
+        </div>
+    </form>
+</div>

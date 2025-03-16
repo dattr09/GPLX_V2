@@ -1,0 +1,69 @@
+@model GPLX.Models.CongDan
+
+@{
+    ViewData["Title"] = "Delete CongDan";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-lg p-4 rounded-3">
+        <h1 class="text-danger text-center"><i class="bi bi-exclamation-triangle"></i> Xóa Công Dân</h1>
+        <h4 class="text-muted text-center">Bạn có chắc chắn muốn xóa công dân này không?</h4>
+        <hr />
+
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-bordered">
+                    <tr>
+                        <th class="bg-light">CCCD</th>
+                        <td>@Model.Cccd</td>
+                    </tr>
+                    <tr>
+                        <th class="bg-light">Họ Tên</th>
+                        <td>@Model.HoTen</td>
+                    </tr>
+                    <tr>
+                        <th class="bg-light">Ngày Sinh</th>
+                        <td>@Model.NgaySinh.ToString("dd/MM/yyyy")</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="col-md-6">
+                <table class="table table-bordered">
+                    <tr>
+                        <th class="bg-light">Giới Tính</th>
+                        <td>@(Model.GioiTinh ? "Nam" : "Nữ")</td>
+                    </tr>
+                    <tr>
+                        <th class="bg-light">Quốc Tịch</th>
+                        <td>@Model.QuocTich</td>
+                    </tr>
+                    <tr>
+                        <th class="bg-light">Địa Chỉ</th>
+                        <td>@Model.DiaChi</td>
+                    </tr>
+                    <tr>
+                        <th class="bg-light">Số Điện Thoại</th>
+                        <td>@Model.SoDienThoai</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="text-center mt-3">
+            <form asp-action="Delete" method="post">
+                <input type="hidden" asp-for="Cccd" />
+                
+                <button type="submit" class="btn btn-danger btn-lg shadow-sm px-4 rounded-3"
+                        style="background: linear-gradient(145deg, #ff6b6b, #ff4f4f); border: none; box-shadow: 3px 3px 6px #aaa;">
+                    <i class="bi bi-trash"></i> Xóa
+                </button>
+
+                <a href="@Url.Action("Index")" class="btn btn-secondary btn-lg shadow-sm px-4 rounded-3"
+                   style="background: linear-gradient(145deg, #f0f0f0, #d6d6d6); border: none; box-shadow: 3px 3px 6px #aaa;">
+                    <i class="bi bi-arrow-left-circle"></i> Hủy
+                </a>
+            </form>
+        </div>
+    </div>
+</div>

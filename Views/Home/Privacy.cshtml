@@ -1,0 +1,85 @@
+﻿@{
+    ViewData["Title"] = "Privacy Policy";
+}
+
+<div class="privacy-container">
+    <h1 class="privacy-title">@ViewData["Title"]</h1>
+    <p class="privacy-text">
+        Chúng tôi cam kết bảo vệ quyền riêng tư của bạn. Vui lòng đọc chính sách dưới đây để hiểu cách chúng tôi thu thập, sử dụng và bảo vệ thông tin của bạn.
+    </p>
+    <div class="privacy-card">
+        <h2>1. Thông Tin Chúng Tôi Thu Thập</h2>
+        <p>Chúng tôi có thể thu thập thông tin cá nhân như tên, địa chỉ email, số điện thoại, v.v.</p>
+
+        <h2>2. Cách Chúng Tôi Sử Dụng Thông Tin</h2>
+        <p>Thông tin của bạn được sử dụng để cải thiện trải nghiệm của bạn trên trang web, hỗ trợ khách hàng và tuân thủ pháp luật.</p>
+
+        <h2>3. Bảo Mật Thông Tin</h2>
+        <p>Chúng tôi áp dụng các biện pháp bảo mật nghiêm ngặt để bảo vệ dữ liệu cá nhân của bạn.</p>
+    </div>
+
+    <!-- Nút quay lại trang chủ -->
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary return-home-btn">
+        <i class="fas fa-arrow-left"></i> Quay lại Trang Chủ
+    </a>
+</div>
+
+<style>
+    /* Nền gradient nhẹ */
+    body {
+        background: linear-gradient(120deg, #f0f8ff, #e6f7ff);
+    }
+
+    /* Bố cục căn giữa */
+    .privacy-container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        text-align: center;
+    }
+
+    /* Tiêu đề đẹp hơn */
+    .privacy-title {
+        font-size: 2.5rem;
+        color: #007bff;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    /* Nội dung chính */
+    .privacy-text {
+        font-size: 1.2rem;
+        color: #333;
+        margin-bottom: 30px;
+    }
+
+    /* Card chứa nội dung */
+    .privacy-card {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        text-align: left;
+    }
+
+    .privacy-card h2 {
+        font-size: 1.5rem;
+        color: #0056b3;
+        margin-top: 15px;
+    }
+
+    .privacy-card p {
+        font-size: 1.1rem;
+        color: #555;
+    }
+
+    /* Nút quay lại trang chủ */
+    .return-home-btn {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 1.1rem;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+</style>

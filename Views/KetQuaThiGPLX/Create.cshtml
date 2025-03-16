@@ -1,0 +1,75 @@
+@model GPLX.Models.KetQuaThiGplx
+
+@{
+    ViewData["Title"] = "Tạo mới kết quả thi GPLX";
+}
+
+<h1 class="text-center text-primary">@ViewData["Title"]</h1>
+<hr />
+
+<form asp-action="Create">
+    <!-- Mã kết quả tự động tạo -->
+    <div class="form-group">
+        <label>Mã Kết Quả</label>
+        <input asp-for="MaKetQua" class="form-control" readonly placeholder="Tự động tạo" />
+    </div>
+
+    <!-- Chọn Đăng ký thi GPLX -->
+    <div class="form-group">
+        <label>Đăng ký thi GPLX</label>
+        <select asp-for="MaDkthiGplx" class="form-control" asp-items="ViewBag.MaDkthiGplx">
+            <option value="">-- Chọn đăng ký thi --</option>
+        </select>
+    </div>
+
+    <!-- Nhập điểm -->
+    <div class="row">
+        <div class="col-md-6">
+            <label asp-for="DiemLyThuyet">Điểm Lý Thuyết</label>
+            <input asp-for="DiemLyThuyet" class="form-control" type="number" min="0" max="100" required />
+        </div>
+        <div class="col-md-6">
+            <label asp-for="DiemThucHanh">Điểm Thực Hành</label>
+            <input asp-for="DiemThucHanh" class="form-control" type="number" min="0" max="100" required />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label asp-for="DiemMoPhong">Điểm Mô Phỏng</label>
+            <input asp-for="DiemMoPhong" class="form-control" type="number" min="0" max="100" />
+        </div>
+        <div class="col-md-6">
+            <label asp-for="DiemDuongTruong">Điểm Đường Trường</label>
+            <input asp-for="DiemDuongTruong" class="form-control" type="number" min="0" max="100" />
+        </div>
+    </div>
+
+    <!-- Dropdown chọn Kết quả -->
+    <div class="form-group">
+        <label>Kết Quả</label>
+        <select asp-for="KetQua" class="form-control">
+            <option value="Đậu">Đậu</option>
+            <option value="Rớt">Rớt</option>
+        </select>
+    </div>
+
+    <!-- Ghi chú -->
+    <div class="form-group">
+        <label asp-for="GhiChu">Ghi Chú</label>
+        <textarea asp-for="GhiChu" class="form-control" rows="3"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-success">💾 Lưu</button>
+    <a asp-action="Index" class="btn btn-secondary">❌ Hủy</a>
+</form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Auto-generate MaKetQua (nếu cần)
+        const maKetQuaInput = document.getElementById("MaKetQua");
+        if (!maKetQuaInput.value) {
+            maKetQuaInput.value = "KQ-" + new Date().getTime();
+        }
+    });
+</script>

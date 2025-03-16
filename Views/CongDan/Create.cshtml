@@ -1,0 +1,81 @@
+@model GPLX.Models.CongDan
+
+@{
+    ViewData["Title"] = "Create CongDan";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-lg p-4 rounded-3">
+        <h1 class="text-primary text-center">@ViewData["Title"]</h1>
+        <h4 class="text-muted text-center">Create a new CongDan</h4>
+        <hr />
+
+        <form asp-action="Create" method="post">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label class="fw-bold" for="Cccd">CCCD</label>
+                        <input type="text" class="form-control border-primary shadow-sm" id="Cccd" name="Cccd" asp-for="Cccd" required maxlength="12" />
+                        <span asp-validation-for="Cccd" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="fw-bold" for="HoTen">Full Name</label>
+                        <input type="text" class="form-control border-primary shadow-sm" id="HoTen" name="HoTen" asp-for="HoTen" required maxlength="50" />
+                        <span asp-validation-for="HoTen" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="fw-bold" for="NgaySinh">Date of Birth</label>
+                        <input type="date" class="form-control border-primary shadow-sm" id="NgaySinh" name="NgaySinh" asp-for="NgaySinh" required />
+                        <span asp-validation-for="NgaySinh" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="fw-bold" for="GioiTinh">Gender</label>
+                        <select class="form-control border-primary shadow-sm" id="GioiTinh" name="GioiTinh" asp-for="GioiTinh">
+                            <option value="true">Male</option>
+                            <option value="false">Female</option>
+                        </select>
+                        <span asp-validation-for="GioiTinh" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label class="fw-bold" for="QuocTich">Nationality</label>
+                        <input type="text" class="form-control border-primary shadow-sm" id="QuocTich" name="QuocTich" asp-for="QuocTich" required maxlength="30" />
+                        <span asp-validation-for="QuocTich" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="fw-bold" for="DiaChi">Address</label>
+                        <input type="text" class="form-control border-primary shadow-sm" id="DiaChi" name="DiaChi" asp-for="DiaChi" maxlength="100" />
+                        <span asp-validation-for="DiaChi" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="fw-bold" for="SoDienThoai">Phone Number</label>
+                        <input type="text" class="form-control border-primary shadow-sm" id="SoDienThoai" name="SoDienThoai" asp-for="SoDienThoai" maxlength="10" />
+                        <span asp-validation-for="SoDienThoai" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-3">
+                <button type="submit" class="btn btn-primary btn-lg shadow-sm px-4 rounded-3"
+                        style="background: linear-gradient(145deg, #6ec6ff, #4096ee); border: none; box-shadow: 3px 3px 6px #aaa;">
+                    <i class="bi bi-check-circle"></i> Create
+                </button>
+                <a href="@Url.Action("Index")" class="btn btn-secondary btn-lg shadow-sm px-4 rounded-3"
+                   style="background: linear-gradient(145deg, #f0f0f0, #d6d6d6); border: none; box-shadow: 3px 3px 6px #aaa;">
+                    <i class="bi bi-arrow-left-circle"></i> Back to List
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

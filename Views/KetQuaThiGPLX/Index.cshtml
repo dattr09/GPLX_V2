@@ -1,0 +1,58 @@
+@model IEnumerable<GPLX.Models.KetQuaThiGplx>
+
+@{
+    ViewData["Title"] = "Danh sách kết quả thi GPLX";
+}
+
+<h1 class="text-primary">@ViewData["Title"]</h1>
+<hr />
+
+<p>
+    <a href="@Url.Action("Create")" class="btn btn-success">
+        <i class="bi bi-plus-circle"></i> Tạo mới kết quả thi GPLX
+    </a>
+</p>
+
+<table class="table table-hover table-bordered shadow-sm">
+    <thead class="thead-dark">
+        <tr>
+            <th>Mã Kết Quả</th>
+            <th>Điểm Lý Thuyết</th>
+            <th>Điểm Thực Hành</th>
+            <th>Điểm Mô Phỏng</th>
+            <th>Điểm Đường Trường</th>
+            <th>Kết Quả</th>
+            <th>Ghi Chú</th>
+            <th class="text-center">Hành Động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaKetQua</td>
+                <td>@item.DiemLyThuyet</td>
+                <td>@item.DiemThucHanh</td>
+                <td>@(item.DiemMoPhong.HasValue ? item.DiemMoPhong.Value.ToString() : "N/A")</td>
+                <td>@(item.DiemDuongTruong.HasValue ? item.DiemDuongTruong.Value.ToString() : "N/A")</td>
+                <td>
+                    <span class="badge @(item.KetQua == "Đậu" ? "bg-success" : "bg-danger")">
+                        @item.KetQua
+                    </span>
+                </td>
+                <td>@(string.IsNullOrEmpty(item.GhiChu) ? "Không có" : item.GhiChu)</td>
+                <td class="text-center">
+                    <a href="@Url.Action("Details", new { id = item.MaKetQua })" class="btn btn-info btn-sm">
+                        <i class="bi bi-eye"></i> Xem
+                    </a>
+                    <a href="@Url.Action("Edit", new { id = item.MaKetQua })" class="btn btn-warning btn-sm">
+                        <i class="bi bi-pencil"></i> Chỉnh sửa
+                    </a>
+                    <a href="@Url.Action("Delete", new { id = item.MaKetQua })" class="btn btn-danger btn-sm">
+                        <i class="bi bi-trash"></i> Xóa
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

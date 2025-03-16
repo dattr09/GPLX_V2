@@ -1,0 +1,45 @@
+@model IEnumerable<GPLX.Models.LoaiGplx>
+
+@{
+    ViewData["Title"] = "Danh sách loại GPLX";
+}
+
+<h1 class="text-primary">@ViewData["Title"]</h1>
+<hr />
+
+<div class="d-flex justify-content-between mb-3">
+    <a href="@Url.Action("Create")" class="btn btn-success">
+        <i class="bi bi-plus-lg"></i> Thêm loại GPLX
+    </a>
+</div>
+
+<table class="table table-hover shadow-sm rounded">
+    <thead class="table-dark">
+        <tr>
+            <th>Mã Loại</th> 
+            <th>Tên Loại</th> 
+            <th>Mô Tả</th> 
+            <th>Độ Tuổi Được Cấp</th> 
+            <th>Hành Động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaLoai</td>
+                <td>@item.TenLoai</td>
+                <td>@(string.IsNullOrEmpty(item.MoTa) ? "Không có mô tả" : item.MoTa)</td>
+                <td>@item.DoTuoiDuocCap tuổi</td>
+                <td>
+                    <a href="@Url.Action("Edit", "LoaiGplx", new { id = item.MaLoai })" class="btn btn-warning btn-sm">
+                        <i class="bi bi-pencil-square"></i> Sửa
+                    </a>
+                    <a href="@Url.Action("Details", "LoaiGplx", new { id = item.MaLoai })" class="btn btn-info btn-sm">
+                        <i class="bi bi-eye"></i> Xem
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

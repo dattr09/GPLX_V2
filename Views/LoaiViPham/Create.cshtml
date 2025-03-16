@@ -1,0 +1,29 @@
+@model GPLX.Models.LoaiViPham
+
+@{
+    ViewData["Title"] = "Tạo Mới Loại Vi Phạm";
+}
+
+<h1 class="text-primary"><i class="bi bi-plus-circle"></i> @ViewData["Title"]</h1>
+<hr />
+
+<div class="card shadow-sm p-4">
+    <form asp-action="Create">
+        <div class="mb-3">
+            <label asp-for="TenViPham" class="form-label"><i class="bi bi-card-text"></i> Tên Vi Phạm</label>
+            <input asp-for="TenViPham" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label asp-for="MucPhat" class="form-label"><i class="bi bi-cash"></i> Mức Phạt</label>
+            <input asp-for="MucPhat" class="form-control" type="number" step="0.01" required />
+        </div>
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-success">
+                <i class="bi bi-check-circle"></i> Tạo Mới
+            </button>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Hủy
+            </a>
+        </div>
+    </form>
+</div>

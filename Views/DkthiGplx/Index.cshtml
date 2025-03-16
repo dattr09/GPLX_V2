@@ -1,0 +1,43 @@
+@model IEnumerable<GPLX.Models.DkthiGplx>
+
+<h2 class="mb-3 text-primary">📋 Danh Sách Đăng Ký Thi GPLX</h2>
+
+<a asp-action="Create" class="btn btn-success mb-3">➕ Thêm Mới</a>
+
+<table class="table table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th>👤 Họ Tên</th>
+            <th>📜 Loại GPLX</th>
+            <th>📅 Ngày Thi</th>
+            <th>🏛 Trung Tâm</th>
+            <th class="text-center">⚙️ Hành Động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.CccdNavigation.HoTen</td>
+                <td>@item.MaLoaiNavigation.TenLoai</td>
+                <td>@item.NgayThi.ToString("dd/MM/yyyy")</td>
+                <td>@item.MaTtshNavigation.TenTrungTam</td>
+                <td class="text-center">
+                    <a asp-action="Edit" asp-route-id="@item.MaDkthiGplx" class="btn btn-warning btn-sm">✏️ Sửa</a>
+                    <a asp-action="Delete" asp-route-id="@item.MaDkthiGplx" class="btn btn-danger btn-sm delete-btn">🗑️ Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Thêm xác nhận khi xóa -->
+<script>
+    document.querySelectorAll(".delete-btn").forEach(button => {
+        button.addEventListener("click", function (e) {
+            if (!confirm("Bạn có chắc chắn muốn xóa đăng ký này không?")) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>

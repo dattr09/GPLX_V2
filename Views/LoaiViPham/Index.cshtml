@@ -1,0 +1,51 @@
+@model IEnumerable<GPLX.Models.LoaiViPham>
+
+@{
+    ViewData["Title"] = "Danh Sách Loại Vi Phạm";
+}
+
+<h1><i class="bi bi-list-check"></i> @ViewData["Title"]</h1>
+
+<div class="mb-3">
+    <a href="@Url.Action("Create")" class="btn btn-success">
+        <i class="bi bi-plus-lg"></i> Tạo Mới Loại Vi Phạm
+    </a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th class="text-center">STT</th>
+                <th>Tên Vi Phạm</th>
+                <th class="text-center">Mức Phạt</th>
+                <th class="text-center">Hành Động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int stt = 1;
+            }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-center">@stt</td>
+                    <td>@item.TenViPham</td>
+                    <td class="text-center text-danger fw-bold">@item.MucPhat.ToString("C")</td>
+                    <td class="text-center">
+                        <a href="@Url.Action("Details", new { id = item.MaLoaiViPham })" class="btn btn-info btn-sm">
+                            <i class="bi bi-eye"></i> Chi Tiết
+                        </a>
+                        <a href="@Url.Action("Edit", new { id = item.MaLoaiViPham })" class="btn btn-warning btn-sm">
+                            <i class="bi bi-pencil-square"></i> Chỉnh Sửa
+                        </a>
+                        <a href="@Url.Action("Delete", new { id = item.MaLoaiViPham })" class="btn btn-danger btn-sm">
+                            <i class="bi bi-trash"></i> Xóa
+                        </a>
+                    </td>
+                </tr>
+                stt++;
+            }
+        </tbody>
+    </table>
+</div>

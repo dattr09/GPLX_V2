@@ -1,0 +1,42 @@
+@model GPLX.Models.Gplx
+
+@{
+    ViewData["Title"] = "🆕 Thêm Mới GPLX";
+}
+
+<h1 class="text-primary">@ViewData["Title"]</h1>
+<hr />
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label for="MaGplx">📜 Mã GPLX</label>
+        <input type="text" class="form-control" id="MaGplx" name="MaGplx" value="@Model?.MaGplx" required />
+    </div>
+    
+    <div class="form-group">
+        <label for="NgayCap">📅 Ngày Cấp</label>
+        <input type="date" class="form-control" id="NgayCap" name="NgayCap" value="@Model?.NgayCap.ToString("yyyy-MM-dd")" required />
+    </div>
+    
+    <div class="form-group">
+        <label for="NgayHetHan">📅 Ngày Hết Hạn</label>
+        <input type="date" class="form-control" id="NgayHetHan" name="NgayHetHan" value="@Model?.NgayHetHan.ToString("yyyy-MM-dd")" required />
+    </div>
+    
+    <div class="form-group">
+        <label for="MaKetQua">📄 Mã Kết Quả</label>
+        <select class="form-control" id="MaKetQua" name="MaKetQua" asp-items="ViewBag.MaKetQua"></select>
+    </div>
+
+    <button type="submit" class="btn btn-success">💾 Lưu</button>
+    <a href="@Url.Action("Index")" class="btn btn-secondary">🔙 Quay lại</a>
+</form>
+
+<script>
+    document.getElementById("NgayCap").addEventListener("change", function () {
+        let ngayCap = new Date(this.value);
+        let ngayHetHan = new Date(ngayCap);
+        ngayHetHan.setFullYear(ngayHetHan.getFullYear() + 10); // Giả sử GPLX có hạn 10 năm
+        document.getElementById("NgayHetHan").value = ngayHetHan.toISOString().split("T")[0];
+    });
+</script>

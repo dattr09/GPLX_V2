@@ -1,0 +1,38 @@
+@model GPLX.Models.TrungTamSatHach
+
+@{
+    ViewData["Title"] = "Xóa Trung Tâm Sát Hạch";
+}
+
+<h1 class="text-danger"><i class="bi bi-exclamation-triangle-fill"></i> @ViewData["Title"]</h1>
+
+<div class="alert alert-warning">
+    <h4><i class="bi bi-question-circle"></i> Bạn có chắc chắn muốn xóa trung tâm này?</h4>
+    <p>Hành động này <strong>không thể hoàn tác</strong>. Hãy kiểm tra kỹ trước khi xóa!</p>
+</div>
+
+<div class="card shadow p-4">
+    <dl class="row">
+        <dt class="col-sm-3 fw-bold"><i class="bi bi-building"></i> Tên Trung Tâm:</dt>
+        <dd class="col-sm-9">@Model.TenTrungTam</dd>
+
+        <dt class="col-sm-3 fw-bold"><i class="bi bi-geo-alt"></i> Địa Chỉ:</dt>
+        <dd class="col-sm-9">@Model.DiaChi</dd>
+
+        <dt class="col-sm-3 fw-bold"><i class="bi bi-telephone"></i> Số Điện Thoại:</dt>
+        <dd class="col-sm-9">@Model.SoDt</dd>
+    </dl>
+</div>
+
+<form asp-action="Delete" class="mt-3">
+    <input type="hidden" asp-for="MaTtsh" />
+    
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-danger">
+            <i class="bi bi-trash"></i> Xóa
+        </button>
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Quay lại
+        </a>
+    </div>
+</form>

@@ -1,0 +1,39 @@
+@model GPLX.Models.KetQuaThiGplx
+
+@{
+    ViewData["Title"] = "Chi tiết kết quả thi GPLX";
+}
+
+<h1 class="text-primary">@ViewData["Title"]</h1>
+<hr />
+
+<div class="card shadow-lg p-4 mb-4 bg-white rounded">
+    <div class="row">
+        <div class="col-md-6">
+            <p><strong>Mã Kết Quả:</strong> @Model.MaKetQua</p>
+            <p><strong>Mã Đăng Ký:</strong> @Model.MaDkthiGplx</p>
+            <p><strong>Điểm Lý Thuyết:</strong> @Model.DiemLyThuyet</p>
+            <p><strong>Điểm Thực Hành:</strong> @Model.DiemThucHanh</p>
+        </div>
+        <div class="col-md-6">
+            <p><strong>Điểm Mô Phỏng:</strong> @(Model.DiemMoPhong.HasValue ? Model.DiemMoPhong.Value : "N/A")</p>
+            <p><strong>Điểm Đường Trường:</strong> @(Model.DiemDuongTruong.HasValue ? Model.DiemDuongTruong.Value : "N/A")</p>
+            <p>
+                <strong>Kết Quả:</strong> 
+                <span class="badge @(Model.KetQua == "Đậu" ? "bg-success" : "bg-danger")">
+                    @Model.KetQua
+                </span>
+            </p>
+            <p><strong>Ghi Chú:</strong> @(string.IsNullOrEmpty(Model.GhiChu) ? "Không có" : Model.GhiChu)</p>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex gap-2">
+    <a asp-action="Edit" asp-route-id="@Model.MaKetQua" class="btn btn-warning">
+        <i class="bi bi-pencil"></i> Chỉnh sửa
+    </a>
+    <a asp-action="Index" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i> Quay lại
+    </a>
+</div>

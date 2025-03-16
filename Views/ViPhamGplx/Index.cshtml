@@ -1,0 +1,55 @@
+@model IEnumerable<GPLX.Models.ViPhamGplx>
+
+@{
+    ViewData["Title"] = "Danh sách Vi Phạm GPLX";
+}
+
+<h1><i class="bi bi-list-check"></i> @ViewData["Title"]</h1>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <a href="@Url.Action("Create")" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> Tạo mới Vi Phạm GPLX
+    </a>
+</div>
+
+<table class="table table-hover table-bordered align-middle">
+    <thead class="table-dark">
+        <tr class="text-center">
+            <th><i class="bi bi-hash"></i> Mã Vi Phạm</th>
+            <th><i class="bi bi-credit-card"></i> Mã GPLX</th>
+            <th><i class="bi bi-exclamation-circle"></i> Loại Vi Phạm</th>
+            <th><i class="bi bi-calendar-event"></i> Ngày Vi Phạm</th>
+            <th><i class="bi bi-check-circle"></i> Trạng Thái</th>
+            <th><i class="bi bi-tools"></i> Hành Động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="text-center">
+                <td>@item.MaViPham</td>
+                <td>@item.MaGplxNavigation.MaGplx</td>
+                <td>@item.MaLoaiViPhamNavigation.TenViPham</td>
+                <td>@item.NgayViPham.ToString("dd/MM/yyyy")</td>
+                <td>
+                    @if (item.TrangThai == "Đã xử lý")
+                    {
+                        <span class="badge bg-success"><i class="bi bi-check-circle-fill"></i> @item.TrangThai</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning text-dark"><i class="bi bi-exclamation-triangle-fill"></i> @item.TrangThai</span>
+                    }
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", new { id = item.MaViPham })" class="btn btn-sm btn-warning">
+                        <i class="bi bi-pencil-square"></i> Sửa
+                    </a>
+                    <a href="@Url.Action("Delete", new { id = item.MaViPham })" class="btn btn-sm btn-danger">
+                        <i class="bi bi-trash"></i> Xóa
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

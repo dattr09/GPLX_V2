@@ -1,0 +1,61 @@
+@model GPLX.Models.KetQuaThiGplx
+
+@{
+    ViewData["Title"] = "Chỉnh sửa kết quả thi GPLX";
+}
+
+<h1 class="text-primary">@ViewData["Title"]</h1>
+<hr />
+
+<div class="card shadow p-4">
+    <form asp-action="Edit">
+        <input type="hidden" asp-for="MaKetQua" />
+
+        <div class="form-group">
+            <label asp-for="MaDkthiGplx" class="font-weight-bold"></label>
+            <select asp-for="MaDkthiGplx" class="form-control" asp-items="ViewBag.MaDkthiGplx"></select>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="DiemLyThuyet" class="font-weight-bold"></label>
+                <input asp-for="DiemLyThuyet" class="form-control" type="number" placeholder="Nhập điểm lý thuyết" min="0" max="100" />
+            </div>
+
+            <div class="form-group col-md-6">
+                <label asp-for="DiemThucHanh" class="font-weight-bold"></label>
+                <input asp-for="DiemThucHanh" class="form-control" type="number" placeholder="Nhập điểm thực hành" min="0" max="100" />
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="DiemMoPhong" class="font-weight-bold"></label>
+                <input asp-for="DiemMoPhong" class="form-control" type="number" placeholder="Nhập điểm mô phỏng" min="0" max="100" />
+            </div>
+
+            <div class="form-group col-md-6">
+                <label asp-for="DiemDuongTruong" class="font-weight-bold"></label>
+                <input asp-for="DiemDuongTruong" class="form-control" type="number" placeholder="Nhập điểm đường trường" min="0" max="100" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="KetQua" class="font-weight-bold"></label>
+            <select asp-for="KetQua" class="form-control">
+                <option value="Đậu" class="text-success">Đậu</option>
+                <option value="Rớt" class="text-danger">Rớt</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="GhiChu" class="font-weight-bold"></label>
+            <textarea asp-for="GhiChu" class="form-control" placeholder="Ghi chú thêm nếu có..."></textarea>
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary">Cập nhật</button>
+            <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,45 @@
+@model IEnumerable<GPLX.Models.DieuKienDatGplx>
+
+<h2 class="mb-3">Danh sách Điều Kiện Đạt GPLX</h2>
+
+<!-- Ô tìm kiếm -->
+<input type="text" id="searchInput" class="form-control mb-3" placeholder="🔍 Tìm kiếm theo Mã Loại...">
+
+<table class="table table-hover table-bordered">
+    <thead class="table-primary">
+        <tr>
+            <th>Mã Loại</th>
+            <th>Điểm Lý Thuyết</th>
+            <th>Điểm Thực Hành</th>
+            <th>Điểm Mô Phỏng</th>
+            <th>Điểm Đường Trường</th>
+            <th>Ghi Chú</th>
+        </tr>
+    </thead>
+    <tbody id="tableBody">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaLoai</td>
+                <td>@item.DiemLyThuyetDat</td>
+                <td>@item.DiemThucHanhDat</td>
+                <td>@item.DiemMoPhongDat</td>
+                <td>@item.DiemDuongTruongDat</td>
+                <td>@item.GhiChu</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- JavaScript Tìm kiếm -->
+<script>
+    document.getElementById("searchInput").addEventListener("keyup", function () {
+        let searchValue = this.value.toLowerCase();
+        let rows = document.querySelectorAll("#tableBody tr");
+
+        rows.forEach(row => {
+            let maLoai = row.children[0].textContent.toLowerCase(); // Lấy nội dung cột "Mã Loại"
+            row.style.display = maLoai.includes(searchValue) ? "" : "none";
+        });
+    });
+</script>

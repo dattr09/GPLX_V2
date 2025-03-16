@@ -1,0 +1,77 @@
+@model GPLX.Models.CongDan
+
+@{
+    ViewData["Title"] = "Chỉnh sửa Công Dân";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-lg p-4 rounded-3">
+        <h1 class="text-primary text-center"><i class="bi bi-pencil-square"></i> Chỉnh sửa thông tin Công Dân</h1>
+        <hr />
+
+        <form asp-action="Edit" method="post">
+            <input type="hidden" asp-for="Cccd" />
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label asp-for="HoTen" class="form-label fw-bold"></label>
+                        <input asp-for="HoTen" class="form-control shadow-sm" required />
+                        <span asp-validation-for="HoTen" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="NgaySinh" class="form-label fw-bold"></label>
+                        <input asp-for="NgaySinh" type="date" class="form-control shadow-sm" required />
+                        <span asp-validation-for="NgaySinh" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label fw-bold">Giới Tính</label>
+                        <select asp-for="GioiTinh" class="form-control shadow-sm">
+                            <option value="true">Nam</option>
+                            <option value="false">Nữ</option>
+                        </select>
+                        <span asp-validation-for="GioiTinh" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label asp-for="QuocTich" class="form-label fw-bold"></label>
+                        <input asp-for="QuocTich" class="form-control shadow-sm" required />
+                        <span asp-validation-for="QuocTich" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="DiaChi" class="form-label fw-bold"></label>
+                        <input asp-for="DiaChi" class="form-control shadow-sm" />
+                        <span asp-validation-for="DiaChi" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="SoDienThoai" class="form-label fw-bold"></label>
+                        <input asp-for="SoDienThoai" class="form-control shadow-sm" />
+                        <span asp-validation-for="SoDienThoai" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-3">
+                <button type="submit" class="btn btn-success btn-lg shadow-sm px-4 rounded-3"
+                        style="background: linear-gradient(145deg, #28a745, #218838); border: none; box-shadow: 3px 3px 6px #aaa;">
+                    <i class="bi bi-save"></i> Lưu
+                </button>
+
+                <a href="@Url.Action("Index")" class="btn btn-secondary btn-lg shadow-sm px-4 rounded-3"
+                   style="background: linear-gradient(145deg, #f0f0f0, #d6d6d6); border: none; box-shadow: 3px 3px 6px #aaa;">
+                    <i class="bi bi-arrow-left-circle"></i> Hủy
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

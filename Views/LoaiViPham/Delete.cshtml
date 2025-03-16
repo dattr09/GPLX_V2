@@ -1,0 +1,30 @@
+@model GPLX.Models.LoaiViPham
+@{
+    ViewData["Title"] = "Xóa Loại Vi Phạm";
+}
+
+<h1 class="text-danger"><i class="bi bi-exclamation-triangle-fill"></i> @ViewData["Title"]</h1>
+<hr />
+
+<div class="card shadow-sm p-4 border-danger">
+    <div class="alert alert-warning d-flex align-items-center">
+        <i class="bi bi-exclamation-circle-fill me-2"></i>
+        <div>
+            Bạn có chắc chắn muốn xóa loại vi phạm: <strong>@Model.TenViPham</strong> không?
+        </div>
+    </div>
+
+    <p><i class="bi bi-cash"></i> <strong>Mức phạt:</strong> @Model.MucPhat.ToString("C")</p>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="MaLoaiViPham" />
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-danger">
+                <i class="bi bi-trash"></i> Xóa
+            </button>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Hủy
+            </a>
+        </div>
+    </form>
+</div>

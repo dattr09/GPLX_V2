@@ -1,0 +1,71 @@
+@model IEnumerable<GPLX.Models.CongDan>
+
+@{
+    ViewData["Title"] = "Danh sách Công Dân";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-lg p-4 rounded-3">
+        <h1 class="text-primary text-center"><i class="bi bi-people-fill"></i> Danh sách Công Dân</h1>
+        <hr />
+
+        <!-- Thanh tìm kiếm -->
+        <div class="d-flex justify-content-between mb-3">
+            <input type="text" id="searchInput" class="form-control w-25 shadow-sm" placeholder="🔍 Tìm kiếm...">
+            <a href="@Url.Action("Create")" class="btn btn-success shadow-sm rounded-3">
+                <i class="bi bi-person-plus-fill"></i> Thêm Mới
+            </a>
+        </div>
+
+        <!-- Bảng danh sách -->
+        <table class="table table-hover table-bordered text-center align-middle">
+            <thead class="bg-primary text-white">
+                <tr>
+                    <th>CCCD</th>
+                    <th>Họ Tên</th>
+                    <th>Ngày Sinh</th>
+                    <th>Giới Tính</th>
+                    <th>Quốc Tịch</th>
+                    <th>Địa Chỉ</th>
+                    <th>Số Điện Thoại</th>
+                    <th>Hành Động</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                @foreach (var congDan in Model)
+                {
+                    <tr>
+                        <td>@congDan.Cccd</td>
+                        <td>@congDan.HoTen</td>
+                        <td>@congDan.NgaySinh.ToString("dd/MM/yyyy")</td>
+                        <td>@(congDan.GioiTinh ? "Nam" : "Nữ")</td>
+                        <td>@congDan.QuocTich</td>
+                        <td>@congDan.DiaChi</td>
+                        <td>@congDan.SoDienThoai</td>
+                        <td>
+                            <a href="@Url.Action("Edit", new { id = congDan.Cccd })" class="btn btn-warning btn-sm shadow-sm rounded-3">
+                                <i class="bi bi-pencil-square"></i> Sửa
+                            </a>
+                            <a href="@Url.Action("Delete", new { id = congDan.Cccd })" class="btn btn-danger btn-sm shadow-sm rounded-3 delete-btn">
+                                <i class="bi bi-trash-fill"></i> Xóa
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Thêm JavaScript để tìm kiếm nhanh -->
+<script>
+    document.getElementById("searchInput").addEventListener("keyup", function () {
+        let searchValue = this.value.toLowerCase();
+        let rows = document.querySelectorAll("#tableBody tr");
+
+        rows.forEach(row => {
+            let hoTen = row.children[1].textContent.toLowerCase();
+            row.style.display = hoTen.includes(searchValue) ? "" : "none";
+        });
+    });
+</script>

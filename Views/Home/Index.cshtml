@@ -1,0 +1,76 @@
+﻿@model HomeViewModel
+
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1 class="text-primary">Thông Tin Giao Thông</h1>
+    </div>
+
+    <div class="row justify-content-center">
+        <!-- Bài viết pháp luật -->
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <img src="/images/img1.jpg" class="card-img-top" alt="Bài viết pháp luật giao thông">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>Bài viết pháp luật giao thông</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        @foreach (var article in Model.Articles)
+                        {
+                            <li class="list-group-item">
+                                <a href="@article.Url" target="_blank" class="text-decoration-none fw-bold text-dark d-block hover-link">
+                                    @article.Title
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tra cứu phạt nguội -->
+        <div class="col-md-8 mt-4">
+            <div class="card shadow-lg">
+                <img src="/images/img2.png" class="card-img-top" alt="Tra cứu phạt nguội">
+                <div class="card-header bg-danger text-white text-center">
+                    <h4>Tra cứu phạt nguội</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        @foreach (var link in Model.TrafficFineLinks)
+                        {
+                            <li class="list-group-item">
+                                <a href="@link.Url" target="_blank" class="text-decoration-none fw-bold text-dark d-block hover-link">
+                                    @link.Title
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-link:hover {
+        color: #007bff;
+        transform: translateX(5px);
+        transition: all 0.3s ease-in-out;
+    }
+
+    .card {
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .card-header {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+    }
+</style>

@@ -1,0 +1,48 @@
+@model IEnumerable<GPLX.Models.Gplx>
+
+@{
+    ViewData["Title"] = "Danh sách GPLX";
+}
+
+<h1 class="text-primary text-center">@ViewData["Title"]</h1>
+<hr />
+
+<div class="row mb-3">
+    <div class="col-md-6">
+        <a href="@Url.Action("Create")" class="btn btn-success">➕ Thêm mới</a>
+    </div>
+    <div class="col-md-6">
+        <form method="get" action="@Url.Action("Index")" class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="🔍 Tìm theo Mã GPLX hoặc Ngày cấp..." />
+            <button type="submit" class="btn btn-outline-primary">Tìm</button>
+        </form>
+    </div>
+</div>
+
+<table class="table table-bordered table-hover shadow-sm">
+    <thead class="table-dark text-center">
+        <tr>
+            <th>Mã GPLX</th>
+            <th>📅 Ngày Cấp</th>
+            <th>⏳ Ngày Hết Hạn</th>
+            <th>✅ Kết Quả</th>
+            <th>🛠 Hành Động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaGplx</td>
+                <td>@item.NgayCap.ToString("dd/MM/yyyy")</td>
+                <td>@item.NgayHetHan.ToString("dd/MM/yyyy")</td>
+                <td>@item.MaKetQuaNavigation?.KetQua</td>
+                <td class="text-center">
+                    <a href="@Url.Action("Details", new { id = item.MaGplx })" class="btn btn-info btn-sm">👁 Xem</a>
+                    <a href="@Url.Action("Edit", new { id = item.MaGplx })" class="btn btn-warning btn-sm">✏️ Sửa</a>
+                    <a href="@Url.Action("Delete", new { id = item.MaGplx })" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa GPLX này?')">🗑 Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

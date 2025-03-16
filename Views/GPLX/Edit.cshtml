@@ -1,0 +1,44 @@
+@model GPLX.Models.Gplx
+
+@{
+    ViewData["Title"] = "Chỉnh sửa GPLX";
+}
+
+<h1 class="text-primary">@ViewData["Title"]</h1>
+<hr />
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="MaGplx" />
+
+    <div class="form-group">
+        <label for="MaGplx">📜 Mã GPLX</label>
+        <input type="text" class="form-control" id="MaGplx" name="MaGplx" value="@Model.MaGplx" readonly />
+    </div>
+
+    <div class="form-group">
+        <label for="NgayCap">📅 Ngày Cấp</label>
+        <input type="date" class="form-control" id="NgayCap" name="NgayCap" value="@Model.NgayCap.ToString("yyyy-MM-dd")" />
+        <span class="text-danger" asp-validation-for="NgayCap"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="NgayHetHan">📆 Ngày Hết Hạn</label>
+        <input type="date" class="form-control" id="NgayHetHan" name="NgayHetHan" value="@Model.NgayHetHan.ToString("yyyy-MM-dd")" />
+        <span class="text-danger" asp-validation-for="NgayHetHan"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="MaKetQua">✅ Mã Kết Quả</label>
+        <select class="form-control" id="MaKetQua" name="MaKetQua" asp-for="MaKetQua" asp-items="ViewBag.MaKetQua"></select>
+        <span class="text-danger" asp-validation-for="MaKetQua"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">💾 Cập nhật</button>
+    <a href="@Url.Action("Index")" class="btn btn-secondary">🔙 Quay lại</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

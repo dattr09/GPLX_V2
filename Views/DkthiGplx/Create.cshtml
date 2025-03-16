@@ -1,0 +1,42 @@
+@model GPLX.Models.DkthiGplx
+
+<h2 class="mb-3">📝 Thêm Đăng Ký Thi GPLX</h2>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="Cccd">CCCD</label>
+        <select asp-for="Cccd" asp-items="ViewBag.Cccd" class="form-control" required>
+            <option value="">-- Chọn công dân --</option>
+        </select>
+        <span asp-validation-for="Cccd" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MaLoai">Loại GPLX</label>
+        <select asp-for="MaLoai" asp-items="ViewBag.MaLoai" class="form-control" required>
+            <option value="">-- Chọn loại GPLX --</option>
+        </select>
+        <span asp-validation-for="MaLoai" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NgayThi">📅 Ngày Thi</label>
+        <input asp-for="NgayThi" type="date" class="form-control" required />
+        <span asp-validation-for="NgayThi" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MaTtsh">🏛️ Trung Tâm Sát Hạch</label>
+        <select asp-for="MaTtsh" asp-items="ViewBag.MaTtsh" class="form-control" required>
+            <option value="">-- Chọn trung tâm --</option>
+        </select>
+        <span asp-validation-for="MaTtsh" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success mt-3">✅ Lưu</button>
+    <a asp-action="Index" class="btn btn-secondary mt-3">🔙 Quay lại</a>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

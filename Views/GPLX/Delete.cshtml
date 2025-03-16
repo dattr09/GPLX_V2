@@ -1,0 +1,50 @@
+@model GPLX.Models.Gplx
+
+@{
+    ViewData["Title"] = "⚠️ Xác nhận xóa GPLX";
+}
+
+<h1 class="text-danger">@ViewData["Title"]</h1>
+<hr />
+
+<div class="alert alert-warning">
+    <strong>⚠️ Cảnh báo!</strong> Hành động này không thể hoàn tác. Hãy chắc chắn trước khi xóa!
+</div>
+
+<dl class="row">
+    <dt class="col-sm-3">📜 Mã GPLX</dt>
+    <dd class="col-sm-9"><strong class="text-primary">@Model.MaGplx</strong></dd>
+
+    <dt class="col-sm-3">📅 Ngày Cấp</dt>
+    <dd class="col-sm-9">@Model.NgayCap.ToShortDateString()</dd>
+
+    <dt class="col-sm-3">📆 Ngày Hết Hạn</dt>
+    <dd class="col-sm-9">@Model.NgayHetHan.ToShortDateString()</dd>
+
+    <dt class="col-sm-3">✅ Kết Quả Thi</dt>
+    <dd class="col-sm-9"><strong>@Model.MaKetQuaNavigation.KetQua</strong></dd>
+</dl>
+
+<form asp-action="DeleteConfirmed" onsubmit="return confirmDelete()">
+    <input type="hidden" name="id" value="@Model.MaGplx" />
+
+    <div class="form-group">
+        <label for="confirmInput">🔐 Nhập mã GPLX để xác nhận:</label>
+        <input type="text" id="confirmInput" class="form-control" required />
+    </div>
+
+    <button type="submit" class="btn btn-danger">🗑 Xác nhận xóa</button>
+    <a href="@Url.Action("Index")" class="btn btn-secondary">🔙 Quay lại</a>
+</form>
+
+<script>
+    function confirmDelete() {
+        let input = document.getElementById("confirmInput").value;
+        let expected = "@Model.MaGplx";
+        if (input !== expected) {
+            alert("⚠️ Mã GPLX nhập vào không đúng! Hãy kiểm tra lại.");
+            return false;
+        }
+        return confirm("Bạn có chắc chắn muốn xóa GPLX này?");
+    }
+</script>
