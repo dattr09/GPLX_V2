@@ -13,16 +13,10 @@ Server=localhost,1433;Database=QL_GPLX;User Id=sa;Password=Thanhdat53140;Encrypt
 ---------------NOTE---------------
 ---------------DEADLINE 16H30 17/03/2025---------------
  -------GPLX -------
-//chưa xem thêm xoá sửa đc
 //chưa thêm được
 //chưa xem đc
 //chưa xoá đc
 //chưa sửa đc
-
-  -------KẾT QUẢ THI -------
-//chưa sửa đc
-//chưa tạo đc
-
 
 clear
 dotnet clean

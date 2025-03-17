@@ -51,15 +51,24 @@ namespace GPLX.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("MaKetQua,MaDkthiGplx,DiemLyThuyet,DiemThucHanh,DiemMoPhong,DiemDuongTruong,GhiChu,KetQua")] KetQuaThiGplx ketQuaThiGplx)
         {
+            // Kiểm tra độ dài trước khi lưu
+            if (ketQuaThiGplx.MaKetQua.Length > 5)
+            {
+                ModelState.AddModelError("MaKetQua", "Mã Kết Quả tối đa 5 ký tự.");
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(ketQuaThiGplx);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["MaDkthiGplx"] = new SelectList(_context.DkthiGplxes, "MaDkthiGplx", "MaDkthiGplx", ketQuaThiGplx.MaDkthiGplx);
             return View(ketQuaThiGplx);
         }
+
+
 
         // GET: KetQuaThiGplx/Edit/5
         public async Task<IActionResult> Edit(string id)
