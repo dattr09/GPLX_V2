@@ -7,7 +7,7 @@
 <h1 class="text-primary">@ViewData["Title"]</h1>
 <hr />
 
-<form asp-action="Create">
+<form method="post" action="@Url.Action("Create")">
     <div class="form-group">
         <label for="MaGplx">📜 Mã GPLX</label>
         <input type="text" class="form-control" id="MaGplx" name="MaGplx" value="@Model?.MaGplx" required />
@@ -22,15 +22,11 @@
         <label for="NgayHetHan">📅 Ngày Hết Hạn</label>
         <input type="date" class="form-control" id="NgayHetHan" name="NgayHetHan" value="@Model?.NgayHetHan.ToString("yyyy-MM-dd")" required />
     </div>
-    
-    <div class="form-group">
-        <label for="MaKetQua">📄 Mã Kết Quả</label>
-        <select class="form-control" id="MaKetQua" name="MaKetQua" asp-items="ViewBag.MaKetQua"></select>
-    </div>
 
     <button type="submit" class="btn btn-success">💾 Lưu</button>
     <a href="@Url.Action("Index")" class="btn btn-secondary">🔙 Quay lại</a>
 </form>
+
 
 <script>
     document.getElementById("NgayCap").addEventListener("change", function () {

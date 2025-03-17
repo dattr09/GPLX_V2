@@ -3,6 +3,15 @@
 @{
     ViewData["Title"] = "Danh Sách Loại Vi Phạm";
 }
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
 
 <h1><i class="bi bi-list-check"></i> @ViewData["Title"]</h1>
 
@@ -31,7 +40,10 @@
                 <tr>
                     <td class="text-center">@stt</td>
                     <td>@item.TenViPham</td>
-                    <td class="text-center text-danger fw-bold">@item.MucPhat.ToString("C")</td>
+                    <td class="text-center text-danger fw-bold">
+    @string.Format("{0:#,##0} VNĐ", item.MucPhat)
+</td>
+
                     <td class="text-center">
                         <a href="@Url.Action("Details", new { id = item.MaLoaiViPham })" class="btn btn-info btn-sm">
                             <i class="bi bi-eye"></i> Chi Tiết

@@ -3,6 +3,15 @@
 @{
     ViewData["Title"] = "Danh sách Trung Tâm Sát Hạch";
 }
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
 
 <h1><i class="bi bi-list-ul"></i> @ViewData["Title"]</h1>
 
@@ -15,7 +24,7 @@
 <table class="table table-hover table-bordered shadow-sm">
     <thead class="table-dark">
         <tr>
-            <th class="text-center">Mã TTSH</th>
+            <!-- Xóa cột Mã TTSH -->
             <th>Tên Trung Tâm</th>
             <th>Địa Chỉ</th>
             <th>Số Điện Thoại</th>
@@ -26,7 +35,7 @@
         @foreach (var item in Model.Select((value, index) => new { Value = value, Index = index + 1 }))
         {
             <tr>
-                <td class="text-center">@item.Value.MaTtsh</td>
+                <!-- Xóa cột Mã TTSH -->
                 <td>@item.Value.TenTrungTam</td>
                 <td>@(string.IsNullOrEmpty(item.Value.DiaChi) ? "Chưa cập nhật" : item.Value.DiaChi)</td>
                 <td>@(string.IsNullOrEmpty(item.Value.SoDt) ? "Chưa có" : item.Value.SoDt)</td>

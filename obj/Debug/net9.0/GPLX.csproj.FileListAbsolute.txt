@@ -847,7 +847,7 @@ C:/Users/DatG/Desktop/GPLX/obj/Debug/net9.0/ref/GPLX.dll
 /Users/trandat/Desktop/GPLX_V2/obj/Debug/net9.0/scopedcss/projectbundle/GPLX.bundle.scp.css
 /Users/trandat/Desktop/GPLX_V2/obj/Debug/net9.0/compressed/dtbo34mj9b-j1uyy1b3mb.gz
 /Users/trandat/Desktop/GPLX_V2/obj/Debug/net9.0/compressed/tepdy36r5e-61n19gt1b8.gz
-/Users/trandat/Desktop/GPLX_V2/obj/Debug/net9.0/compressed/xmptwghwdb-fr7q2aak1r.gz
+/Users/trandat/Desktop/GPLX_V2/obj/Debug/net9.0/compressed/xmptwghwdb-3r8b2a0bt1.gz
 /Users/trandat/Desktop/GPLX_V2/obj/Debug/net9.0/compressed/8pnltofa06-bqjiyaj88i.gz
 /Users/trandat/Desktop/GPLX_V2/obj/Debug/net9.0/compressed/w7x8mz8xf1-c2jlpeoesf.gz
 /Users/trandat/Desktop/GPLX_V2/obj/Debug/net9.0/compressed/vy32kks08p-erw9l3u2r3.gz
@@ -907,8 +907,8 @@ C:/Users/DatG/Desktop/GPLX/obj/Debug/net9.0/ref/GPLX.dll
 /Users/trandat/Desktop/GPLX_V2/obj/Debug/net9.0/compressed/7qyqido4re-muycvpuwrr.gz
 /Users/trandat/Desktop/GPLX_V2/obj/Debug/net9.0/compressed/mu4g8kfxbb-87fc7y1x7t.gz
 /Users/trandat/Desktop/GPLX_V2/obj/Debug/net9.0/compressed/ina2o9e100-jfsiqqwiad.gz
-/Users/trandat/Desktop/GPLX_V2/obj/Debug/net9.0/compressed/my0mdlmu79-9g8nmg9o8f.gz
-/Users/trandat/Desktop/GPLX_V2/obj/Debug/net9.0/compressed/rvm1vf4t48-9g8nmg9o8f.gz
+/Users/trandat/Desktop/GPLX_V2/obj/Debug/net9.0/compressed/my0mdlmu79-am46qpbz5v.gz
+/Users/trandat/Desktop/GPLX_V2/obj/Debug/net9.0/compressed/rvm1vf4t48-am46qpbz5v.gz
 /Users/trandat/Desktop/GPLX_V2/obj/Debug/net9.0/staticwebassets.build.json
 /Users/trandat/Desktop/GPLX_V2/obj/Debug/net9.0/staticwebassets.development.json
 /Users/trandat/Desktop/GPLX_V2/obj/Debug/net9.0/staticwebassets.build.endpoints.json

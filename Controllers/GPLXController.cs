@@ -48,16 +48,26 @@ namespace GPLX.Controllers
         // POST: GPLX/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MaGplx,MaKetQua,NgayCap,NgayHetHan")] Gplx gplx)
+        public async Task<IActionResult> Create([Bind("MaGplx,NgayCap,NgayHetHan")] Gplx gplx)
         {
             if (ModelState.IsValid)
             {
+                gplx.MaKetQua = "Đậu"; // Gán mặc định
                 _context.Add(gplx);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            // Debug lỗi nếu form không submit
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
+            foreach (var error in errors)
+            {
+                Console.WriteLine(error.ErrorMessage);
+            }
+
             return View(gplx);
         }
+
 
         // GET: GPLX/Edit/5
         public async Task<IActionResult> Edit(string id)

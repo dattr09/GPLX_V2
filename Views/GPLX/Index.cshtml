@@ -25,7 +25,6 @@
             <th>Mã GPLX</th>
             <th>📅 Ngày Cấp</th>
             <th>⏳ Ngày Hết Hạn</th>
-            <th>✅ Kết Quả</th>
             <th>🛠 Hành Động</th>
         </tr>
     </thead>
@@ -36,7 +35,6 @@
                 <td>@item.MaGplx</td>
                 <td>@item.NgayCap.ToString("dd/MM/yyyy")</td>
                 <td>@item.NgayHetHan.ToString("dd/MM/yyyy")</td>
-                <td>@item.MaKetQuaNavigation?.KetQua</td>
                 <td class="text-center">
                     <a href="@Url.Action("Details", new { id = item.MaGplx })" class="btn btn-info btn-sm">👁 Xem</a>
                     <a href="@Url.Action("Edit", new { id = item.MaGplx })" class="btn btn-warning btn-sm">✏️ Sửa</a>

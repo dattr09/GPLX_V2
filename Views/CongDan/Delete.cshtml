@@ -5,8 +5,10 @@
 }
 
 <div class="container mt-4">
-    <div class="card shadow-lg p-4 rounded-3">
-        <h1 class="text-danger text-center"><i class="bi bi-exclamation-triangle"></i> Xóa Công Dân</h1>
+    <div class="card shadow-lg p-4 rounded-3" style="background-color: #f8f9fa;">
+        <h1 class="text-danger text-center">
+            <i class="bi bi-exclamation-triangle"></i> Xóa Công Dân
+        </h1>
         <h4 class="text-muted text-center">Bạn có chắc chắn muốn xóa công dân này không?</h4>
         <hr />
 
@@ -14,15 +16,15 @@
             <div class="col-md-6">
                 <table class="table table-bordered">
                     <tr>
-                        <th class="bg-light">CCCD</th>
+                        <th class="bg-red">CCCD</th>
                         <td>@Model.Cccd</td>
                     </tr>
                     <tr>
-                        <th class="bg-light">Họ Tên</th>
+                        <th class="bg-red">Họ Tên</th>
                         <td>@Model.HoTen</td>
                     </tr>
                     <tr>
-                        <th class="bg-light">Ngày Sinh</th>
+                        <th class="bg-red">Ngày Sinh</th>
                         <td>@Model.NgaySinh.ToString("dd/MM/yyyy")</td>
                     </tr>
                 </table>
@@ -31,19 +33,19 @@
             <div class="col-md-6">
                 <table class="table table-bordered">
                     <tr>
-                        <th class="bg-light">Giới Tính</th>
+                        <th class="bg-red">Giới Tính</th>
                         <td>@(Model.GioiTinh ? "Nam" : "Nữ")</td>
                     </tr>
                     <tr>
-                        <th class="bg-light">Quốc Tịch</th>
+                        <th class="bg-red">Quốc Tịch</th>
                         <td>@Model.QuocTich</td>
                     </tr>
                     <tr>
-                        <th class="bg-light">Địa Chỉ</th>
+                        <th class="bg-red">Địa Chỉ</th>
                         <td>@Model.DiaChi</td>
                     </tr>
                     <tr>
-                        <th class="bg-light">Số Điện Thoại</th>
+                        <th class="bg-red">Số Điện Thoại</th>
                         <td>@Model.SoDienThoai</td>
                     </tr>
                 </table>

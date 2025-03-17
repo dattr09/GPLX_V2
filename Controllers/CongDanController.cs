@@ -50,12 +50,25 @@ namespace GPLX.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(congDan);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    _context.Add(congDan);
+                    await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = "Thêm công dân thành công!";
+                    return RedirectToAction(nameof(Index)); // Chuyển hướng đến Index
+                }
+                catch (Exception ex)
+                {
+                    TempData["ErrorMessage"] = "Lỗi khi thêm công dân: " + ex.Message;
+                }
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Dữ liệu nhập vào không hợp lệ!";
             }
             return View(congDan);
         }
+
 
         // GET: CongDan/Edit/5
         public async Task<IActionResult> Edit(string id)

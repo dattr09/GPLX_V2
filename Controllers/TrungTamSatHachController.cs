@@ -130,10 +130,26 @@ namespace GPLX.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var trungTamSatHach = await _context.TrungTamSatHaches.FindAsync(id);
-            _context.TrungTamSatHaches.Remove(trungTamSatHach);
-            await _context.SaveChangesAsync();
+            if (trungTamSatHach == null)
+            {
+                TempData["ErrorMessage"] = "Trung tâm không tồn tại!";
+                return RedirectToAction(nameof(Index));
+            }
+
+            try
+            {
+                _context.TrungTamSatHaches.Remove(trungTamSatHach);
+                await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Xóa trung tâm thành công!";
+            }
+            catch (DbUpdateException)
+            {
+                TempData["ErrorMessage"] = "Không thể xóa! Trung tâm này có dữ liệu liên quan.";
+            }
+
             return RedirectToAction(nameof(Index));
         }
+
 
         private bool TrungTamSatHachExists(int id)
         {

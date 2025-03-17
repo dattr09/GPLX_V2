@@ -128,16 +128,29 @@ namespace GPLX.Controllers
         // POST: LoaiViPham/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var loaiViPham = await _context.LoaiViPhams.FindAsync(id);
-            if (loaiViPham != null)
+            if (loaiViPham == null)
+            {
+                return NotFound();
+            }
+
+            try
             {
                 _context.LoaiViPhams.Remove(loaiViPham);
                 await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Xóa thành công!";
             }
+            catch (DbUpdateException)
+            {
+                TempData["ErrorMessage"] = "Không thể xóa vì có ràng buộc dữ liệu!";
+            }
+
             return RedirectToAction(nameof(Index));
         }
+
 
         private bool LoaiViPhamExists(int id)
         {

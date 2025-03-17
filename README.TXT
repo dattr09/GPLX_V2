@@ -13,9 +13,16 @@ Server=localhost,1433;Database=QL_GPLX;User Id=sa;Password=Thanhdat53140;Encrypt
 ---------------NOTE---------------
 ---------------DEADLINE 16H30 17/03/2025---------------
 CRUD GPLX
+chưa xem thêm xoá sửa đc
+
 CRUD KẾT QUẢ THI
-LOẠI GPLX SỬA THÀNH CHỈ ĐỂ XEM 
-Mã TTSH CỦA  TRUNG TÂM SÁT HẠCH BỊ LỖI 
+
 Vi Phạm GPLX CHƯA THÊM VỚI SỬA ĐC
+
 NÊN SẮP XẾP CÁC NÚT LẠI CHO PHÙ HỢP 
+
 VD NẾU CÁC CHẮC NĂNG NÀO XEM THÌ ĐỂ CHUNG CÒN CHỨC NĂNG NÀO CẦN CRUD THÌ ĐỂ CHUNG 
+clear
+dotnet clean
+dotnet build
+dotnet run
