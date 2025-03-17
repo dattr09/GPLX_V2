@@ -12,16 +12,18 @@ Server=DESKTOP-E9VB407\\DAT;Database=QL_GPLX;Integrated Security=True;Encrypt=Tr
 Server=localhost,1433;Database=QL_GPLX;User Id=sa;Password=Thanhdat53140;Encrypt=True;TrustServerCertificate=True;
 ---------------NOTE---------------
 ---------------DEADLINE 16H30 17/03/2025---------------
-CRUD GPLX
-chưa xem thêm xoá sửa đc
+ -------GPLX -------
+//chưa xem thêm xoá sửa đc
+//chưa thêm được
+//chưa xem đc
+//chưa xoá đc
+//chưa sửa đc
 
-CRUD KẾT QUẢ THI
+  -------KẾT QUẢ THI -------
+//chưa sửa đc
+//chưa tạo đc
 
-Vi Phạm GPLX CHƯA THÊM VỚI SỬA ĐC
 
-NÊN SẮP XẾP CÁC NÚT LẠI CHO PHÙ HỢP 
-
-VD NẾU CÁC CHẮC NĂNG NÀO XEM THÌ ĐỂ CHUNG CÒN CHỨC NĂNG NÀO CẦN CRUD THÌ ĐỂ CHUNG 
 clear
 dotnet clean
 dotnet build

@@ -15,7 +15,7 @@ public partial class ViPhamGplx
 
     public string TrangThai { get; set; } = null!;
 
-    public virtual Gplx MaGplxNavigation { get; set; } = null!;
+    public virtual Gplx? MaGplxNavigation { get; set; } = null!;
 
-    public virtual LoaiViPham MaLoaiViPhamNavigation { get; set; } = null!;
+    public virtual LoaiViPham? MaLoaiViPhamNavigation { get; set; } = null!;
 }
