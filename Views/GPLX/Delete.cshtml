@@ -33,18 +33,9 @@
         <input type="text" id="confirmInput" class="form-control" required />
     </div>
 
+   <form asp-action="DeleteConfirmed" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="id" value="@Model.MaGplx" />
     <button type="submit" class="btn btn-danger">🗑 Xác nhận xóa</button>
-    <a href="@Url.Action("Index")" class="btn btn-secondary">🔙 Quay lại</a>
+    </form>
 </form>
-
-<script>
-    function confirmDelete() {
-        let input = document.getElementById("confirmInput").value;
-        let expected = "@Model.MaGplx";
-        if (input !== expected) {
-            alert("⚠️ Mã GPLX nhập vào không đúng! Hãy kiểm tra lại.");
-            return false;
-        }
-        return confirm("Bạn có chắc chắn muốn xóa GPLX này?");
-    }
-</script>

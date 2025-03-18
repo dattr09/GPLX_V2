@@ -1,6 +1,7 @@
 using GPLX.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GPLX.Controllers
 {
@@ -21,29 +22,33 @@ namespace GPLX.Controllers
         }
 
         // GET: GPLX/Details/5
-        public async Task<IActionResult> Details(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+       public async Task<IActionResult> Details(string id)
+{
+    if (id == null)
+    {
+        return NotFound();
+    }
 
-            var gplx = await _context.Gplxes
-                .Include(g => g.MaKetQuaNavigation)
-                .FirstOrDefaultAsync(m => m.MaGplx == id);
-            if (gplx == null)
-            {
-                return NotFound();
-            }
+    var ketQuaThi = await _context.KetQuaThiGplxes
+        .Include(k => k.Gplxes) // Load danh sách GPLX
+        .FirstOrDefaultAsync(m => m.MaKetQua == id);
 
-            return View(gplx);
-        }
+    if (ketQuaThi == null)
+    {
+        return NotFound();
+    }
+
+    return View(ketQuaThi);
+}
+
 
         // GET: GPLX/Create
         public IActionResult Create()
-        {
-            return View();
-        }
+{
+    ViewBag.MaKetQua = new SelectList(_context.KetQuaThiGplxes, "MaKetQua", "MaKetQua");
+    return View();
+}
+
 
         // POST: GPLX/Create
         [HttpPost]
@@ -71,52 +76,59 @@ namespace GPLX.Controllers
 
         // GET: GPLX/Edit/5
         public async Task<IActionResult> Edit(string id)
+{
+    if (id == null)
+    {
+        return NotFound();
+    }
+
+    var gplx = await _context.Gplxes.FindAsync(id);
+    if (gplx == null)
+    {
+        return NotFound();
+    }
+
+    // Load danh sách kết quả thi cho dropdown list
+    ViewBag.MaKetQua = new SelectList(_context.KetQuaThiGplxes, "MaKetQua", "KetQua", gplx.MaKetQua);
+
+    return View(gplx);
+}
+
+[HttpPost]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> Edit(string id, [Bind("MaGplx,NgayCap,NgayHetHan,MaKetQua")] Gplx gplx)
+{
+    if (id != gplx.MaGplx)
+    {
+        return NotFound();
+    }
+
+    if (ModelState.IsValid)
+    {
+        try
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var gplx = await _context.Gplxes.FindAsync(id);
-            if (gplx == null)
-            {
-                return NotFound();
-            }
-            return View(gplx);
+            _context.Update(gplx);
+            await _context.SaveChangesAsync();
+            TempData["SuccessMessage"] = "Cập nhật GPLX thành công!";
         }
-
-        // POST: GPLX/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("MaGplx,MaKetQua,NgayCap,NgayHetHan")] Gplx gplx)
+        catch (DbUpdateConcurrencyException)
         {
-            if (id != gplx.MaGplx)
+            if (!_context.Gplxes.Any(e => e.MaGplx == gplx.MaGplx))
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            else
             {
-                try
-                {
-                    _context.Update(gplx);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!GplxExists(gplx.MaGplx))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                throw;
             }
-            return View(gplx);
         }
+        return RedirectToAction(nameof(Index));
+    }
+
+    ViewBag.MaKetQua = new SelectList(_context.KetQuaThiGplxes, "MaKetQua", "KetQua", gplx.MaKetQua);
+    return View(gplx);
+}
+
 
         // GET: GPLX/Delete/5
         public async Task<IActionResult> Delete(string id)
@@ -138,15 +150,35 @@ namespace GPLX.Controllers
         }
 
         // POST: GPLX/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
-        {
-            var gplx = await _context.Gplxes.FindAsync(id);
-            _context.Gplxes.Remove(gplx);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+     [HttpPost, ActionName("DeleteConfirmed")]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> DeleteConfirmed(string id)
+{
+    if (id == null)
+    {
+        return NotFound();
+    }
+
+    var gplx = await _context.Gplxes
+        .Include(g => g.ViPhamGplxes) // Load danh sách vi phạm liên quan
+        .FirstOrDefaultAsync(m => m.MaGplx == id);
+
+    if (gplx == null)
+    {
+        return NotFound();
+    }
+
+    // Xóa các vi phạm liên quan trước
+    _context.ViPhamGplxes.RemoveRange(gplx.ViPhamGplxes);
+
+    // Xóa GPLX
+    _context.Gplxes.Remove(gplx);
+
+    await _context.SaveChangesAsync();
+    return RedirectToAction(nameof(Index));
+}
+
+
 
         private bool GplxExists(string id)
         {

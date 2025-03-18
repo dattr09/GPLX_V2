@@ -1,0 +1,43 @@
+<h3>📄 Thông Tin Kết Quả Thi</h3>
+<hr />
+
+<dl class="row">
+    <dt class="col-sm-3">🆔 Mã Kết Quả</dt>
+    <dd class="col-sm-9">@Model.MaKetQua</dd>
+
+    <dt class="col-sm-3">📝 Điểm Lý Thuyết</dt>
+    <dd class="col-sm-9">@Model.DiemLyThuyet</dd>
+
+    <dt class="col-sm-3">🚗 Điểm Thực Hành</dt>
+    <dd class="col-sm-9">@Model.DiemThucHanh</dd>
+
+    <dt class="col-sm-3">✅ Kết Quả</dt>
+    <dd class="col-sm-9">@Model.KetQua</dd>
+</dl>
+
+<h4>📜 Danh Sách GPLX Được Cấp</h4>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Mã GPLX</th>
+            <th>📅 Ngày Cấp</th>
+            <th>⏳ Ngày Hết Hạn</th>
+            <th>🛠 Hành Động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var gplx in Model.Gplxes)
+        {
+            <tr>
+                <td>@gplx.MaGplx</td>
+                <td>@gplx.NgayCap.ToString("dd/MM/yyyy")</td>
+                <td>@gplx.NgayHetHan.ToString("dd/MM/yyyy")</td>
+                <td>
+                    <a href="@Url.Action("Details", "Gplx", new { id = gplx.MaGplx })" class="btn btn-info btn-sm">📜 Xem GPLX</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="@Url.Action("Index")" class="btn btn-secondary">🔙 Quay lại</a>
