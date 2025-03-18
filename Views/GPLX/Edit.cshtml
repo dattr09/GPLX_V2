@@ -5,31 +5,37 @@
 }
 
 <h1 class="text-primary">@ViewData["Title"]</h1>
-<hr />
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
 
-<form asp-action="Edit">
+
+<form asp-action="Edit" method="post">
     <input type="hidden" asp-for="MaGplx" />
 
     <div class="form-group">
         <label for="MaGplx">📜 Mã GPLX</label>
-        <input type="text" class="form-control" id="MaGplx" name="MaGplx" value="@Model.MaGplx" readonly />
+        <input type="text" class="form-control" asp-for="MaGplx" readonly />
     </div>
 
     <div class="form-group">
         <label for="NgayCap">📅 Ngày Cấp</label>
-        <input type="date" class="form-control" id="NgayCap" name="NgayCap" value="@Model.NgayCap.ToString("yyyy-MM-dd")" />
+        <input type="date" class="form-control" asp-for="NgayCap" />
         <span class="text-danger" asp-validation-for="NgayCap"></span>
     </div>
 
     <div class="form-group">
         <label for="NgayHetHan">📆 Ngày Hết Hạn</label>
-        <input type="date" class="form-control" id="NgayHetHan" name="NgayHetHan" value="@Model.NgayHetHan.ToString("yyyy-MM-dd")" />
+        <input type="date" class="form-control" asp-for="NgayHetHan" />
         <span class="text-danger" asp-validation-for="NgayHetHan"></span>
     </div>
 
     <div class="form-group">
         <label for="MaKetQua">✅ Mã Kết Quả</label>
-        <select class="form-control" id="MaKetQua" name="MaKetQua" asp-for="MaKetQua" asp-items="ViewBag.MaKetQua"></select>
+        <select class="form-control" asp-for="MaKetQua" asp-items="ViewBag.MaKetQua"></select>
         <span class="text-danger" asp-validation-for="MaKetQua"></span>
     </div>
 
@@ -40,5 +46,8 @@
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
     }
 }

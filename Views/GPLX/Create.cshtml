@@ -5,7 +5,12 @@
 }
 
 <h1 class="text-primary">@ViewData["Title"]</h1>
-<hr />
+
+<div class="form-group">
+    <label for="MaKetQua">✅ Mã Kết Quả</label>
+    <select class="form-control" id="MaKetQua" name="MaKetQua" asp-items="ViewBag.MaKetQua"></select>
+</div>
+
 
 <form method="post" action="@Url.Action("Create")">
     <div class="form-group">
