@@ -40,22 +40,63 @@ namespace GPLX.Controllers
         }
 
         // GET: KetQuaThiGplx/Create
+        // GET: KetQuaThiGplx/Create
         public IActionResult Create()
         {
-            ViewData["MaDkthiGplx"] = new SelectList(_context.DkthiGplxes, "MaDkthiGplx", "MaDkthiGplx");
+            // Lấy danh sách đăng ký thi với format "CCCD - Họ Tên"
+            var dkThiList = _context.DkthiGplxes
+                .Include(d => d.CccdNavigation)
+                .Select(d => new
+                {
+                    MaDkthiGplx = d.MaDkthiGplx,
+                    DisplayText = d.CccdNavigation.Cccd + " - " + d.CccdNavigation.HoTen
+                }).ToList();
+
+            ViewData["MaDkthiGplx"] = new SelectList(dkThiList, "MaDkthiGplx", "DisplayText");
+
+            // Lấy mã lớn nhất hiện có và tăng lên 1
+            var lastRecord = _context.KetQuaThiGplxes
+                .OrderByDescending(k => k.MaKetQua)
+                .FirstOrDefault();
+
+            int newId = 1;
+            if (lastRecord != null)
+            {
+                string lastMa = lastRecord.MaKetQua.Replace("KQ", "");
+                if (int.TryParse(lastMa, out int lastNumber))
+                {
+                    newId = lastNumber + 1;
+                }
+            }
+
+            string newMaKetQua = $"KQ{newId:D3}"; // Format thành KQ001, KQ002, ...
+            ViewBag.NewMaKetQua = newMaKetQua;
+
             return View();
         }
 
         // POST: KetQuaThiGplx/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MaKetQua,MaDkthiGplx,DiemLyThuyet,DiemThucHanh,DiemMoPhong,DiemDuongTruong,GhiChu,KetQua")] KetQuaThiGplx ketQuaThiGplx)
+        public async Task<IActionResult> Create([Bind("MaDkthiGplx,DiemLyThuyet,DiemThucHanh,DiemMoPhong,DiemDuongTruong,GhiChu,KetQua")] KetQuaThiGplx ketQuaThiGplx)
         {
-            // Kiểm tra độ dài trước khi lưu
-            if (ketQuaThiGplx.MaKetQua.Length > 5)
+            // Tạo mã kết quả tự động theo định dạng KQxxx
+            var lastRecord = _context.KetQuaThiGplxes
+                .OrderByDescending(k => k.MaKetQua)
+                .FirstOrDefault();
+
+            int newId = 1;
+            if (lastRecord != null)
             {
-                ModelState.AddModelError("MaKetQua", "Mã Kết Quả tối đa 5 ký tự.");
+                string lastMa = lastRecord.MaKetQua.Replace("KQ", "");
+                if (int.TryParse(lastMa, out int lastNumber))
+                {
+                    newId = lastNumber + 1;
+                }
             }
+
+            // **Di chuyển gán mã lên trước khi kiểm tra ModelState**
+            ketQuaThiGplx.MaKetQua = $"KQ{newId:D3}";
 
             if (ModelState.IsValid)
             {
@@ -64,10 +105,18 @@ namespace GPLX.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["MaDkthiGplx"] = new SelectList(_context.DkthiGplxes, "MaDkthiGplx", "MaDkthiGplx", ketQuaThiGplx.MaDkthiGplx);
+            // Nếu ModelState không hợp lệ, load lại dropdown danh sách đăng ký thi
+            var dkThiList = _context.DkthiGplxes
+                .Include(d => d.CccdNavigation)
+                .Select(d => new
+                {
+                    MaDkthiGplx = d.MaDkthiGplx,
+                    DisplayText = d.CccdNavigation.Cccd + " - " + d.CccdNavigation.HoTen
+                }).ToList();
+            ViewData["MaDkthiGplx"] = new SelectList(dkThiList, "MaDkthiGplx", "DisplayText");
+
             return View(ketQuaThiGplx);
         }
-
 
 
         // GET: KetQuaThiGplx/Edit/5

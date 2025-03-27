@@ -4,33 +4,36 @@
     ViewData["Title"] = "Danh sách kết quả thi GPLX";
 }
 
-<h1 class="text-primary">@ViewData["Title"]</h1>
+<h1 class="text-center text-primary">@ViewData["Title"]</h1>
 <hr />
 
-<p>
+<div class="d-flex justify-content-between mb-3">
     <a href="@Url.Action("Create")" class="btn btn-success">
         <i class="bi bi-plus-circle"></i> Tạo mới kết quả thi GPLX
     </a>
-</p>
+    <form class="d-flex">
+        <input type="text" id="searchInput" class="form-control me-2" placeholder="🔍 Tìm kiếm theo Mã...">
+    </form>
+</div>
 
-<table class="table table-hover table-bordered shadow-sm">
-    <thead class="thead-dark">
+<table class="table table-hover table-bordered shadow-sm text-center align-middle" id="ketQuaTable">
+    <thead class="table-dark">
         <tr>
-            <th>Mã Kết Quả</th>
-            <th>Điểm Lý Thuyết</th>
-            <th>Điểm Thực Hành</th>
-            <th>Điểm Mô Phỏng</th>
-            <th>Điểm Đường Trường</th>
+            <th>Mã KQ</th>
+            <th>Lý Thuyết</th>
+            <th>Thực Hành</th>
+            <th>Mô Phỏng</th>
+            <th>Đường Trường</th>
             <th>Kết Quả</th>
             <th>Ghi Chú</th>
-            <th class="text-center">Hành Động</th>
+            <th>Hành Động</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.MaKetQua</td>
+                <td><strong>@item.MaKetQua</strong></td>
                 <td>@item.DiemLyThuyet</td>
                 <td>@item.DiemThucHanh</td>
                 <td>@(item.DiemMoPhong.HasValue ? item.DiemMoPhong.Value.ToString() : "N/A")</td>
@@ -41,18 +44,34 @@
                     </span>
                 </td>
                 <td>@(string.IsNullOrEmpty(item.GhiChu) ? "Không có" : item.GhiChu)</td>
-                <td class="text-center">
-                    <a href="@Url.Action("Details", new { id = item.MaKetQua })" class="btn btn-info btn-sm">
-                        <i class="bi bi-eye"></i> Xem
+                <td>
+                    <a href="@Url.Action("Details", new { id = item.MaKetQua })" class="btn btn-info btn-sm" title="Xem">
+                        <i class="bi bi-eye"></i>Xem
                     </a>
-                    <a href="@Url.Action("Edit", new { id = item.MaKetQua })" class="btn btn-warning btn-sm">
-                        <i class="bi bi-pencil"></i> Chỉnh sửa
+                    <a href="@Url.Action("Edit", new { id = item.MaKetQua })" class="btn btn-warning btn-sm" title="Chỉnh sửa">
+                        <i class="bi bi-pencil"></i>Sửa
                     </a>
-                    <a href="@Url.Action("Delete", new { id = item.MaKetQua })" class="btn btn-danger btn-sm">
-                        <i class="bi bi-trash"></i> Xóa
+                    <a href="@Url.Action("Delete", new { id = item.MaKetQua })" class="btn btn-danger btn-sm" title="Xóa">
+                        <i class="bi bi-trash"></i>Xoá
                     </a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById("searchInput");
+        searchInput.addEventListener("keyup", function () {
+            const filter = searchInput.value.toLowerCase();
+            const rows = document.querySelectorAll("#ketQuaTable tbody tr");
+
+            rows.forEach(row => {
+                const maKetQua = row.cells[0].textContent.toLowerCase();
+                const ketQua = row.cells[5].textContent.toLowerCase();
+                row.style.display = (maKetQua.includes(filter) || ketQua.includes(filter)) ? "" : "none";
+            });
+        });
+    });
+</script>

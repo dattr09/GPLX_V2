@@ -8,26 +8,23 @@
 <hr />
 
 <form asp-action="Create" method="post">
-<div asp-validation-summary="All" class="text-danger"></div>
+    <div asp-validation-summary="All" class="text-danger"></div>
 
     <!-- Mã kết quả tự động tạo -->
     <div class="form-group">
         <label>Mã Kết Quả</label>
-       <input asp-for="MaKetQua" class="form-control" maxlength="5" placeholder="Nhập mã kết quả (tối đa 5 ký tự)" />
-<span asp-validation-for="MaKetQua" class="text-danger"></span>
-
+        <input asp-for="MaKetQua" class="form-control" value="@ViewBag.NewMaKetQua" readonly />
+        <span asp-validation-for="MaKetQua" class="text-danger"></span>
     </div>
 
     <!-- Chọn Đăng ký thi GPLX -->
-<!-- Chọn Đăng ký thi GPLX -->
-<div class="form-group">
-    <label>Đăng ký thi GPLX</label>
-    <select asp-for="MaDkthiGplx" class="form-control" asp-items="ViewBag.MaDkthiGplx">
-        <option value="">-- Chọn đăng ký thi --</option>
-    </select>
-    <span asp-validation-for="MaDkthiGplx" class="text-danger"></span>
-</div>
-
+    <div class="form-group">
+        <label>Đăng ký thi GPLX</label>
+        <select asp-for="MaDkthiGplx" class="form-control" asp-items="ViewBag.MaDkthiGplx">
+            <option value="">-- Chọn đăng ký thi --</option>
+        </select>
+        <span asp-validation-for="MaDkthiGplx" class="text-danger"></span>
+    </div>
 
     <!-- Nhập điểm -->
     <div class="row">

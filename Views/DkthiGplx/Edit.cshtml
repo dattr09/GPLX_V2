@@ -33,3 +33,22 @@
     <button type="submit" class="btn btn-success">💾 Lưu</button>
     <a asp-action="Index" class="btn btn-secondary">🔙 Quay lại</a>
 </form>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const ngayThiInput = document.getElementById("NgayThi");
+
+            ngayThiInput.addEventListener("change", function () {
+                const selectedDate = new Date(this.value);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                if (selectedDate < today) {
+                    alert("Ngày thi không được ở quá khứ.");
+                    this.value = "";
+                }
+            });
+        });
+    </script>
+}

@@ -6,6 +6,8 @@
     <thead class="table-dark text-center">
         <tr>
             <th>Mã GPLX</th>
+            <th>📌 Tên - CCCD</th>
+            <th>📜 Mã Loại</th>
             <th>📅 Ngày Cấp</th>
             <th>⏳ Ngày Hết Hạn</th>
             <th>✅ Kết Quả Thi</th>
@@ -17,6 +19,8 @@
         {
             <tr>
                 <td>@item.MaGplx</td>
+                <td>@item.MaKetQuaNavigation?.MaDkthiGplxNavigation?.CccdNavigation?.HoTen - @item.MaKetQuaNavigation?.MaDkthiGplxNavigation?.CccdNavigation?.Cccd</td>
+                <td>@item.MaKetQuaNavigation?.MaDkthiGplxNavigation?.MaLoaiNavigation?.MaLoai</td>
                 <td>@item.NgayCap.ToString("dd/MM/yyyy")</td>
                 <td>@item.NgayHetHan.ToString("dd/MM/yyyy")</td>
                 <td class="text-center">
@@ -35,3 +39,4 @@
         }
     </tbody>
 </table>
+

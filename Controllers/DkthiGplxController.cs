@@ -56,13 +56,13 @@ namespace GPLX.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Cccd,MaLoai,NgayThi,MaTtsh")] DkthiGplx dktGplx)
         {
+            if (dktGplx.NgayThi < DateOnly.FromDateTime(DateTime.Today))
+            {
+                ModelState.AddModelError("NgayThi", "Ngày thi không được ở quá khứ.");
+            }
+
             if (!ModelState.IsValid)
             {
-                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
-                {
-                    Console.WriteLine(error.ErrorMessage); // Debug lỗi
-                }
-
                 LoadDropdownData(dktGplx);
                 return View(dktGplx);
             }
@@ -72,6 +72,7 @@ namespace GPLX.Controllers
             TempData["Success"] = "Thêm đăng ký thi GPLX thành công!";
             return RedirectToAction(nameof(Index));
         }
+
 
         // GET: DkthiGplx/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -98,30 +99,35 @@ namespace GPLX.Controllers
             if (id != dktGplx.MaDkthiGplx)
                 return NotFound();
 
-            if (ModelState.IsValid)
+            if (dktGplx.NgayThi < DateOnly.FromDateTime(DateTime.Today))
             {
-                try
-                {
-                    _context.Update(dktGplx);
-                    await _context.SaveChangesAsync();
-                    TempData["Success"] = "Cập nhật đăng ký thi GPLX thành công!";
-                    return RedirectToAction(nameof(Index));
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!DktGplxExists(dktGplx.MaDkthiGplx))
-                        return NotFound();
-                    else
-                        ModelState.AddModelError("", "Lỗi cập nhật dữ liệu. Vui lòng thử lại!");
-                }
+                ModelState.AddModelError("NgayThi", "Ngày thi không được ở quá khứ.");
             }
 
-            // 🔥 Load lại dropdown nếu có lỗi nhập liệu
+            if (!ModelState.IsValid)
+            {
+                LoadDropdownData(dktGplx);
+                return View(dktGplx);
+            }
+
+            try
+            {
+                _context.Update(dktGplx);
+                await _context.SaveChangesAsync();
+                TempData["Success"] = "Cập nhật đăng ký thi GPLX thành công!";
+                return RedirectToAction(nameof(Index));
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!DktGplxExists(dktGplx.MaDkthiGplx))
+                    return NotFound();
+                else
+                    ModelState.AddModelError("", "Lỗi cập nhật dữ liệu. Vui lòng thử lại!");
+            }
+
             LoadDropdownData(dktGplx);
             return View(dktGplx);
         }
-
-
 
         // GET: DkthiGplx/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -182,9 +188,19 @@ namespace GPLX.Controllers
         // Load dữ liệu cho dropdown list
         private void LoadDropdownData(DkthiGplx? dktGplx = null)
         {
-            ViewData["Cccd"] = new SelectList(_context.CongDans, "Cccd", "HoTen", dktGplx?.Cccd);
-            ViewData["MaLoai"] = new SelectList(_context.LoaiGplxes, "MaLoai", "TenLoai", dktGplx?.MaLoai);
-            ViewData["MaTtsh"] = new SelectList(_context.TrungTamSatHaches, "MaTtsh", "TenTrungTam", dktGplx?.MaTtsh);
+            ViewData["Cccd"] = new SelectList(
+                _context.CongDans.Select(cd => new
+                {
+                    Cccd = cd.Cccd,
+                    HoTenCccd = cd.HoTen + " - " + cd.Cccd // Hiển thị cả họ tên và CCCD
+                }),
+                "Cccd", "HoTenCccd", dktGplx?.Cccd);
+
+            ViewData["MaLoai"] = new SelectList(
+                _context.LoaiGplxes, "MaLoai", "MaLoai", dktGplx?.MaLoai); // Chỉ hiển thị Mã Loại
+
+            ViewData["MaTtsh"] = new SelectList(
+                _context.TrungTamSatHaches, "MaTtsh", "TenTrungTam", dktGplx?.MaTtsh);
         }
     }
 }

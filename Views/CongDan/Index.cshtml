@@ -25,7 +25,7 @@
 
         <!-- Thanh tìm kiếm -->
         <div class="d-flex justify-content-between mb-3">
-            <input type="text" id="searchInput" class="form-control w-25 shadow-sm" placeholder="🔍 Tìm kiếm...">
+            <input type="text" id="searchInput" class="form-control w-25 shadow-sm" placeholder="🔍 Tìm kiếm theo CCCD hoặc Tên...">
             <a href="@Url.Action("Create")" class="btn btn-success shadow-sm rounded-3">
                 <i class="bi bi-person-plus-fill"></i> Thêm Mới
             </a>
@@ -78,8 +78,13 @@
         let rows = document.querySelectorAll("#tableBody tr");
 
         rows.forEach(row => {
-            let hoTen = row.children[1].textContent.toLowerCase();
-            row.style.display = hoTen.includes(searchValue) ? "" : "none";
+            let cccd = row.children[0].textContent.toLowerCase(); // Cột CCCD (Index 0)
+            let hoTen = row.children[1].textContent.toLowerCase(); // Cột Họ Tên (Index 1)
+
+            // Hiển thị hàng nếu CCCD hoặc Họ Tên chứa giá trị tìm kiếm
+            row.style.display = (cccd.includes(searchValue) || hoTen.includes(searchValue)) ? "" : "none";
         });
     });
 </script>
+
+
