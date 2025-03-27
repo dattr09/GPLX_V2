@@ -3,6 +3,12 @@
 @{
     ViewData["Title"] = "🆕 Thêm Mới GPLX";
 }
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @Html.ValidationSummary(false)
+    </div>
+}
 
 <h1 class="text-primary">@ViewData["Title"]</h1>
 

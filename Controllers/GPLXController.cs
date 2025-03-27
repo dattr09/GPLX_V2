@@ -44,10 +44,10 @@ namespace GPLX.Controllers
 
         // GET: GPLX/Create
         public IActionResult Create()
-{
-    ViewBag.MaKetQua = new SelectList(_context.KetQuaThiGplxes, "MaKetQua", "MaKetQua");
-    return View();
-}
+    {
+        ViewBag.MaKetQua = new SelectList(_context.KetQuaThiGplxes, "MaKetQua", "MaKetQua");
+        return View();
+    }
 
 
         // POST: GPLX/Create
@@ -55,23 +55,47 @@ namespace GPLX.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("MaGplx,NgayCap,NgayHetHan")] Gplx gplx)
         {
+            // Debug: In dữ liệu nhận được từ form
+            Console.WriteLine($"Received Data - MaGplx: {gplx.MaGplx}, NgayCap: {gplx.NgayCap}, NgayHetHan: {gplx.NgayHetHan}");
+
+            // Lấy kết quả thi từ bảng KetQuaThiGplxes dựa trên MaGplx
+            var ketQuaThi = _context.KetQuaThiGplxes.FirstOrDefault(k => k.MaKetQua == gplx.MaGplx);
+
+            if (ketQuaThi == null)
+            {
+                Console.WriteLine("LỖI: Không tìm thấy kết quả thi trong database.");
+                ModelState.AddModelError(string.Empty, "Không thể cấp GPLX vì không tìm thấy kết quả thi.");
+            }
+            else if (ketQuaThi.KetQua != "Đậu")
+            {
+                Console.WriteLine($"LỖI: Thí sinh có kết quả '{ketQuaThi.KetQua}', không đủ điều kiện cấp GPLX.");
+                ModelState.AddModelError(string.Empty, "Không thể cấp GPLX vì thí sinh chưa đậu.");
+            }
+
+            // Debug: In ra danh sách lỗi nếu có
+            if (!ModelState.IsValid)
+            {
+                Console.WriteLine("DANH SÁCH LỖI:");
+                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine(error.ErrorMessage);
+                }
+            }
+
+            // Nếu hợp lệ, lưu vào database
             if (ModelState.IsValid)
             {
-                gplx.MaKetQua = "Đậu"; // Gán mặc định
                 _context.Add(gplx);
                 await _context.SaveChangesAsync();
+                Console.WriteLine("GPLX đã được tạo thành công!");
                 return RedirectToAction(nameof(Index));
             }
 
-            // Debug lỗi nếu form không submit
-            var errors = ModelState.Values.SelectMany(v => v.Errors);
-            foreach (var error in errors)
-            {
-                Console.WriteLine(error.ErrorMessage);
-            }
-
+            Console.WriteLine("Trả về form với lỗi.");
             return View(gplx);
         }
+
+
 
 
         // GET: GPLX/Edit/5
@@ -184,5 +208,44 @@ public async Task<IActionResult> DeleteConfirmed(string id)
         {
             return _context.Gplxes.Any(e => e.MaGplx == id);
         }
+        [HttpPost]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> CreateAutoGplx()
+{
+    // Tìm danh sách các thí sinh đậu nhưng chưa có GPLX
+    var thiSinhDau = _context.KetQuaThiGplxes
+        .Where(k => k.KetQua == "Đậu" && !_context.Gplxes.Any(g => g.MaKetQua == k.MaKetQua))
+        .ToList();
+
+    if (!thiSinhDau.Any())
+    {
+        ModelState.AddModelError(string.Empty, "Không có thí sinh nào đủ điều kiện cấp GPLX.");
+        return View();
+    }
+
+    foreach (var ketQuaThi in thiSinhDau)
+    {
+        var newGplx = new Gplx
+        {
+            MaGplx = GenerateMaGPLX(), // Hàm tạo mã GPLX 12 ký tự
+            MaKetQua = ketQuaThi.MaKetQua,
+            NgayCap = DateOnly.FromDateTime(DateTime.Now),
+            NgayHetHan = DateOnly.FromDateTime(DateTime.Now.AddYears(10)) // Giả sử GPLX có hạn 10 năm
+        };
+
+        _context.Gplxes.Add(newGplx);
+    }
+
+    await _context.SaveChangesAsync();
+    return RedirectToAction(nameof(Index));
+}
+private string GenerateMaGPLX()
+{
+    var random = new Random();
+    const string chars = "0123456789";
+    return new string(Enumerable.Repeat(chars, 12)
+        .Select(s => s[random.Next(s.Length)]).ToArray());
+}
+
     }
 }

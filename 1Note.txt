@@ -1,0 +1,3 @@
+http://localhost:5246/DkthiGplx/Create
+Sửa thành hiển thị tên và CCCD
+sửa thành hiển thị mã loại tên loại cho dễ chọn
