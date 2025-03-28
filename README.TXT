@@ -13,4 +13,3 @@ dotnet run
 
 Server=localhost,1433;Database=QL_GPLX;User Id=sa;Password=Thanhdat53140;Encrypt=True;TrustServerCertificate=True;
 sửa sau khi có kết quả thi thì xoá ở đăng kí thi
-không đc thi 2 bằng giống nhau 

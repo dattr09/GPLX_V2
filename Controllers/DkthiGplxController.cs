@@ -61,6 +61,15 @@ namespace GPLX.Controllers
                 ModelState.AddModelError("NgayThi", "Ngày thi không được ở quá khứ.");
             }
 
+            // Kiểm tra xem đã đăng ký thi loại GPLX này chưa
+            bool exists = await _context.DkthiGplxes.AnyAsync(d =>
+                d.Cccd == dktGplx.Cccd && d.MaLoai == dktGplx.MaLoai);
+
+            if (exists)
+            {
+                ModelState.AddModelError("MaLoai", "Bạn đã đăng ký thi loại GPLX này rồi!");
+            }
+
             if (!ModelState.IsValid)
             {
                 LoadDropdownData(dktGplx);
@@ -72,7 +81,6 @@ namespace GPLX.Controllers
             TempData["Success"] = "Thêm đăng ký thi GPLX thành công!";
             return RedirectToAction(nameof(Index));
         }
-
 
         // GET: DkthiGplx/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -102,6 +110,15 @@ namespace GPLX.Controllers
             if (dktGplx.NgayThi < DateOnly.FromDateTime(DateTime.Today))
             {
                 ModelState.AddModelError("NgayThi", "Ngày thi không được ở quá khứ.");
+            }
+
+            // Kiểm tra trùng lặp khi chỉnh sửa (loại trừ chính nó)
+            bool exists = await _context.DkthiGplxes.AnyAsync(d =>
+                d.Cccd == dktGplx.Cccd && d.MaLoai == dktGplx.MaLoai && d.MaDkthiGplx != dktGplx.MaDkthiGplx);
+
+            if (exists)
+            {
+                ModelState.AddModelError("MaLoai", "Bạn đã đăng ký thi loại GPLX này rồi!");
             }
 
             if (!ModelState.IsValid)

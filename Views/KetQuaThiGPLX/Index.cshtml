@@ -19,40 +19,51 @@
 <table class="table table-hover table-bordered shadow-sm text-center align-middle" id="ketQuaTable">
     <thead class="table-dark">
         <tr>
-            <th>Mã KQ</th>
-            <th>Lý Thuyết</th>
-            <th>Thực Hành</th>
-            <th>Mô Phỏng</th>
-            <th>Đường Trường</th>
-            <th>Kết Quả</th>
-            <th>Ghi Chú</th>
-            <th>Hành Động</th>
+            <th class="text-nowrap">Mã KQ</th>
+            <th class="text-nowrap">Tên - CCCD</th>
+            <th class="text-nowrap">Lý Thuyết</th>
+            <th class="text-nowrap">Thực Hành</th>
+            <th class="text-nowrap">Mô Phỏng</th>
+            <th class="text-nowrap">Đường Trường</th>
+            <th class="text-nowrap">Kết Quả</th>
+            <th class="text-nowrap">Ghi Chú</th>
+            <th class="text-nowrap">Hành Động</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
-                <td><strong>@item.MaKetQua</strong></td>
-                <td>@item.DiemLyThuyet</td>
-                <td>@item.DiemThucHanh</td>
-                <td>@(item.DiemMoPhong.HasValue ? item.DiemMoPhong.Value.ToString() : "N/A")</td>
-                <td>@(item.DiemDuongTruong.HasValue ? item.DiemDuongTruong.Value.ToString() : "N/A")</td>
-                <td>
+                <td class="text-nowrap"><strong>@item.MaKetQua</strong></td>
+                <td class="text-nowrap">
+                    @if (item.MaDkthiGplxNavigation?.CccdNavigation != null)
+                    {
+                        <span>@item.MaDkthiGplxNavigation.CccdNavigation.HoTen - @item.MaDkthiGplxNavigation.CccdNavigation.Cccd</span>
+                    }
+                    else
+                    {
+                        <span class="text-muted">Không có dữ liệu</span>
+                    }
+                </td>
+                <td class="text-nowrap">@item.DiemLyThuyet</td>
+                <td class="text-nowrap">@item.DiemThucHanh</td>
+                <td class="text-nowrap">@(item.DiemMoPhong.HasValue ? item.DiemMoPhong.Value.ToString() : "N/A")</td>
+                <td class="text-nowrap">@(item.DiemDuongTruong.HasValue ? item.DiemDuongTruong.Value.ToString() : "N/A")</td>
+                <td class="text-nowrap">
                     <span class="badge @(item.KetQua == "Đậu" ? "bg-success" : "bg-danger")">
                         @item.KetQua
                     </span>
                 </td>
-                <td>@(string.IsNullOrEmpty(item.GhiChu) ? "Không có" : item.GhiChu)</td>
-                <td>
-                    <a href="@Url.Action("Details", new { id = item.MaKetQua })" class="btn btn-info btn-sm" title="Xem">
-                        <i class="bi bi-eye"></i>Xem
+                <td class="text-nowrap">@(string.IsNullOrEmpty(item.GhiChu) ? "Không có" : item.GhiChu)</td>
+                <td class="text-nowrap">
+                    <a href="@Url.Action("Details", new { id = item.MaKetQua })" class="btn btn-info btn-sm">
+                        <i class="bi bi-eye"></i> Xem
                     </a>
-                    <a href="@Url.Action("Edit", new { id = item.MaKetQua })" class="btn btn-warning btn-sm" title="Chỉnh sửa">
-                        <i class="bi bi-pencil"></i>Sửa
+                    <a href="@Url.Action("Edit", new { id = item.MaKetQua })" class="btn btn-warning btn-sm">
+                        <i class="bi bi-pencil"></i> Sửa
                     </a>
-                    <a href="@Url.Action("Delete", new { id = item.MaKetQua })" class="btn btn-danger btn-sm" title="Xóa">
-                        <i class="bi bi-trash"></i>Xoá
+                    <a href="@Url.Action("Delete", new { id = item.MaKetQua })" class="btn btn-danger btn-sm">
+                        <i class="bi bi-trash"></i> Xóa
                     </a>
                 </td>
             </tr>
@@ -61,17 +72,19 @@
 </table>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const searchInput = document.getElementById("searchInput");
-        searchInput.addEventListener("keyup", function () {
-            const filter = searchInput.value.toLowerCase();
-            const rows = document.querySelectorAll("#ketQuaTable tbody tr");
+document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("searchInput");
+    searchInput.addEventListener("keyup", function () {
+        const filter = searchInput.value.toLowerCase();
+        const rows = document.querySelectorAll("#ketQuaTable tbody tr");
 
-            rows.forEach(row => {
-                const maKetQua = row.cells[0].textContent.toLowerCase();
-                const ketQua = row.cells[5].textContent.toLowerCase();
-                row.style.display = (maKetQua.includes(filter) || ketQua.includes(filter)) ? "" : "none";
-            });
+        rows.forEach(row => {
+            const maKetQua = row.cells[0].textContent.toLowerCase();
+            const tenCccd = row.cells[1].textContent.toLowerCase();
+            const ketQua = row.cells[6].textContent.toLowerCase();
+
+            row.style.display = (maKetQua.includes(filter) || tenCccd.includes(filter) || ketQua.includes(filter)) ? "" : "none";
         });
     });
+});
 </script>
