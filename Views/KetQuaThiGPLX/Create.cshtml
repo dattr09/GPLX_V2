@@ -13,7 +13,8 @@
     <!-- Mã kết quả tự động tạo -->
     <div class="form-group">
         <label>Mã Kết Quả</label>
-        <input asp-for="MaKetQua" class="form-control" value="@ViewBag.NewMaKetQua" readonly />
+        <input asp-for="MaKetQua" class="form-control" value="@ViewBag.NewMaKetQua" readonly="readonly" />
+        <input type="hidden" asp-for="MaKetQua" />
         <span asp-validation-for="MaKetQua" class="text-danger"></span>
     </div>
 
@@ -67,13 +68,3 @@
     <button type="submit" class="btn btn-success">💾 Lưu</button>
     <a asp-action="Index" class="btn btn-secondary">❌ Hủy</a>
 </form>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Auto-generate MaKetQua (nếu cần)
-        const maKetQuaInput = document.getElementById("MaKetQua");
-        if (!maKetQuaInput.value) {
-            maKetQuaInput.value = "KQ-" + new Date().getTime();
-        }
-    });
-</script>

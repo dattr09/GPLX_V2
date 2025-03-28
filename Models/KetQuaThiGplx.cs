@@ -11,8 +11,8 @@ namespace GPLX.Models;
 public partial class KetQuaThiGplx
 {
     [Key]
-    [Column(TypeName = "VARCHAR(20)")] // 🔥 Đảm bảo SQL Server hỗ trợ
-    [StringLength(5, ErrorMessage = "Mã Kết Quả tối đa 5 ký tự.")]
+    [Column(TypeName = "VARCHAR(10)")] // 🔥 Đảm bảo SQL Server hỗ trợ
+    [StringLength(10, ErrorMessage = "Mã Kết Quả tối đa 5 ký tự.")]
     public string MaKetQua { get; set; } = null!;
 
     [Required(ErrorMessage = "Vui lòng chọn đăng ký thi GPLX")]
