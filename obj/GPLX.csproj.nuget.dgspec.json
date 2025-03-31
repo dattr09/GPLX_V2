@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\NGUYEN-TU-LAP\\Desktop\\GPLX_V2\\GPLX.csproj": {}
+    "C:\\Hoc_\\GPLX_V2\\GPLX.csproj": {}
   },
   "projects": {
-    "C:\\Users\\NGUYEN-TU-LAP\\Desktop\\GPLX_V2\\GPLX.csproj": {
+    "C:\\Hoc_\\GPLX_V2\\GPLX.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\NGUYEN-TU-LAP\\Desktop\\GPLX_V2\\GPLX.csproj",
+        "projectUniqueName": "C:\\Hoc_\\GPLX_V2\\GPLX.csproj",
         "projectName": "GPLX",
-        "projectPath": "C:\\Users\\NGUYEN-TU-LAP\\Desktop\\GPLX_V2\\GPLX.csproj",
+        "projectPath": "C:\\Hoc_\\GPLX_V2\\GPLX.csproj",
         "packagesPath": "C:\\Users\\NGUYEN-TU-LAP\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\NGUYEN-TU-LAP\\Desktop\\GPLX_V2\\obj\\",
+        "outputPath": "C:\\Hoc_\\GPLX_V2\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KmBo8u9JG8Q=",
+  "dgSpecHash": "82qG7dAatJs=",
   "success": true,
-  "projectFilePath": "C:\\Users\\NGUYEN-TU-LAP\\Desktop\\GPLX_V2\\GPLX.csproj",
+  "projectFilePath": "C:\\Hoc_\\GPLX_V2\\GPLX.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\NGUYEN-TU-LAP\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\NGUYEN-TU-LAP\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

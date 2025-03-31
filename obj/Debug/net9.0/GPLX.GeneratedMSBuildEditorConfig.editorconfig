@@ -17,189 +17,189 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = GPLX
 build_property.RootNamespace = GPLX
-build_property.ProjectDir = C:\Users\NGUYEN-TU-LAP\Desktop\GPLX_V2\
+build_property.ProjectDir = C:\Hoc_\GPLX_V2\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 9.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\NGUYEN-TU-LAP\Desktop\GPLX_V2
+build_property.MSBuildProjectDirectory = C:\Hoc_\GPLX_V2
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 9.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/CongDan/Create.cshtml]
+[C:/Hoc_/GPLX_V2/Views/CongDan/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uZ0RhblxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/CongDan/Delete.cshtml]
+[C:/Hoc_/GPLX_V2/Views/CongDan/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uZ0RhblxEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/CongDan/Edit.cshtml]
+[C:/Hoc_/GPLX_V2/Views/CongDan/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uZ0RhblxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/CongDan/Index.cshtml]
+[C:/Hoc_/GPLX_V2/Views/CongDan/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uZ0RhblxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/DieuKienDatGplx/Index.cshtml]
+[C:/Hoc_/GPLX_V2/Views/DieuKienDatGplx/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlldUtpZW5EYXRHcGx4XEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/DkthiGplx/Create.cshtml]
+[C:/Hoc_/GPLX_V2/Views/DkthiGplx/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGt0aGlHcGx4XENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/DkthiGplx/Delete.cshtml]
+[C:/Hoc_/GPLX_V2/Views/DkthiGplx/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGt0aGlHcGx4XERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/DkthiGplx/Edit.cshtml]
+[C:/Hoc_/GPLX_V2/Views/DkthiGplx/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGt0aGlHcGx4XEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/DkthiGplx/Index.cshtml]
+[C:/Hoc_/GPLX_V2/Views/DkthiGplx/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGt0aGlHcGx4XEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/GPLX/Create.cshtml]
+[C:/Hoc_/GPLX_V2/Views/GPLX/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR1BMWFxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/GPLX/Delete.cshtml]
+[C:/Hoc_/GPLX_V2/Views/GPLX/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR1BMWFxEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/GPLX/Details.cshtml]
+[C:/Hoc_/GPLX_V2/Views/GPLX/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR1BMWFxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/GPLX/Edit.cshtml]
+[C:/Hoc_/GPLX_V2/Views/GPLX/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR1BMWFxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/GPLX/Index.cshtml]
+[C:/Hoc_/GPLX_V2/Views/GPLX/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR1BMWFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/Home/Index.cshtml]
+[C:/Hoc_/GPLX_V2/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/Home/Privacy.cshtml]
+[C:/Hoc_/GPLX_V2/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/KetQuaThiGPLX/Create.cshtml]
+[C:/Hoc_/GPLX_V2/Views/KetQuaThiGPLX/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2V0UXVhVGhpR1BMWFxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/KetQuaThiGPLX/Delete.cshtml]
+[C:/Hoc_/GPLX_V2/Views/KetQuaThiGPLX/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2V0UXVhVGhpR1BMWFxEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/KetQuaThiGPLX/Details.cshtml]
+[C:/Hoc_/GPLX_V2/Views/KetQuaThiGPLX/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2V0UXVhVGhpR1BMWFxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/KetQuaThiGPLX/Edit.cshtml]
+[C:/Hoc_/GPLX_V2/Views/KetQuaThiGPLX/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2V0UXVhVGhpR1BMWFxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/KetQuaThiGPLX/Index.cshtml]
+[C:/Hoc_/GPLX_V2/Views/KetQuaThiGPLX/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2V0UXVhVGhpR1BMWFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/LoaiGPLX/Details.cshtml]
+[C:/Hoc_/GPLX_V2/Views/LoaiGPLX/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9haUdQTFhcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/LoaiGPLX/Edit.cshtml]
+[C:/Hoc_/GPLX_V2/Views/LoaiGPLX/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9haUdQTFhcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/LoaiGPLX/Index.cshtml]
+[C:/Hoc_/GPLX_V2/Views/LoaiGPLX/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9haUdQTFhcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/LoaiViPham/Create.cshtml]
+[C:/Hoc_/GPLX_V2/Views/LoaiViPham/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9haVZpUGhhbVxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/LoaiViPham/Delete.cshtml]
+[C:/Hoc_/GPLX_V2/Views/LoaiViPham/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9haVZpUGhhbVxEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/LoaiViPham/Details.cshtml]
+[C:/Hoc_/GPLX_V2/Views/LoaiViPham/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9haVZpUGhhbVxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/LoaiViPham/Edit.cshtml]
+[C:/Hoc_/GPLX_V2/Views/LoaiViPham/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9haVZpUGhhbVxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/LoaiViPham/Index.cshtml]
+[C:/Hoc_/GPLX_V2/Views/LoaiViPham/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9haVZpUGhhbVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/Shared/Error.cshtml]
+[C:/Hoc_/GPLX_V2/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Hoc_/GPLX_V2/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/TrungTamSatHach/Create.cshtml]
+[C:/Hoc_/GPLX_V2/Views/TrungTamSatHach/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJ1bmdUYW1TYXRIYWNoXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/TrungTamSatHach/Delete.cshtml]
+[C:/Hoc_/GPLX_V2/Views/TrungTamSatHach/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJ1bmdUYW1TYXRIYWNoXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/TrungTamSatHach/Details.cshtml]
+[C:/Hoc_/GPLX_V2/Views/TrungTamSatHach/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJ1bmdUYW1TYXRIYWNoXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/TrungTamSatHach/Edit.cshtml]
+[C:/Hoc_/GPLX_V2/Views/TrungTamSatHach/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJ1bmdUYW1TYXRIYWNoXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/TrungTamSatHach/Index.cshtml]
+[C:/Hoc_/GPLX_V2/Views/TrungTamSatHach/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJ1bmdUYW1TYXRIYWNoXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/ViPhamGplx/Create.cshtml]
+[C:/Hoc_/GPLX_V2/Views/ViPhamGplx/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlQaGFtR3BseFxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/ViPhamGplx/Delete.cshtml]
+[C:/Hoc_/GPLX_V2/Views/ViPhamGplx/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlQaGFtR3BseFxEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/ViPhamGplx/Details.cshtml]
+[C:/Hoc_/GPLX_V2/Views/ViPhamGplx/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlQaGFtR3BseFxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/ViPhamGplx/Edit.cshtml]
+[C:/Hoc_/GPLX_V2/Views/ViPhamGplx/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlQaGFtR3BseFxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/ViPhamGplx/Index.cshtml]
+[C:/Hoc_/GPLX_V2/Views/ViPhamGplx/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlQaGFtR3BseFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/_ViewImports.cshtml]
+[C:/Hoc_/GPLX_V2/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/_ViewStart.cshtml]
+[C:/Hoc_/GPLX_V2/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NGUYEN-TU-LAP/Desktop/GPLX_V2/Views/Shared/_Layout.cshtml]
+[C:/Hoc_/GPLX_V2/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-wa7nqrmkue
