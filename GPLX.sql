@@ -152,6 +152,72 @@ CREATE TABLE ViPhamGPLX (
     CONSTRAINT FK_ViPham_LoaiViPham FOREIGN KEY (MaLoaiViPham) REFERENCES LoaiViPham(MaLoaiViPham)
 );
 GO
+
+-- 📌 Bảng khóa học: Lưu lại thông tin những khóa học thi GPLX.
+CREATE TABLE KhoaHoc (
+    MaKhoaHoc INT IDENTITY(1,1) PRIMARY KEY,
+    TenKhoaHoc NVARCHAR(100) NOT NULL,
+    ThoiGianHoc NVARCHAR(50), -- Ví dụ: "2 tháng"
+    HocPhi DECIMAL(10,2) NOT NULL,
+    MoTa NVARCHAR(255), --Ví dụ: "Cho công dân trên 18 tuổi"
+	MaLoai CHAR(3) NOT NULL, -- Tham chiếu LoaiGPLX
+
+    CONSTRAINT FK_KhoaHoc_LoaiGPLX FOREIGN KEY (MaLoai) REFERENCES LoaiGPLX(MaLoai)
+);
+
+-- 📌 Bảng giảng viên: Lưu lại thông tin giảng viên giảng dạy trong các khóa học.
+CREATE TABLE GiangVien (
+    MaGV INT IDENTITY(1,1) PRIMARY KEY,
+    HoTen NVARCHAR(50) NOT NULL,
+    NgaySinh DATE,
+    GioiTinh BIT,
+    SDT VARCHAR(10),
+    Email VARCHAR(100),
+
+    CONSTRAINT CK_GV_SDT CHECK (SDT LIKE '0[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]')
+);
+
+-- 📌 Bảng lớp học: Lưu lại thông tin các lớp học trong các khóa học.
+CREATE TABLE LopHoc (
+    MaLop INT IDENTITY(1,1) PRIMARY KEY,                -- Mã lớp tự động tăng
+    NgayBatDau DATE NOT NULL,
+    NgayKetThuc DATE NOT NULL,
+    DiaDiem NVARCHAR(255),
+
+    ThoiGianHocTrongTuan NVARCHAR(100),                 -- VD: "T2-T4-T6 (18h-20h)"
+    SoLuongToiDa INT CHECK (SoLuongToiDa > 0),          -- Giới hạn số học viên
+    GhiChu NVARCHAR(255),                               -- Ghi chú đặc biệt nếu có
+
+    TrangThai NVARCHAR(30) DEFAULT N'Đang mở' CHECK (TrangThai IN (N'Đang mở', N'Đã đóng', N'Đã huỷ')),                                                  -- Trạng thái lớp học
+    IsOnline BIT DEFAULT 0,                             -- 0: Offline | 1: Online
+	MaKhoaHoc INT NOT NULL,                             -- Tham chiếu đến khoá học
+    MaGV INT NOT NULL,                                  -- Giảng viên phụ trách
+    -- Khóa ngoại
+    CONSTRAINT FK_Lop_KhoaHoc FOREIGN KEY (MaKhoaHoc) REFERENCES KhoaHoc(MaKhoaHoc),
+    CONSTRAINT FK_Lop_GiangVien FOREIGN KEY (MaGV) REFERENCES GiangVien(MaGV)
+);
+
+-- 📌 Bảng đăng ký khóa học: Lưu lại thông tin các lớp học trong các khóa học.
+CREATE TABLE DangKyKhoaHoc (
+    MaDKKH INT IDENTITY(1,1) PRIMARY KEY,
+    CCCD CHAR(12) NOT NULL,
+    MaLop INT NOT NULL,
+    NgayDangKy DATE NOT NULL DEFAULT GETDATE(),
+    TrangThaiDangKy NVARCHAR(30) DEFAULT N'Đã đăng ký' CHECK (
+        TrangThaiDangKy IN (N'Đã đăng ký', N'Đã huỷ', N'Chờ xác nhận')
+    ),
+    GhiChu NVARCHAR(255),
+
+    CONSTRAINT FK_DKKH_CongDan FOREIGN KEY (CCCD) REFERENCES CongDan(CCCD),
+    CONSTRAINT FK_DKKH_LopHoc FOREIGN KEY (MaLop) REFERENCES LopHoc(MaLop),
+    CONSTRAINT UQ_DKKH UNIQUE (CCCD, MaLop) -- Một học viên không đăng ký 2 lần cùng lớp
+);
+
+
+
+
+
+
 -- ===================================
 -- 3️ TẠO CÁC TRIGGER RÀNG BUỘC
 -- ===================================
@@ -417,6 +483,73 @@ VALUES
 ('791234567890', 10, '2024-07-15', N'Chưa đóng phạt');   -- Đi vào đường cấm
 GO
 
+-- 📌 Bảng khóa học
+INSERT INTO KhoaHoc (TenKhoaHoc, ThoiGianHoc, HocPhi, MoTa, MaLoai)
+VALUES
+(N'Khóa học A1 cơ bản', N'1.5 tháng', 1200000, N'Dành cho người từ 18 tuổi trở lên thi bằng A1', 'A1'),
+(N'Khóa học A nâng cao', N'2 tháng', 1800000, N'Dành cho người lái mô tô trên 125cc', 'A'),
+(N'Khóa học B1 xe ba bánh', N'2 tháng', 3500000, N'Đào tạo điều khiển xe mô tô ba bánh và ôn luyện A1', 'B1'),
+(N'Khóa học B lái ô tô cơ bản', N'3 tháng', 6000000, N'Đào tạo thực hành và lý thuyết lái ô tô dưới 3.5 tấn', 'B'),
+(N'Khóa học C1 xe tải vừa', N'3.5 tháng', 6800000, N'Lái ô tô tải từ 3.5 đến dưới 7.5 tấn', 'C1'),
+(N'Khóa học C xe tải lớn', N'4 tháng', 7500000, N'Dành cho người lái xe tải trên 7.5 tấn', 'C'),
+(N'Khóa học D1 xe khách nhỏ', N'3 tháng', 8000000, N'Xe chở khách từ 8 đến 16 chỗ ngồi', 'D1'),
+(N'Khóa học D2 xe khách vừa', N'3.5 tháng', 8500000, N'Xe chở khách từ 16 đến 29 chỗ ngồi', 'D2'),
+(N'Khóa học D xe khách lớn', N'4 tháng', 9500000, N'Xe chở khách từ 30 chỗ ngồi trở lên', 'D'),
+(N'Khóa học BE ô tô kéo rơ moóc nhỏ', N'2 tháng', 5000000, N'Lái ô tô hạng B kéo rơ moóc >750kg', 'BE'),
+(N'Khóa học C1E xe tải rơ moóc', N'3 tháng', 7200000, N'Ô tô tải C1 kéo rơ moóc >750kg', 'C1E'),
+(N'Khóa học CE xe tải nặng rơ moóc', N'3.5 tháng', 8200000, N'Ô tô tải hạng C kéo rơ moóc >750kg', 'CE'),
+(N'Khóa học D1E xe khách nhỏ + rơ moóc', N'3.5 tháng', 8700000, N'Ô tô chở khách D1 kéo rơ moóc >750kg', 'D1E'),
+(N'Khóa học D2E xe khách vừa + rơ moóc', N'4 tháng', 8900000, N'Ô tô chở khách D2 kéo rơ moóc >750kg', 'D2E'),
+(N'Khóa học DE xe khách lớn + rơ moóc', N'4.5 tháng', 9500000, N'Ô tô chở khách D kéo rơ moóc >750kg', 'DE');
+
+-- 📌 Bảng giảng viên 
+INSERT INTO GiangVien (HoTen, NgaySinh, GioiTinh, SDT, Email)
+VALUES
+(N'Nguyễn Văn An',   '1980-05-12', 1, '0912345678', 'an.nguyen@gplx.vn'),
+(N'Trần Thị Bích',   '1985-08-22', 0, '0934567890', 'bich.tran@gplx.vn'),
+(N'Phạm Văn Cường',  '1978-11-03', 1, '0909123456', 'cuong.pham@gplx.vn'),
+(N'Lê Thị Dung',     '1990-02-14', 0, '0945123789', 'dung.le@gplx.vn'),
+(N'Hoàng Văn Duy',   '1982-07-29', 1, '0987654321', 'duy.hoang@gplx.vn'),
+(N'Ngô Thị Hồng',    '1987-09-10', 0, '0923456789', 'hong.ngo@gplx.vn'),
+(N'Vũ Minh Tuấn',    '1975-03-25', 1, '0976543210', 'tuan.vu@gplx.vn'),
+(N'Đặng Thị Lan',    '1992-12-05', 0, '0961234567', 'lan.dang@gplx.vn'),
+(N'Bùi Văn Hưng',    '1983-06-18', 1, '0956789123', 'hung.bui@gplx.vn'),
+(N'Cao Thị Mai',     '1988-04-09', 0, '0937894561', 'mai.cao@gplx.vn');
+
+-- 📌 Bảng lớp học
+INSERT INTO LopHoc (NgayBatDau, NgayKetThuc, DiaDiem, ThoiGianHocTrongTuan, SoLuongToiDa, GhiChu, TrangThai, IsOnline, MaKhoaHoc, MaGV)
+VALUES
+('2025-05-05', '2025-08-28', N'241 Đường ABC, TP.Cần Thơ',         N'T3-T5 (8h-11h)',     20, NULL,							N'Đang mở',		0,  1, 6),
+('2025-05-11', '2025-07-17', N'530 Đường ABC, TP.Hồ Chí Minh',     N'T2-T4-T6 (18h-20h)', 15, N'Lớp đặc biệt',				N'Đang mở',		0,  2, 1),
+('2025-04-26', '2025-08-10', N'479 Đường ABC, TP.Hồ Chí Minh',     N'T7-CN (14h-17h)',    30, N'Học trực tuyến qua Zoom',	N'Đã huỷ',		1,  3, 2),
+('2025-04-19', '2025-07-02', N'350 Đường ABC, TP.Cần Thơ',         N'T3-T5 (8h-11h)',     30, N'Lớp đặc biệt',				N'Đã huỷ',		0,  4, 1),
+('2025-05-01', '2025-07-14', N'382 Đường ABC, TP.Hà Nội',          N'T7-CN (14h-17h)',    20, N'Ưu tiên nữ',				N'Đã đóng',		0,  5, 6),
+('2025-05-06', '2025-08-30', N'526 Đường ABC, TP.Hồ Chí Minh',     N'T2-T4-T6 (18h-20h)', 15, NULL,							N'Đã huỷ',		0,  6, 2),
+('2025-04-24', '2025-07-16', N'785 Đường ABC, TP.Cần Thơ',         N'T2-T4-T6 (18h-20h)', 30, N'Lớp đặc biệt',				N'Đang mở',		0,  7, 7),
+('2025-05-13', '2025-07-24', N'643 Đường ABC, TP.Đà Nẵng',         N'T7-CN (14h-17h)',    15, N'Ưu tiên nữ',				N'Đang mở',		0,  8, 3),
+('2025-05-01', '2025-07-28', N'618 Đường ABC, TP.Hồ Chí Minh',     N'T2-T4-T6 (18h-20h)', 25, NULL,							N'Đã đóng',		0,  9, 6),
+('2025-04-27', '2025-08-15', N'457 Đường ABC, TP.Hồ Chí Minh',     N'T3-T5 (8h-11h)',     30, NULL,							N'Đã huỷ',		0, 10, 7),
+('2025-05-10', '2025-07-25', N'289 Đường ABC, TP.Đà Nẵng',         N'T7-CN (14h-17h)',    25, NULL,							N'Đã huỷ',		0, 11, 9),
+('2025-04-18', '2025-07-01', N'820 Đường ABC, TP.Hà Nội',          N'T3-T5 (8h-11h)',     20, NULL,							N'Đang mở',		0, 12, 9),
+('2025-05-09', '2025-07-15', N'395 Đường ABC, TP.Cần Thơ',         N'T7-CN (14h-17h)',    20, NULL,							N'Đang mở',		0, 13, 8),
+('2025-04-30', '2025-08-08', N'557 Đường ABC, TP.Hồ Chí Minh',     N'T3-T5 (8h-11h)',     25, N'Học trực tuyến qua Zoom',	N'Đã đóng',		1, 14, 6),
+('2025-04-23', '2025-07-18', N'668 Đường ABC, TP.Cần Thơ',         N'T2-T4-T6 (18h-20h)', 30, NULL,							N'Đã huỷ',		0, 15, 2);
+
+-- 📌 Bảng đăng ký khóa học
+INSERT INTO DangKyKhoaHoc (CCCD, MaLop, NgayDangKy, TrangThaiDangKy, GhiChu)
+VALUES
+('012345678901', 1, '2025-04-14', N'Đã đăng ký',    NULL),
+('012345678902', 2, '2025-04-15', N'Chờ xác nhận',  N'Đăng ký sớm'),
+('012345678903', 3, '2025-04-16', N'Đã đăng ký',    NULL),
+('012345678904', 4, '2025-04-17', N'Đã huỷ',        N'Chuyển từ lớp khác'),
+('012345678905', 5, '2025-04-18', N'Đã đăng ký',    NULL),
+('012345678906', 6, '2025-04-19', N'Đã đăng ký',    NULL),
+('012345678907', 7, '2025-04-20', N'Chờ xác nhận',  NULL),
+('012345678908', 8, '2025-04-21', N'Đã đăng ký',    N'Đăng ký sớm'),
+('012345678909', 9, '2025-04-22', N'Đã huỷ',        NULL),
+('012345678910',10, '2025-04-23', N'Đã đăng ký',    NULL);
+
+
 -- ===================================
 -- 5 CÁC TEST CASE
 -- ===================================
@@ -449,4 +582,7 @@ VALUES ('790123456793', 'KQ0003', '2024-04-25', '2034-04-25');
 INSERT INTO ViPhamGPLX (MaGPLX, MaLoaiViPham, NgayViPham, TrangThai)
 VALUES ('790123456789', 3, '2023-04-10', N'Chưa đóng phạt'); -- Lỗi vì ngày vi phạm trước ngày cấp GPLX (2024-04-15)
 
+
+
+dotnet ef dbcontext scaffold "Server=localhost,1433;Database=QL_GPLX;User Id=sa;Password=Thanhdat53140;Encrypt=True;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models -f --table KhoaHoc --table GiangVien  --table DangKyKhoaHoc --table LopHoc
 

@@ -1,0 +1,15 @@
+@model GPLX.Models.KhoaHoc
+
+@{
+    ViewData["Title"] = "Xóa khóa học";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>Bạn có chắc chắn muốn xóa khóa học <strong>@Model.MaKhoaHoc</strong>?</p>
+
+<form method="post">
+    <input type="hidden" name="id" value="@Model.MaKhoaHoc" />
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    <a href="@Url.Action("Index", "KhoaHoc")" class="btn btn-secondary">Hủy</a>
+</form>

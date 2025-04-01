@@ -1,0 +1,41 @@
+@model IEnumerable<GPLX.Models.KhoaHoc>
+
+@{
+    ViewData["Title"] = "Danh sách khóa học";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a href="@Url.Action("Create", "KhoaHoc")" class="btn btn-primary">Thêm khóa học</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Mã khóa học</th>
+            <th>Tên khóa học</th>
+            <th>Thời gian học</th>
+            <th>Học phí</th>
+            <th>Mô tả</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaKhoaHoc</td>
+                <td>@item.TenKhoaHoc</td>
+                <td>@item.ThoiGianHoc</td>
+                <td>@item.HocPhi.ToString("C")</td>
+                <td>@item.MoTa</td>
+                <td>
+                    <a href="@Url.Action("Details", "KhoaHoc", new { id = item.MaKhoaHoc })" class="btn btn-info">Chi tiết</a>
+                    <a href="@Url.Action("Edit", "KhoaHoc", new { id = item.MaKhoaHoc })" class="btn btn-warning">Sửa</a>
+                    <a href="@Url.Action("Delete", "KhoaHoc", new { id = item.MaKhoaHoc })" class="btn btn-danger">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,32 @@
+@model GPLX.Models.KhoaHoc
+
+@{
+    ViewData["Title"] = "Thêm khóa học";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label for="MaKhoaHoc">Mã khóa học</label>
+        <input type="text" class="form-control" id="MaKhoaHoc" name="MaKhoaHoc" value="@Model.MaKhoaHoc" required />
+    </div>
+    <div class="form-group">
+        <label for="TenKhoaHoc">Tên khóa học</label>
+        <input type="text" class="form-control" id="TenKhoaHoc" name="TenKhoaHoc" value="@Model.TenKhoaHoc" required />
+    </div>
+    <div class="form-group">
+        <label for="ThoiGianHoc">Thời gian học</label>
+        <input type="text" class="form-control" id="ThoiGianHoc" name="ThoiGianHoc" value="@Model.ThoiGianHoc" />
+    </div>
+    <div class="form-group">
+        <label for="HocPhi">Học phí</label>
+        <input type="number" class="form-control" id="HocPhi" name="HocPhi" value="@Model.HocPhi" />
+    </div>
+    <div class="form-group">
+        <label for="MoTa">Mô tả</label>
+        <textarea class="form-control" id="MoTa" name="MoTa">@Model.MoTa</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Lưu</button>
+    <a href="@Url.Action("Index", "KhoaHoc")" class="btn btn-secondary">Hủy</a>
+</form>

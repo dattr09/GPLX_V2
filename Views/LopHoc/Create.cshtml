@@ -1,0 +1,45 @@
+@model GPLX.Models.LopHoc
+
+@{
+    ViewData["Title"] = "Thêm lớp học";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label for="MaLop">Mã lớp</label>
+        <input type="text" class="form-control" id="MaLop" name="MaLop" value="@Model.MaLop" required />
+    </div>
+    <div class="form-group">
+        <label for="NgayBatDau">Ngày bắt đầu</label>
+        <input type="date" class="form-control" id="NgayBatDau" name="NgayBatDau" value="@Model.NgayBatDau.ToString("yyyy-MM-dd")" />
+    </div>
+    <div class="form-group">
+        <label for="NgayKetThuc">Ngày kết thúc</label>
+        <input type="date" class="form-control" id="NgayKetThuc" name="NgayKetThuc" value="@Model.NgayKetThuc.ToString("yyyy-MM-dd")" />
+    </div>
+    <div class="form-group">
+        <label for="DiaDiem">Địa điểm</label>
+        <input type="text" class="form-control" id="DiaDiem" name="DiaDiem" value="@Model.DiaDiem" />
+    </div>
+    <div class="form-group">
+        <label for="TrangThai">Trạng thái</label>
+        <input type="text" class="form-control" id="TrangThai" name="TrangThai" value="@Model.TrangThai" />
+    </div>
+    <div class="form-group">
+        <label for="MaGv">Giảng viên</label>
+        <select class="form-control" id="MaGv" name="MaGv">
+            @if (ViewData["GiangVien"] is IEnumerable<GPLX.Models.GiangVien> giangVienList)
+            {
+                foreach (var giangVien in giangVienList)
+                {
+                    var isSelected = giangVien.MaGv == Model?.MaGv ? "selected" : "";
+                    <option value="@giangVien.MaGv" @isSelected>@giangVien.HoTen</option>
+                }
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Lưu</button>
+    <a href="@Url.Action("Index", "LopHoc")" class="btn btn-secondary">Hủy</a>
+</form>
