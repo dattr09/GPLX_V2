@@ -164,7 +164,7 @@ CREATE TABLE KhoaHoc (
 
     CONSTRAINT FK_KhoaHoc_LoaiGPLX FOREIGN KEY (MaLoai) REFERENCES LoaiGPLX(MaLoai)
 );
-
+GO
 -- 📌 Bảng giảng viên: Lưu lại thông tin giảng viên giảng dạy trong các khóa học.
 CREATE TABLE GiangVien (
     MaGV INT IDENTITY(1,1) PRIMARY KEY,
@@ -176,7 +176,7 @@ CREATE TABLE GiangVien (
 
     CONSTRAINT CK_GV_SDT CHECK (SDT LIKE '0[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]')
 );
-
+GO
 -- 📌 Bảng lớp học: Lưu lại thông tin các lớp học trong các khóa học.
 CREATE TABLE LopHoc (
     MaLop INT IDENTITY(1,1) PRIMARY KEY,                -- Mã lớp tự động tăng
@@ -196,7 +196,7 @@ CREATE TABLE LopHoc (
     CONSTRAINT FK_Lop_KhoaHoc FOREIGN KEY (MaKhoaHoc) REFERENCES KhoaHoc(MaKhoaHoc),
     CONSTRAINT FK_Lop_GiangVien FOREIGN KEY (MaGV) REFERENCES GiangVien(MaGV)
 );
-
+GO
 -- 📌 Bảng đăng ký khóa học: Lưu lại thông tin các lớp học trong các khóa học.
 CREATE TABLE DangKyKhoaHoc (
     MaDKKH INT IDENTITY(1,1) PRIMARY KEY,
@@ -212,7 +212,7 @@ CREATE TABLE DangKyKhoaHoc (
     CONSTRAINT FK_DKKH_LopHoc FOREIGN KEY (MaLop) REFERENCES LopHoc(MaLop),
     CONSTRAINT UQ_DKKH UNIQUE (CCCD, MaLop) -- Một học viên không đăng ký 2 lần cùng lớp
 );
-
+GO
 
 
 
@@ -548,41 +548,3 @@ VALUES
 ('012345678908', 8, '2025-04-21', N'Đã đăng ký',    N'Đăng ký sớm'),
 ('012345678909', 9, '2025-04-22', N'Đã huỷ',        NULL),
 ('012345678910',10, '2025-04-23', N'Đã đăng ký',    NULL);
-
-
--- ===================================
--- 5 CÁC TEST CASE
--- ===================================
-
--- 📌 Lỗi: Chưa đủ tuổi để thi loại bằng lái
-INSERT INTO DKThiGPLX (CCCD, MaLoai, NgayThi, MaTTSH)
-VALUES ('012345678904', 'DE', '2024-04-15', 4);
-
-
--- 📌 Lỗi: Kết quả thi "Đậu" nhưng có "ghi chú"
-INSERT INTO KetQuaThiGPLX (MaKetQua, MaDKThiGPLX, DiemLyThuyet, DiemThucHanh, DiemMoPhong, DiemDuongTruong, GhiChu, KetQua)
-VALUES ('KQ0001', 1, 30, 90, 36, 36, N'Lỗi nhẹ nhưng không ảnh hưởng kết quả', N'Đậu');
-
--- 📌 Lỗi: Kết quả thi "Đậu" nhưng có không đủ điểm
-INSERT INTO KetQuaThiGPLX (MaKetQua, MaDKThiGPLX, DiemLyThuyet, DiemThucHanh, DiemMoPhong, DiemDuongTruong, GhiChu, KetQua)
-VALUES ('KQ0001', 2, 20, 70, 30, 30, NULL, N'Đậu');
-GO
-
--- 📌 Lỗi: Cấp GPLX trước ngày thi
-INSERT INTO GPLX (MaGPLX, MaKetQua, NgayCap, NgayHetHan)
-VALUES ('790123456791', 'KQ0001', '2024-04-09', '2034-04-10');
-
-
--- 📌 Lỗi: Cấp GPLX cho thí sinh có kết quả "Rớt"
-INSERT INTO GPLX (MaGPLX, MaKetQua, NgayCap, NgayHetHan)
-VALUES ('790123456793', 'KQ0003', '2024-04-25', '2034-04-25');
-
-
--- 📌 Nhập ngày vi phạm trước ngày nhận GPLX
-INSERT INTO ViPhamGPLX (MaGPLX, MaLoaiViPham, NgayViPham, TrangThai)
-VALUES ('790123456789', 3, '2023-04-10', N'Chưa đóng phạt'); -- Lỗi vì ngày vi phạm trước ngày cấp GPLX (2024-04-15)
-
-
-
-dotnet ef dbcontext scaffold "Server=localhost,1433;Database=QL_GPLX;User Id=sa;Password=Thanhdat53140;Encrypt=True;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models -f --table KhoaHoc --table GiangVien  --table DangKyKhoaHoc --table LopHoc
-

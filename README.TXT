@@ -11,5 +11,28 @@ dotnet clean
 dotnet build
 dotnet run
 
+MacBook's Dat
 Server=localhost,1433;Database=QL_GPLX;User Id=sa;Password=Thanhdat53140;Encrypt=True;TrustServerCertificate=True;
-sửa sau khi có kết quả thi thì xoá ở đăng kí thi
+PC's Dat
+Server=DESKTOP-E9VB407\\MSSQLSERVER01;Database=QL_GPLX;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;
+---------------------
+*Đăng kí khóa học
+-Create
+-Edit
+-Details
+---------------
+*Giảng viên 
+-Create ✔
+-Details
+-Edit
+----------------
+*Lớp học
+-Create
+-Index
+-Edit
+-Details
+--------------
+*Khóa Học 
+-Create
+-Details
+-Edit

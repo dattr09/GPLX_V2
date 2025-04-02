@@ -1,4 +1,10 @@
 @model GPLX.Models.GiangVien
+@if (Model != null)
+{
+    @* <input type="text" class="form-control" id="MaGv" name="MaGv" value="@Model.MaGv.ToString()" readonly /> *@
+    <input type="text" class="form-control" id="MaGv" name="MaGv" value="@(Model?.MaGv ?? 0)" readonly />
+
+}
 
 @{
     ViewData["Title"] = "Thêm giảng viên";
@@ -7,33 +13,40 @@
 <h1>@ViewData["Title"]</h1>
 
 <form asp-action="Create">
+@if (Model != null && Model.MaGv != 0) 
+{
+    <!-- Trường ẩn để giữ giá trị MaGv khi submit -->
+    <input type="hidden" id="MaGv" name="MaGv" value="@Model.MaGv" />
+
+    <!-- Chỉ hiển thị Mã Giảng Viên khi có giá trị -->
     <div class="form-group">
-        <label for="MaGv">Mã giảng viên</label>
-        <input type="text" class="form-control" id="MaGv" name="MaGv" value="@Model.MaGv" required />
+        <label>Mã giảng viên</label>
+        <span class="form-control-plaintext">@Model.MaGv</span>
     </div>
+}
+
     <div class="form-group">
         <label for="HoTen">Họ và tên</label>
-        <input type="text" class="form-control" id="HoTen" name="HoTen" value="@Model.HoTen" required />
+        <input type="text" class="form-control" id="HoTen" name="HoTen" value="@(Model?.HoTen ?? "")" required />
     </div>
     <div class="form-group">
         <label for="NgaySinh">Ngày sinh</label>
-        <input type="date" class="form-control" id="NgaySinh" name="NgaySinh" value="@Model.NgaySinh?.ToString("yyyy-MM-dd")" />
+        <input type="date" class="form-control" id="NgaySinh" name="NgaySinh" value="@(Model?.NgaySinh?.ToString("yyyy-MM-dd") ?? "")" />
     </div>
     <div class="form-group">
         <label for="GioiTinh">Giới tính</label>
         <select class="form-control" id="GioiTinh" name="GioiTinh">
-            @* Precompute the selected attribute for each option *@
-            <option value="true" @(Model.GioiTinh == true ? "selected" : "")>Nam</option>
-            <option value="false" @(Model.GioiTinh == false ? "selected" : "")>Nữ</option>
+            <option value="true" selected="@(Model?.GioiTinh == true ? "selected" : null)">Nam</option>
+            <option value="false" selected="@(Model?.GioiTinh == false ? "selected" : null)">Nữ</option>
         </select>
     </div>
     <div class="form-group">
         <label for="Sdt">Số điện thoại</label>
-        <input type="text" class="form-control" id="Sdt" name="Sdt" value="@Model.Sdt" />
+        <input type="text" class="form-control" id="Sdt" name="Sdt" value="@(Model?.Sdt ?? "")" />
     </div>
     <div class="form-group">
         <label for="Email">Email</label>
-        <input type="email" class="form-control" id="Email" name="Email" value="@Model.Email" />
+        <input type="email" class="form-control" id="Email" name="Email" value="@(Model?.Email ?? "")" />
     </div>
     <button type="submit" class="btn btn-primary">Lưu</button>
     <a href="@Url.Action("Index", "GiangVien")" class="btn btn-secondary">Hủy</a>

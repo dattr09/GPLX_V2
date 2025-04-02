@@ -34,6 +34,7 @@ namespace GPLX.Controllers
         // GET: GiangVien/Create
         public IActionResult Create()
         {
+            var model = new GiangVien(); 
             return View();
         }
 
