@@ -1,0 +1,37 @@
+@model GPLX.Models.GiangVien
+
+@{
+    ViewData["Title"] = "Chi tiết giảng viên";
+}
+
+<h1>Chi tiết giảng viên</h1>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Thông tin giảng viên</h5>
+        <dl class="row">
+            <dt class="col-sm-3">Mã giảng viên:</dt>
+            <dd class="col-sm-9">@Model.MaGv</dd>
+
+            <dt class="col-sm-3">Họ và tên:</dt>
+            <dd class="col-sm-9">@Model.HoTen</dd>
+
+            <dt class="col-sm-3">Ngày sinh:</dt>
+            <dd class="col-sm-9">@Model.NgaySinh?.ToString("dd/MM/yyyy")</dd>
+
+            <dt class="col-sm-3">Giới tính:</dt>
+            <dd class="col-sm-9">@(Model.GioiTinh == true ? "Nam" : "Nữ")</dd>
+
+            <dt class="col-sm-3">Số điện thoại:</dt>
+            <dd class="col-sm-9">@Model.Sdt</dd>
+
+            <dt class="col-sm-3">Email:</dt>
+            <dd class="col-sm-9">@Model.Email</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="mt-3">
+    <a asp-action="Edit" asp-route-id="@Model.MaGv" class="btn btn-warning">Chỉnh sửa</a>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+</div>

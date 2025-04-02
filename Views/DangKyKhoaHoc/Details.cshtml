@@ -1,0 +1,41 @@
+@model GPLX.Models.DangKyKhoaHoc
+
+@{
+    ViewData["Title"] = "Chi tiết đăng ký khóa học";
+}
+
+<h1>Chi tiết đăng ký khóa học</h1>
+
+<div class="card shadow-lg rounded">
+    <div class="card-body">
+        <h5 class="card-title">Thông tin đăng ký</h5>
+        <dl class="row">
+            <dt class="col-sm-3">Mã đăng ký:</dt>
+            <dd class="col-sm-9">@Model.MaDkkh</dd>
+
+            <dt class="col-sm-3">CCCD:</dt>
+            <dd class="col-sm-9">@Model.Cccd</dd>
+
+            <dt class="col-sm-3">Tên lớp:</dt>
+            <dd class="col-sm-9">@(Model.MaLopNavigation?.DiaDiem ?? "Không xác định")</dd>
+
+            <dt class="col-sm-3">Ngày đăng ký:</dt>
+            <dd class="col-sm-9">@Model.NgayDangKy.ToString("dd/MM/yyyy")</dd>
+
+            <dt class="col-sm-3">Trạng thái:</dt>
+            <dd class="col-sm-9">
+                <span class="badge @(Model.TrangThaiDangKy == "Đã duyệt" ? "bg-success" : "bg-warning")">
+                    @Model.TrangThaiDangKy
+                </span>
+            </dd>
+
+            <dt class="col-sm-3">Ghi chú:</dt>
+            <dd class="col-sm-9">@Model.GhiChu</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="mt-3">
+    <a asp-action="Edit" asp-route-id="@Model.MaDkkh" class="btn btn-warning">Chỉnh sửa</a>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+</div>

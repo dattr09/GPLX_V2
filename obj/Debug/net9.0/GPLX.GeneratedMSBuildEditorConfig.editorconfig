@@ -52,6 +52,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFuZ0t5S2hvYUhvY1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/DatG/Desktop/GPLX_V2/Views/DangKyKhoaHoc/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFuZ0t5S2hvYUhvY1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DatG/Desktop/GPLX_V2/Views/DangKyKhoaHoc/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFuZ0t5S2hvYUhvY1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/DatG/Desktop/GPLX_V2/Views/DangKyKhoaHoc/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFuZ0t5S2hvYUhvY1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -82,6 +90,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/DatG/Desktop/GPLX_V2/Views/GiangVien/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2lhbmdWaWVuXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DatG/Desktop/GPLX_V2/Views/GiangVien/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2lhbmdWaWVuXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DatG/Desktop/GPLX_V2/Views/GiangVien/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2lhbmdWaWVuXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/DatG/Desktop/GPLX_V2/Views/GiangVien/Index.cshtml]
@@ -144,6 +160,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2hvYUhvY1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/DatG/Desktop/GPLX_V2/Views/KhoaHoc/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2hvYUhvY1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/DatG/Desktop/GPLX_V2/Views/KhoaHoc/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2hvYUhvY1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -186,6 +206,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/DatG/Desktop/GPLX_V2/Views/LopHoc/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9wSG9jXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DatG/Desktop/GPLX_V2/Views/LopHoc/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9wSG9jXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/DatG/Desktop/GPLX_V2/Views/LopHoc/Index.cshtml]

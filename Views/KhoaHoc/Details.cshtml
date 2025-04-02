@@ -1,0 +1,43 @@
+@model GPLX.Models.KhoaHoc
+
+@{
+    ViewData["Title"] = "Chi tiết khóa học";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center mb-4">@Model.TenKhoaHoc</h1>
+
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h5 class="card-title">Thông tin chi tiết khóa học</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th class="col-sm-3">Mã khóa học</th>
+                    <td>@Model.MaKhoaHoc</td>
+                </tr>
+                <tr>
+                    <th class="col-sm-3">Tên khóa học</th>
+                    <td>@Model.TenKhoaHoc</td>
+                </tr>
+                <tr>
+                    <th class="col-sm-3">Thời gian học</th>
+                    <td>@Model.ThoiGianHoc</td>
+                </tr>
+                <tr>
+                    <th class="col-sm-3">Học phí</th>
+                    <td>@Model.HocPhi.ToString("C")</td> <!-- Định dạng học phí theo kiểu tiền tệ -->
+                </tr>
+                <tr>
+                    <th class="col-sm-3">Mô tả</th>
+                    <td>@Model.MoTa</td>
+                </tr>
+            </table>
+
+            <div class="text-center mt-4">
+                <a href="@Url.Action("Index", "KhoaHoc")" class="btn btn-secondary">Quay lại</a>
+            </div>
+        </div>
+    </div>
+</div>

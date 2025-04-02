@@ -1,0 +1,52 @@
+@model GPLX.Models.LopHoc
+
+@{
+    ViewData["Title"] = "Chi tiết lớp học";
+}
+
+<h1>Chi tiết lớp học</h1>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Thông tin lớp học</h5>
+        <dl class="row">
+            <dt class="col-sm-3">Mã lớp:</dt>
+            <dd class="col-sm-9">@Model.MaLop</dd>
+
+            <dt class="col-sm-3">Ngày bắt đầu:</dt>
+            <dd class="col-sm-9">@Model.NgayBatDau.ToString("dd/MM/yyyy")</dd>
+
+            <dt class="col-sm-3">Ngày kết thúc:</dt>
+            <dd class="col-sm-9">@Model.NgayKetThuc.ToString("dd/MM/yyyy")</dd>
+
+            <dt class="col-sm-3">Địa điểm:</dt>
+            <dd class="col-sm-9">@Model.DiaDiem</dd>
+
+            <dt class="col-sm-3">Thời gian học trong tuần:</dt>
+            <dd class="col-sm-9">@Model.ThoiGianHocTrongTuan</dd>
+
+            <dt class="col-sm-3">Số lượng tối đa:</dt>
+            <dd class="col-sm-9">@Model.SoLuongToiDa</dd>
+
+            <dt class="col-sm-3">Ghi chú:</dt>
+            <dd class="col-sm-9">@Model.GhiChu</dd>
+
+            <dt class="col-sm-3">Trạng thái:</dt>
+            <dd class="col-sm-9">@Model.TrangThai</dd>
+
+            <dt class="col-sm-3">Hình thức học:</dt>
+            <dd class="col-sm-9">@((Model.IsOnline.HasValue && Model.IsOnline.Value) ? "Online" : "Offline")</dd>
+
+            <dt class="col-sm-3">Giảng viên:</dt>
+            <dd class="col-sm-9">@Model.MaGvNavigation.HoTen</dd>
+
+            <dt class="col-sm-3">Khóa học:</dt>
+            <dd class="col-sm-9">@Model.MaKhoaHocNavigation.TenKhoaHoc</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="mt-3">
+    <a href="@Url.Action("Edit", new { id = Model.MaLop })" class="btn btn-warning">Chỉnh sửa</a>
+    <a href="@Url.Action("Index", "LopHoc")" class="btn btn-secondary">Quay lại danh sách lớp học</a>
+</div>

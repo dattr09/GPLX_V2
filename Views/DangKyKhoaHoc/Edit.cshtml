@@ -1,0 +1,69 @@
+@model GPLX.Models.DangKyKhoaHoc
+
+@{
+    ViewData["Title"] = "Chỉnh sửa đăng ký khóa học";
+}
+
+<h1 class="text-center">Chỉnh sửa đăng ký khóa học</h1>
+
+<div class="card">
+    <div class="card-body">
+        <form asp-action="Edit">
+            <input type="hidden" asp-for="MaDkkh" />
+
+            <div class="mb-3">
+                <label asp-for="Cccd" class="form-label">CCCD</label>
+                <input asp-for="Cccd" class="form-control" required />
+                <span asp-validation-for="Cccd" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="MaLop" class="form-label">Lớp học</label>
+                @if (ViewData["MaLop"] != null && ViewData["MaLop"] is SelectList)
+                {
+                    <select asp-for="MaLop" asp-items="@ViewData["MaLop"] as SelectList" class="form-control">
+                        <option value="">-- Chọn lớp --</option>
+                    </select>
+                }
+                else
+                {
+                    <p class="text-danger">Không có dữ liệu lớp học.</p>
+                }
+                <span asp-validation-for="MaLop" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="NgayDangKy" class="form-label">Ngày đăng ký</label>
+                <input asp-for="NgayDangKy" type="date" class="form-control" required />
+                <span asp-validation-for="NgayDangKy" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="TrangThaiDangKy" class="form-label">Trạng thái</label>
+                <select asp-for="TrangThaiDangKy" class="form-control">
+                    <option value="Đang xử lý">Đang xử lý</option>
+                    <option value="Đã xác nhận">Đã xác nhận</option>
+                    <option value="Đã hủy">Đã hủy</option>
+                </select>
+                <span asp-validation-for="TrangThaiDangKy" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="GhiChu" class="form-label">Ghi chú</label>
+                <textarea asp-for="GhiChu" class="form-control"></textarea>
+                <span asp-validation-for="GhiChu" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+                <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -19,13 +19,7 @@ Server=DESKTOP-E9VB407\\MSSQLSERVER01;Database=QL_GPLX;Integrated Security=True;
 *Đăng kí khóa học
 -Create
 -Edit
--Details
 ---------------
-*Giảng viên 
--Create ✔
--Details
--Edit
-----------------
 *Lớp học
 -Create
 -Index
@@ -34,5 +28,4 @@ Server=DESKTOP-E9VB407\\MSSQLSERVER01;Database=QL_GPLX;Integrated Security=True;
 --------------
 *Khóa Học 
 -Create
--Details
 -Edit

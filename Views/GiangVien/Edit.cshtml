@@ -21,10 +21,11 @@
     </div>
     <div class="form-group">
         <label for="GioiTinh">Giới tính</label>
-        <select class="form-control" id="GioiTinh" name="GioiTinh">
-            <option value="true" @(Model.GioiTinh == true ? "selected" : "")>Nam</option>
-            <option value="false" @(Model.GioiTinh == false ? "selected" : "")>Nữ</option>
-        </select>
+     <select class="form-control" id="GioiTinh" name="GioiTinh" asp-for="GioiTinh">
+        <option value="true">Nam</option>
+        <option value="false">Nữ</option>
+    </select>
+
     </div>
     <div class="form-group">
         <label for="Sdt">Số điện thoại</label>

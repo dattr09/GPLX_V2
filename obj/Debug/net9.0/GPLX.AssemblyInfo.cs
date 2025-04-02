@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GPLX")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6733cbed0d925c9058313059aae09437d041e793")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ddc4a5877994e8e1f7027f5a6b3e6e55893dd714")]
 [assembly: System.Reflection.AssemblyProductAttribute("GPLX")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GPLX")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
