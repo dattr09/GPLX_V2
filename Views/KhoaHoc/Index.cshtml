@@ -28,10 +28,11 @@
                 <td>@item.MaKhoaHoc</td>
                 <td>@item.TenKhoaHoc</td>
                 <td>@item.ThoiGianHoc</td>
-                <td>@item.HocPhi.ToString("C")</td>
+                <td>@item.HocPhi.ToString("N0") VNĐ</td>
                 <td>@item.MoTa</td>
                 <td>
-                    <a href="@Url.Action("Details", "KhoaHoc", new { id = item.MaKhoaHoc })" class="btn btn-info">Chi tiết</a>
+                    <a href="@Url.Action("Details", "KhoaHoc", new { id = item.MaKhoaHoc })" class="btn btn-info">Chi
+                        tiết</a>
                     <a href="@Url.Action("Edit", "KhoaHoc", new { id = item.MaKhoaHoc })" class="btn btn-warning">Sửa</a>
                     <a href="@Url.Action("Delete", "KhoaHoc", new { id = item.MaKhoaHoc })" class="btn btn-danger">Xóa</a>
                 </td>
@@ -39,3 +40,13 @@
         }
     </tbody>
 </table>
+
+<style>
+    .table th,
+    .table td {
+        white-space: nowrap;
+        /* Ngăn chữ xuống hàng */
+        max-width: 200px;
+        /* Giới hạn độ rộng của cột */
+    }
+</style>

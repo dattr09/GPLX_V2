@@ -10,8 +10,8 @@
     <a href="@Url.Action("Create", "LopHoc")" class="btn btn-primary">Thêm lớp học</a>
 </p>
 
-<table class="table">
-    <thead>
+<table class="table table-striped">
+    <thead class="table-dark">
         <tr>
             <th>Mã lớp</th>
             <th>Ngày bắt đầu</th>
@@ -19,6 +19,7 @@
             <th>Địa điểm</th>
             <th>Trạng thái</th>
             <th>Giảng viên</th>
+            <th>Khoá học</th>
             <th>Hành động</th>
         </tr>
     </thead>
@@ -31,7 +32,8 @@
                 <td>@item.NgayKetThuc.ToString("dd/MM/yyyy")</td>
                 <td>@item.DiaDiem</td>
                 <td>@item.TrangThai</td>
-                <td>@item.MaGvNavigation.HoTen</td>
+                <td>@item.MaGvNavigation?.HoTen</td>
+                <td>@item.MaKhoaHocNavigation?.TenKhoaHoc</td>
                 <td>
                     <a href="@Url.Action("Details", "LopHoc", new { id = item.MaLop })" class="btn btn-info">Chi tiết</a>
                     <a href="@Url.Action("Edit", "LopHoc", new { id = item.MaLop })" class="btn btn-warning">Sửa</a>

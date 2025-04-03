@@ -17,12 +17,20 @@ namespace GPLX.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.LopHocs.ToListAsync());
+            var lopHocs = await _context.LopHocs
+                .Include(l => l.MaKhoaHocNavigation)
+                .Include(l => l.MaGvNavigation)
+                .ToListAsync();
+            return View(lopHocs);
         }
 
         public async Task<IActionResult> Details(int id)
         {
-            var lopHoc = await _context.LopHocs.FindAsync(id);
+            var lopHoc = await _context.LopHocs
+                .Include(l => l.MaKhoaHocNavigation)
+                .Include(l => l.MaGvNavigation)
+                .FirstOrDefaultAsync(m => m.MaLop == id);
+
             if (lopHoc == null)
                 return NotFound();
 
@@ -31,6 +39,9 @@ namespace GPLX.Controllers
 
         public IActionResult Create()
         {
+            // Truyền danh sách giảng viên và khóa học vào ViewData để hiển thị trong dropdown list
+            ViewData["GiangVien"] = _context.GiangViens.ToList();
+            ViewData["KhoaHoc"] = _context.KhoaHocs.ToList();
             return View();
         }
 
@@ -40,10 +51,19 @@ namespace GPLX.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Convert NgayBatDau và NgayKetThuc từ string sang DateOnly
+                lopHoc.NgayBatDau = DateOnly.Parse(lopHoc.NgayBatDau.ToString());
+                lopHoc.NgayKetThuc = DateOnly.Parse(lopHoc.NgayKetThuc.ToString());
+
                 _context.Add(lopHoc);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            // Load lại danh sách giảng viên và khóa học khi có lỗi
+            ViewData["GiangVien"] = _context.GiangViens.ToList();
+            ViewData["KhoaHoc"] = _context.KhoaHocs.ToList();
+
             return View(lopHoc);
         }
 
@@ -74,7 +94,11 @@ namespace GPLX.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            var lopHoc = await _context.LopHocs.FindAsync(id);
+            var lopHoc = await _context.LopHocs
+                .Include(l => l.MaKhoaHocNavigation)
+                .Include(l => l.MaGvNavigation)
+                .FirstOrDefaultAsync(m => m.MaLop == id);
+
             if (lopHoc == null)
                 return NotFound();
 

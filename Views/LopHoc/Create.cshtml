@@ -1,0 +1,77 @@
+<form asp-action="Create">
+    <div class="form-group">
+        <label for="NgayBatDau">Ngày bắt đầu</label>
+        <input type="date" class="form-control" id="NgayBatDau" name="NgayBatDau" required />
+    </div>
+
+    <div class="form-group">
+        <label for="NgayKetThuc">Ngày kết thúc</label>
+        <input type="date" class="form-control" id="NgayKetThuc" name="NgayKetThuc" required />
+    </div>
+
+    <div class="form-group">
+        <label for="DiaDiem">Địa điểm</label>
+        <input type="text" class="form-control" id="DiaDiem" name="DiaDiem" />
+    </div>
+
+    <div class="form-group">
+        <label for="ThoiGianHocTrongTuan">Thời gian học trong tuần</label>
+        <input type="text" class="form-control" id="ThoiGianHocTrongTuan" name="ThoiGianHocTrongTuan" />
+    </div>
+
+    <div class="form-group">
+        <label for="SoLuongToiDa">Số lượng tối đa</label>
+        <input type="number" class="form-control" id="SoLuongToiDa" name="SoLuongToiDa" />
+    </div>
+
+    <div class="form-group">
+        <label for="GhiChu">Ghi chú</label>
+        <input type="text" class="form-control" id="GhiChu" name="GhiChu" />
+    </div>
+
+    <div class="form-group">
+        <label for="TrangThai">Trạng thái</label>
+        <select class="form-control" id="TrangThai" name="TrangThai">
+            <option value="Đang mở">Đang mở</option>
+            <option value="Đã đóng">Đã đóng</option>
+            <option value="Đã huỷ">Đã huỷ</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="HinhThucHoc">Hình thức học</label>
+        <select class="form-control" id="HinhThucHoc" name="IsOnline">
+            <option value="true">Online</option>
+            <option value="false">Offline</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="MaGv">Giảng viên</label>
+        <select class="form-control" id="MaGv" name="MaGv">
+            @if (ViewData["GiangVien"] is List<GPLX.Models.GiangVien> giangVienList)
+            {
+                foreach (var gv in giangVienList)
+                {
+                    <option value="@gv.MaGv">@gv.HoTen</option>
+                }
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="MaKhoaHoc">Khóa học</label>
+        <select class="form-control" id="MaKhoaHoc" name="MaKhoaHoc">
+            @if (ViewData["KhoaHoc"] is List<GPLX.Models.KhoaHoc> khoaHocList)
+            {
+                foreach (var kh in khoaHocList)
+                {
+                    <option value="@kh.MaKhoaHoc">@kh.TenKhoaHoc</option>
+                }
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Lưu</button>
+    <a href="@Url.Action("Index", "LopHoc")" class="btn btn-secondary">Hủy</a>
+</form>

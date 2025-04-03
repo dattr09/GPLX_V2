@@ -22,10 +22,6 @@ Server=DESKTOP-E9VB407\\MSSQLSERVER01;Database=QL_GPLX;Integrated Security=True;
 ---------------
 *Lớp học
 -Create
--Index
 -Edit
 -Details
 --------------
-*Khóa Học 
--Create
--Edit

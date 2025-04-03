@@ -1,32 +1,44 @@
 @model GPLX.Models.KhoaHoc
 
 @{
-    ViewData["Title"] = "Sửa khóa học";
+    ViewData["Title"] = "Chỉnh sửa khóa học";
 }
 
 <h1>@ViewData["Title"]</h1>
 
-<form asp-action="Edit" asp-route-id="@Model.MaKhoaHoc">
-    <div class="form-group">
-        <label for="MaKhoaHoc">Mã khóa học</label>
-        <input type="text" class="form-control" id="MaKhoaHoc" name="MaKhoaHoc" value="@Model.MaKhoaHoc" readonly />
-    </div>
+<form asp-action="Edit">
+    <input type="hidden" asp-for="MaKhoaHoc" /> <!-- Ẩn mã khóa học để gửi khi submit -->
+
     <div class="form-group">
         <label for="TenKhoaHoc">Tên khóa học</label>
-        <input type="text" class="form-control" id="TenKhoaHoc" name="TenKhoaHoc" value="@Model.TenKhoaHoc" required />
+        <input asp-for="TenKhoaHoc" class="form-control" required placeholder="Nhập tên khóa học" />
+        <span asp-validation-for="TenKhoaHoc" class="text-danger"></span>
     </div>
+
     <div class="form-group">
         <label for="ThoiGianHoc">Thời gian học</label>
-        <input type="text" class="form-control" id="ThoiGianHoc" name="ThoiGianHoc" value="@Model.ThoiGianHoc" />
+        <input asp-for="ThoiGianHoc" class="form-control" required placeholder="VD: 3 tháng" />
+        <span asp-validation-for="ThoiGianHoc" class="text-danger"></span>
     </div>
+
     <div class="form-group">
         <label for="HocPhi">Học phí</label>
-        <input type="number" class="form-control" id="HocPhi" name="HocPhi" value="@Model.HocPhi" />
+        <input asp-for="HocPhi" class="form-control" type="number" step="1000" min="0" required placeholder="Nhập số tiền học phí" />
+        <span asp-validation-for="HocPhi" class="text-danger"></span>
     </div>
+
     <div class="form-group">
         <label for="MoTa">Mô tả</label>
-        <textarea class="form-control" id="MoTa" name="MoTa">@Model.MoTa</textarea>
+        <textarea asp-for="MoTa" class="form-control" placeholder="Mô tả ngắn gọn về khóa học"></textarea>
+        <span asp-validation-for="MoTa" class="text-danger"></span>
     </div>
+
+    <div class="form-group">
+        <label for="MaLoai">Loại giấy phép</label>
+        <select asp-for="MaLoai" class="form-control" asp-items="ViewBag.MaLoai"></select>
+        <span asp-validation-for="MaLoai" class="text-danger"></span>
+    </div>
+
     <button type="submit" class="btn btn-primary">Cập nhật</button>
-    <a href="@Url.Action("Index", "KhoaHoc")" class="btn btn-secondary">Hủy</a>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
 </form>

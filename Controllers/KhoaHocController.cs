@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GPLX.Models;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GPLX.Controllers
 {
@@ -31,12 +31,13 @@ namespace GPLX.Controllers
 
         public IActionResult Create()
         {
+            ViewData["MaLoai"] = new SelectList(_context.LoaiGplxes, "MaLoai", "TenLoai");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MaKhoaHoc,TenKhoaHoc,ThoiGianHoc,HocPhi,MoTa,MaLoai")] KhoaHoc khoaHoc)
+        public async Task<IActionResult> Create([Bind("TenKhoaHoc,ThoiGianHoc,HocPhi,MoTa,MaLoai")] KhoaHoc khoaHoc)
         {
             if (ModelState.IsValid)
             {
@@ -45,6 +46,7 @@ namespace GPLX.Controllers
                 TempData["SuccessMessage"] = "Thêm khóa học thành công!";
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["MaLoai"] = new SelectList(_context.LoaiGplxes, "MaLoai", "TenLoai", khoaHoc.MaLoai);
             TempData["ErrorMessage"] = "Dữ liệu nhập vào không hợp lệ!";
             return View(khoaHoc);
         }
@@ -52,10 +54,9 @@ namespace GPLX.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var khoaHoc = await _context.KhoaHocs.FindAsync(id);
-            if (khoaHoc == null)
-            {
-                return NotFound();
-            }
+            if (khoaHoc == null) return NotFound();
+
+            ViewData["MaLoai"] = new SelectList(_context.LoaiGplxes, "MaLoai", "TenLoai", khoaHoc.MaLoai);
             return View(khoaHoc);
         }
 
@@ -63,32 +64,30 @@ namespace GPLX.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("MaKhoaHoc,TenKhoaHoc,ThoiGianHoc,HocPhi,MoTa,MaLoai")] KhoaHoc khoaHoc)
         {
-            if (id != khoaHoc.MaKhoaHoc)
+            if (id != khoaHoc.MaKhoaHoc) return NotFound();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                ViewData["MaLoai"] = new SelectList(_context.LoaiGplxes, "MaLoai", "TenLoai", khoaHoc.MaLoai);
+                return View(khoaHoc);
             }
 
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    _context.Update(khoaHoc);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!KhoaHocExists(khoaHoc.MaKhoaHoc))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                _context.Update(khoaHoc);
+                await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Cập nhật thành công!";
             }
-            return View(khoaHoc);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!_context.KhoaHocs.Any(e => e.MaKhoaHoc == id))
+                {
+                    return NotFound();
+                }
+                throw;
+            }
+
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Delete(int id)
