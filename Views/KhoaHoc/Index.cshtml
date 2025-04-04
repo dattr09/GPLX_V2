@@ -29,7 +29,8 @@
 
         <!-- Tìm kiếm & nút thêm -->
         <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-            <input type="text" id="searchInput" class="form-control w-100 w-md-25 shadow-sm" placeholder="🔍 Tìm mã hoặc tên khóa học...">
+            <input type="text" id="searchInput" class="form-control w-100 w-md-25 shadow-sm"
+                placeholder="🔍 Tìm mã hoặc tên khóa học...">
             <a href="@Url.Action("Create", "KhoaHoc")" class="btn btn-success shadow-sm rounded-3">
                 <i class="bi bi-plus-circle-fill"></i> Thêm Khóa Học
             </a>
@@ -58,13 +59,16 @@
                             <td>@item.HocPhi.ToString("N0") VNĐ</td>
                             <td class="text-start ps-3">@item.MoTa</td>
                             <td>
-                                <a href="@Url.Action("Details", "KhoaHoc", new { id = item.MaKhoaHoc })" class="btn btn-sm btn-info rounded-3 shadow-sm me-1">
+                                <a href="@Url.Action("Details", "KhoaHoc", new { id = item.MaKhoaHoc })"
+                                    class="btn btn-sm btn-info rounded-3 shadow-sm me-1">
                                     <i class="bi bi-eye-fill"></i> Chi Tiết
                                 </a>
-                                <a href="@Url.Action("Edit", "KhoaHoc", new { id = item.MaKhoaHoc })" class="btn btn-sm btn-warning rounded-3 shadow-sm me-1">
+                                <a href="@Url.Action("Edit", "KhoaHoc", new { id = item.MaKhoaHoc })"
+                                    class="btn btn-sm btn-warning rounded-3 shadow-sm me-1">
                                     <i class="bi bi-pencil-fill"></i> Cập Nhật
                                 </a>
-                                <a href="@Url.Action("Delete", "KhoaHoc", new { id = item.MaKhoaHoc })" class="btn btn-sm btn-danger rounded-3 shadow-sm delete-btn">
+                                <a href="@Url.Action("Delete", "KhoaHoc", new { id = item.MaKhoaHoc })"
+                                    class="btn btn-sm btn-danger rounded-3 shadow-sm delete-btn">
                                     <i class="bi bi-trash-fill"></i> Xóa
                                 </a>
                             </td>
@@ -91,12 +95,13 @@
 </script>
 
 <style>
- .table th,
+    .table th,
     .table td {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        max-width: 300px; /* bạn có thể điều chỉnh độ rộng tối đa */
+        max-width: 300px;
+        /* bạn có thể điều chỉnh độ rộng tối đa */
     }
 </style>
 

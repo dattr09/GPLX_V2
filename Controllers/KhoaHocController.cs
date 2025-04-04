@@ -105,16 +105,24 @@ namespace GPLX.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var khoaHoc = await _context.KhoaHocs.FindAsync(id);
-            if (khoaHoc != null)
+
+            if (khoaHoc == null)
+            {
+                TempData["ErrorMessage"] = "Không tìm thấy khóa học!";
+                return RedirectToAction(nameof(Index));
+            }
+
+            try
             {
                 _context.KhoaHocs.Remove(khoaHoc);
                 await _context.SaveChangesAsync();
-                TempData["SuccessMessage"] = "Xóa thành công!";
+                TempData["SuccessMessage"] = "Xóa khóa học thành công!";
             }
-            else
+            catch (DbUpdateException)
             {
-                TempData["ErrorMessage"] = "Không tìm thấy khóa học!";
+                TempData["ErrorMessage"] = "Không thể xóa khóa học vì có dữ liệu liên quan!";
             }
+
             return RedirectToAction(nameof(Index));
         }
 
