@@ -5,24 +5,102 @@
 @inject UserManager<ApplicationUser> UserManager
 
 <ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-    <li class="nav-item">
-        <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
-    </li>
-    <li class="nav-item">
-        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0">Logout</button>
-        </form>
-    </li>
-}
-else
-{
-    <li class="nav-item">
-        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
-}
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a id="manage" class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                <i class="fas fa-user-circle"></i> Hello @UserManager.GetUserName(User)!
+            </a>
+        </li>
+        <li class="nav-item">
+            <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button id="logout" type="submit" class="nav-link btn btn-link text-light border-0">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-light" id="register" asp-area="Identity" asp-page="/Account/Register">
+                <i class="fas fa-user-plus"></i> Register
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-light" id="login" asp-area="Identity" asp-page="/Account/Login">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </a>
+        </li>
+    }
 </ul>
+
+<style>
+    /* Thanh điều hướng với hiệu ứng 3D */
+    .navbar-nav {
+        list-style-type: none;
+        padding-left: 0;
+        display: flex;
+        align-items: left;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .nav-item:hover {
+        transform: scale(1.1);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        background-color: rgba(52, 152, 219, 0.1);
+    }
+
+    .nav-link {
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.3s ease;
+    }
+
+    .nav-link:hover {
+        color: #3498db;
+    }
+
+    /* Hiệu ứng icon */
+    .nav-item i {
+        margin-right: 8px;
+        font-size: 20px;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .nav-item:hover i {
+        transform: rotate(15deg);
+    }
+
+    /* Nút Logout */
+    #logout {
+        padding: 5px 15px;
+        background: #e74c3c;
+        color: white;
+        border-radius: 5px;
+        transition: background 0.3s ease;
+    }
+
+    #logout:hover {
+        background: #c0392b;
+        transform: scale(1.1);
+    }
+
+    /* Nút Logout khi hover */
+    #logoutForm {
+        margin-left: 10px;
+    }
+
+    /* Đổi màu của các item khi đăng nhập */
+    .nav-item:hover {
+        background-color: rgba(52, 152, 219, 0.2);
+    }
+
+    /* Điều chỉnh khi đã đăng nhập */
+    .text-light {
+        color: #fff;
+    }
+</style>
+
+<!-- Thêm Font Awesome cho các icon -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">

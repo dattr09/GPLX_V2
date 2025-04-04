@@ -1,21 +1,73 @@
 ﻿@page
 @model LogoutModel
 @{
-    ViewData["Title"] = "Log out";
+    ViewData["Title"] = "Đăng xuất";
 }
 
-<header>
-    <h1>@ViewData["Title"]</h1>
-    @{
-        if (User.Identity?.IsAuthenticated ?? false)
-        {
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
-                <button type="submit" class="nav-link btn btn-link text-dark">Click here to Logout</button>
-            </form>
-        }
-        else
-        {
-            <p>You have successfully logged out of the application.</p>
-        }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<style>
+    .logout-container {
+        max-width: 400px;
+        margin: auto;
+        background: linear-gradient(135deg, #2c3e50, #34495e);
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
+        color: #ecf0f1;
+        text-align: center;
+        transform: scale(0.95);
+        transition: all 0.4s ease-in-out;
     }
-</header>
+
+    .logout-container:hover {
+        transform: scale(1);
+        box-shadow: 15px 15px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .btn-logout {
+        background: #e74c3c;
+        border: none;
+        padding: 12px;
+        font-size: 18px;
+        border-radius: 10px;
+        transition: all 0.3s;
+        color: white;
+        cursor: pointer;
+    }
+
+    .btn-logout:hover {
+        background: #c0392b;
+        box-shadow: 0px 5px 15px rgba(231, 76, 60, 0.6);
+    }
+
+    .message {
+        font-size: 18px;
+        margin-top: 15px;
+        animation: fadeIn 1.5s;
+    }
+
+    @@keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+<div class="logout-container">
+    <h1><i class="fas fa-sign-out-alt"></i> Đăng xuất</h1>
+    @if (User.Identity?.IsAuthenticated ?? false)
+    {
+        <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+            <button type="submit" class="btn-logout"><i class="fas fa-power-off"></i> Nhấn vào đây để đăng xuất</button>
+        </form>
+    }
+    else
+    {
+        <p class="message"><i class="fas fa-check-circle"></i> Bạn đã đăng xuất thành công.</p>
+    }
+</div>

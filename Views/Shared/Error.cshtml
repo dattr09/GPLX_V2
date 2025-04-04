@@ -1,25 +1,119 @@
 ﻿@model ErrorViewModel
 @{
-    ViewData["Title"] = "Error";
+    ViewData["Title"] = "Lỗi";
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+<div class="container text-center">
+    <h1 class="text-danger display-1 error-header">
+        <i class="fas fa-exclamation-triangle"></i> Lỗi
+    </h1>
+    <h2 class="text-danger display-4">
+        Đã xảy ra lỗi khi xử lý yêu cầu của bạn.
+    </h2>
 
-@if (Model.ShowRequestId)
-{
+    @if (Model.ShowRequestId)
+    {
+        <p class="mt-3">
+            <strong>ID yêu cầu:</strong> <code>@Model.RequestId</code>
+        </p>
+    }
+
+    <h3 class="mt-5">Chế độ Phát triển</h3>
     <p>
-        <strong>Request ID:</strong> <code>@Model.RequestId</code>
+        Chuyển sang môi trường <strong>Phát triển</strong> sẽ hiển thị thông tin chi tiết hơn về lỗi đã xảy ra.
     </p>
-}
+    <p>
+        <strong>Môi trường Phát triển không nên được bật trong các ứng dụng đã triển khai.</strong>
+        Điều này có thể dẫn đến việc hiển thị thông tin nhạy cảm từ các ngoại lệ cho người dùng cuối.
+        Để gỡ lỗi cục bộ, hãy bật môi trường <strong>Phát triển</strong> bằng cách đặt biến môi trường <strong>ASPNETCORE_ENVIRONMENT</strong> thành <strong>Development</strong>
+        và khởi động lại ứng dụng.
+    </p>
+</div>
 
-<h3>Development Mode</h3>
-<p>
-    Swapping to <strong>Development</strong> environment will display more detailed information about the error that occurred.
-</p>
-<p>
-    <strong>The Development environment shouldn't be enabled for deployed applications.</strong>
-    It can result in displaying sensitive information from exceptions to end users.
-    For local debugging, enable the <strong>Development</strong> environment by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>
-    and restarting the app.
-</p>
+<style>
+    /* Trang lỗi đẹp mắt với hiệu ứng */
+    .error-header {
+        font-size: 6rem;
+        font-weight: bold;
+        animation: bounceIn 1s ease-out;
+    }
+
+    .display-4 {
+        font-size: 2.5rem;
+        font-weight: 400;
+        margin-top: 20px;
+    }
+
+    /* Hiệu ứng 3D */
+    .container {
+        animation: fadeInUp 1s ease-out;
+        transform-origin: center;
+    }
+
+    .container p {
+        font-size: 1.2rem;
+        color: #333;
+        margin-top: 20px;
+        transition: color 0.3s ease;
+    }
+
+    .container p:hover {
+        color: #3498db;
+    }
+
+    /* Hiệu ứng hover và sự tương tác của các icon */
+    .fas.fa-exclamation-triangle {
+        font-size: 4rem;
+        color: #e74c3c;
+        transition: transform 0.3s ease;
+    }
+
+    .fas.fa-exclamation-triangle:hover {
+        transform: rotate(360deg);
+    }
+
+    /* Định dạng văn bản */
+    h3 {
+        font-size: 1.8rem;
+        font-weight: 500;
+        color: #333;
+    }
+
+    code {
+        font-size: 1.2rem;
+        color: #e74c3c;
+        background-color: #f4f4f4;
+        padding: 5px;
+        border-radius: 3px;
+    }
+
+    /* Animation hiệu ứng khi fade in */
+    @@keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Animation hiệu ứng bounce */
+    @@keyframes bounceIn {
+        0% {
+            transform: scale(0.3);
+            opacity: 0;
+        }
+        50% {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+</style>
+
+<!-- Thêm Font Awesome cho các icon -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">

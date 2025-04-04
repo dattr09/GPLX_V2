@@ -2,9 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GPLX.Models;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GPLX.Controllers
 {
+    [Authorize]
     public class GiangVienController : Controller
     {
         private readonly AppDBContext _context;

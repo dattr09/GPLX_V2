@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GPLX.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GPLX.Controllers
 {
+    [Authorize]
     public class CongDanController : Controller
     {
         private readonly AppDBContext _context;

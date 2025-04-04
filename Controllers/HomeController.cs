@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using GPLX.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GPLX.Controllers;
 

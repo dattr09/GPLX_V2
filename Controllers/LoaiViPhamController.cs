@@ -1,9 +1,11 @@
 using GPLX.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace GPLX.Controllers
 {
+    [Authorize]
     public class LoaiViPhamController : Controller
     {
         private readonly AppDBContext _context;

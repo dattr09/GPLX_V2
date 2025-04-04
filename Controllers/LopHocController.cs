@@ -4,9 +4,11 @@ using GPLX.Models;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GPLX.Controllers
 {
+    [Authorize]
     public class LopHocController : Controller
     {
         private readonly AppDBContext _context;

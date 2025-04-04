@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using GPLX.Models;
 
 namespace GPLX.Controllers
 {
+    [Authorize]
     public class DangKyKhoaHocController : Controller
     {
         private readonly AppDBContext _context;
