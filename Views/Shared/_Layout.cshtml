@@ -72,8 +72,15 @@
                             class="fas fa-school me-2"></i>Trung Tâm Sát Hạch</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" asp-controller="ViPhamGplx" asp-action="Index"><i
-                            class="fas fa-exclamation-triangle me-2"></i>Vi Phạm</a>
+                    <a class="nav-link collapsed text-white" data-bs-toggle="collapse" href="#submenu3" role="button"
+                        aria-expanded="false">
+                        <i class="fas fa-exclamation-triangle me-2"></i>Vi Phạm
+                    </a>
+                    <div class="collapse ps-3" id="submenu3">
+                        <a class="nav-link text-white" asp-controller="ViPhamGplx" asp-action="Index">Danh Sách Vi
+                            Phạm</a>
+                        <a class="nav-link text-white" asp-controller="LoaiViPham" asp-action="Index">Loại Vi Phạm</a>
+                    </div>
                 </li>
             </ul>
         </nav>

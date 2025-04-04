@@ -4,106 +4,33 @@
     ViewData["Title"] = "Xóa Công Dân";
 }
 
-<div class="container mt-5">
-    <div class="card shadow-lg p-5 rounded-4 animate__animated animate__fadeIn" style="background: linear-gradient(135deg, #fff3f3, #ffecec);">
-        <h1 class="text-danger text-center mb-4 fw-bold">
-            <i class="bi bi-exclamation-triangle-fill"></i> XÓA CÔNG DÂN
-        </h1>
-        <h5 class="text-center text-secondary mb-4 fst-italic">Bạn có chắc chắn muốn xóa công dân này không? Hành động này không thể hoàn tác.</h5>
-        <hr class="mb-4" />
-
-        <div class="row g-4">
-            <!-- Cột trái -->
-            <div class="col-md-6">
-                <table class="table table-hover shadow-sm rounded-3 table-3d">
-                    <tr>
-                        <th class="bg-danger text-white">CCCD</th>
-                        <td>@Model.Cccd</td>
-                    </tr>
-                    <tr>
-                        <th class="bg-danger text-white">Họ Tên</th>
-                        <td>@Model.HoTen</td>
-                    </tr>
-                    <tr>
-                        <th class="bg-danger text-white">Ngày Sinh</th>
-                        <td>@Model.NgaySinh.ToString("dd/MM/yyyy")</td>
-                    </tr>
-                </table>
-            </div>
-
-            <!-- Cột phải -->
-            <div class="col-md-6">
-                <table class="table table-hover shadow-sm rounded-3 table-3d">
-                    <tr>
-                        <th class="bg-danger text-white">Giới Tính</th>
-                        <td>@(Model.GioiTinh ? "Nam" : "Nữ")</td>
-                    </tr>
-                    <tr>
-                        <th class="bg-danger text-white">Quốc Tịch</th>
-                        <td>@Model.QuocTich</td>
-                    </tr>
-                    <tr>
-                        <th class="bg-danger text-white">Địa Chỉ</th>
-                        <td>@Model.DiaChi</td>
-                    </tr>
-                    <tr>
-                        <th class="bg-danger text-white">Số Điện Thoại</th>
-                        <td>@Model.SoDienThoai</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-
-        <div class="text-center mt-4">
-            <form asp-action="Delete" method="post">
-                <input type="hidden" asp-for="Cccd" />
-                
-                <button type="submit" class="btn btn-danger btn-lg btn-3d me-3">
-                    <i class="bi bi-trash-fill"></i> Xóa Ngay
-                </button>
-
-                <a href="@Url.Action("Index")" class="btn btn-outline-secondary btn-lg btn-3d">
-                    <i class="bi bi-arrow-left-circle-fill"></i> Hủy Bỏ
-                </a>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Hiệu ứng CSS -->
 <style>
-    .table-3d {
-        border-collapse: separate;
-        border-spacing: 0;
-        background: white;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    .delete-card {
+        background: #fff;
+        border: 1px solid #f5c6cb;
+        border-left: 6px solid #dc3545;
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+        border-radius: 1rem;
+        animation: fadeIn 0.5s ease;
     }
 
-    .table-3d:hover {
-        transform: scale(1.02);
-        box-shadow: 0 6px 15px rgba(255, 0, 0, 0.2);
+    @@keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
     }
 
-    .btn-3d {
-        padding: 10px 25px;
-        font-size: 1.1rem;
-        font-weight: 500;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        box-shadow: 3px 3px 6px #aaa;
-        border-radius: 12px;
-    }
-
-    .btn-3d:hover {
-        transform: translateY(-4px);
-        box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.2);
+    body {
+        background: #fff6f6;
+        font-family: 'Segoe UI', sans-serif;
     }
 
     .btn-danger {
-        background: linear-gradient(145deg, #ff4f4f, #c0392b);
+        background: linear-gradient(to right, #dc3545, #ff6b6b);
         border: none;
+    }
+
+    .btn-danger:hover {
+        background: #c82333;
     }
 
     .btn-outline-secondary {
@@ -115,7 +42,68 @@
     .btn-outline-secondary:hover {
         background: #d6d6d6;
     }
+
+    .info-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+
+    .info-label {
+        font-weight: bold;
+    }
 </style>
 
-<!-- Animation (optional) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<div class="container mt-5">
+    <div class="delete-card p-5 mx-auto" style="max-width: 600px;">
+        <h2 class="text-danger text-center mb-4">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i> Xóa Công Dân
+        </h2>
+
+        <p class="text-center fs-5">Bạn có chắc chắn muốn xóa công dân <strong>@Model.HoTen</strong>?</p>
+
+        <div class="info-row">
+            <div class="info-label">CCCD:</div>
+            <div>@Model.Cccd</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">Họ Tên:</div>
+            <div>@Model.HoTen</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">Ngày Sinh:</div>
+            <div>@Model.NgaySinh.ToString("dd/MM/yyyy")</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">Giới Tính:</div>
+            <div>@(Model.GioiTinh ? "Nam" : "Nữ")</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">Quốc Tịch:</div>
+            <div>@Model.QuocTich</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">Địa Chỉ:</div>
+            <div>@Model.DiaChi</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">Số Điện Thoại:</div>
+            <div>@Model.SoDienThoai</div>
+        </div>
+
+        <form method="post" class="mt-4 d-flex justify-content-center gap-3">
+            <input type="hidden" name="cccd" value="@Model.Cccd" />
+
+            <button type="submit" class="btn btn-danger px-4 py-2 rounded-3 shadow-sm">
+                <i class="bi bi-trash3-fill me-1"></i> Xóa
+            </button>
+
+            <a href="@Url.Action("Index", "CongDan")" class="btn btn-outline-secondary px-4 py-2 rounded-3 shadow-sm">
+                <i class="bi bi-x-circle me-1"></i> Hủy
+            </a>
+        </form>
+    </div>
+</div>
+
+<!-- Bootstrap Icons nếu chưa có -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
