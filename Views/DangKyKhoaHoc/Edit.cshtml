@@ -38,15 +38,17 @@
                 <span asp-validation-for="NgayDangKy" class="text-danger"></span>
             </div>
 
-            <div class="mb-3">
-                <label asp-for="TrangThaiDangKy" class="form-label">Trạng thái</label>
-                <select asp-for="TrangThaiDangKy" class="form-control">
-                    <option value="Đang xử lý">Đang xử lý</option>
-                    <option value="Đã xác nhận">Đã xác nhận</option>
-                    <option value="Đã hủy">Đã hủy</option>
-                </select>
-                <span asp-validation-for="TrangThaiDangKy" class="text-danger"></span>
-            </div>
+      <div class="mb-3">
+    <label asp-for="TrangThaiDangKy" class="form-label">Trạng thái</label>
+    <select asp-for="TrangThaiDangKy" class="form-control">
+        <option value="Đã đăng ký" selected="@(Model.TrangThaiDangKy == "Đã đăng ký")">Đã đăng ký</option>
+        <option value="Đã huỷ" selected="@(Model.TrangThaiDangKy == "Đã huỷ")">Đã huỷ</option>
+        <option value="Chờ xác nhận" selected="@(Model.TrangThaiDangKy == "Chờ xác nhận")">Chờ xác nhận</option>
+    </select>
+    <span asp-validation-for="TrangThaiDangKy" class="text-danger"></span>
+</div>
+
+
 
             <div class="mb-3">
                 <label asp-for="GhiChu" class="form-label">Ghi chú</label>

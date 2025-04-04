@@ -17,5 +17,5 @@ public partial class DangKyKhoaHoc
 
     public string? GhiChu { get; set; }
 
-    public virtual LopHoc MaLopNavigation { get; set; } = null!;
+    public virtual LopHoc? MaLopNavigation { get; set; } 
 }
