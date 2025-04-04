@@ -1,71 +1,121 @@
 @model GPLX.Models.CongDan
 
 @{
-    ViewData["Title"] = "Delete CongDan";
+    ViewData["Title"] = "Xóa Công Dân";
 }
 
-<div class="container mt-4">
-    <div class="card shadow-lg p-4 rounded-3" style="background-color: #f8f9fa;">
-        <h1 class="text-danger text-center">
-            <i class="bi bi-exclamation-triangle"></i> Xóa Công Dân
+<div class="container mt-5">
+    <div class="card shadow-lg p-5 rounded-4 animate__animated animate__fadeIn" style="background: linear-gradient(135deg, #fff3f3, #ffecec);">
+        <h1 class="text-danger text-center mb-4 fw-bold">
+            <i class="bi bi-exclamation-triangle-fill"></i> XÓA CÔNG DÂN
         </h1>
-        <h4 class="text-muted text-center">Bạn có chắc chắn muốn xóa công dân này không?</h4>
-        <hr />
+        <h5 class="text-center text-secondary mb-4 fst-italic">Bạn có chắc chắn muốn xóa công dân này không? Hành động này không thể hoàn tác.</h5>
+        <hr class="mb-4" />
 
-        <div class="row">
+        <div class="row g-4">
+            <!-- Cột trái -->
             <div class="col-md-6">
-                <table class="table table-bordered">
+                <table class="table table-hover shadow-sm rounded-3 table-3d">
                     <tr>
-                        <th class="bg-red">CCCD</th>
+                        <th class="bg-danger text-white">CCCD</th>
                         <td>@Model.Cccd</td>
                     </tr>
                     <tr>
-                        <th class="bg-red">Họ Tên</th>
+                        <th class="bg-danger text-white">Họ Tên</th>
                         <td>@Model.HoTen</td>
                     </tr>
                     <tr>
-                        <th class="bg-red">Ngày Sinh</th>
+                        <th class="bg-danger text-white">Ngày Sinh</th>
                         <td>@Model.NgaySinh.ToString("dd/MM/yyyy")</td>
                     </tr>
                 </table>
             </div>
 
+            <!-- Cột phải -->
             <div class="col-md-6">
-                <table class="table table-bordered">
+                <table class="table table-hover shadow-sm rounded-3 table-3d">
                     <tr>
-                        <th class="bg-red">Giới Tính</th>
+                        <th class="bg-danger text-white">Giới Tính</th>
                         <td>@(Model.GioiTinh ? "Nam" : "Nữ")</td>
                     </tr>
                     <tr>
-                        <th class="bg-red">Quốc Tịch</th>
+                        <th class="bg-danger text-white">Quốc Tịch</th>
                         <td>@Model.QuocTich</td>
                     </tr>
                     <tr>
-                        <th class="bg-red">Địa Chỉ</th>
+                        <th class="bg-danger text-white">Địa Chỉ</th>
                         <td>@Model.DiaChi</td>
                     </tr>
                     <tr>
-                        <th class="bg-red">Số Điện Thoại</th>
+                        <th class="bg-danger text-white">Số Điện Thoại</th>
                         <td>@Model.SoDienThoai</td>
                     </tr>
                 </table>
             </div>
         </div>
 
-        <div class="text-center mt-3">
+        <div class="text-center mt-4">
             <form asp-action="Delete" method="post">
                 <input type="hidden" asp-for="Cccd" />
                 
-                <button type="submit" class="btn btn-danger btn-lg shadow-sm px-4 rounded-3"
-                        style="background: linear-gradient(145deg, #ff6b6b, #ff4f4f); border: none; box-shadow: 3px 3px 6px #aaa;">
-                    <i class="bi bi-trash"></i> Xóa
+                <button type="submit" class="btn btn-danger btn-lg btn-3d me-3">
+                    <i class="bi bi-trash-fill"></i> Xóa Ngay
                 </button>
 
-                <a href="@Url.Action("Index")" class="btn btn-secondary btn-lg shadow-sm px-4 rounded-3"
-                   style="background: linear-gradient(145deg, #f0f0f0, #d6d6d6); border: none; box-shadow: 3px 3px 6px #aaa;">
-                    <i class="bi bi-arrow-left-circle"></i> Hủy
+                <a href="@Url.Action("Index")" class="btn btn-outline-secondary btn-lg btn-3d">
+                    <i class="bi bi-arrow-left-circle-fill"></i> Hủy Bỏ
                 </a>
             </form>
         </div>
     </div>
 </div>
+
+<!-- Hiệu ứng CSS -->
+<style>
+    .table-3d {
+        border-collapse: separate;
+        border-spacing: 0;
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .table-3d:hover {
+        transform: scale(1.02);
+        box-shadow: 0 6px 15px rgba(255, 0, 0, 0.2);
+    }
+
+    .btn-3d {
+        padding: 10px 25px;
+        font-size: 1.1rem;
+        font-weight: 500;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 3px 3px 6px #aaa;
+        border-radius: 12px;
+    }
+
+    .btn-3d:hover {
+        transform: translateY(-4px);
+        box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-danger {
+        background: linear-gradient(145deg, #ff4f4f, #c0392b);
+        border: none;
+    }
+
+    .btn-outline-secondary {
+        background: linear-gradient(145deg, #e0e0e0, #cfcfcf);
+        border: none;
+        color: #333;
+    }
+
+    .btn-outline-secondary:hover {
+        background: #d6d6d6;
+    }
+</style>
+
+<!-- Animation (optional) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>

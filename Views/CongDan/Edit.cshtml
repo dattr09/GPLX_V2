@@ -6,29 +6,30 @@
 
 <div class="container mt-4">
     <div class="card shadow-lg p-4 rounded-3">
-        <h1 class="text-primary text-center"><i class="bi bi-pencil-square"></i> Chỉnh sửa thông tin Công Dân</h1>
+        <h1 class="text-primary text-center"><i class="bi bi-pencil-square"></i> Chỉnh sửa Thông Tin Công Dân</h1>
         <hr />
 
         <form asp-action="Edit" method="post">
             <input type="hidden" asp-for="Cccd" />
 
             <div class="row">
+                <!-- Cột trái -->
                 <div class="col-md-6">
                     <div class="form-group mb-3">
-                        <label asp-for="HoTen" class="form-label fw-bold"></label>
-                        <input asp-for="HoTen" class="form-control shadow-sm" required />
+                        <label for="HoTen" class="form-label fw-bold">Họ và Tên</label>
+                        <input asp-for="HoTen" class="form-control border-success shadow-sm input-3d" required maxlength="50" />
                         <span asp-validation-for="HoTen" class="text-danger"></span>
                     </div>
 
                     <div class="form-group mb-3">
-                        <label asp-for="NgaySinh" class="form-label fw-bold"></label>
-                        <input asp-for="NgaySinh" type="date" class="form-control shadow-sm" required />
+                        <label for="NgaySinh" class="form-label fw-bold">Ngày, tháng, năm sinh</label>
+                        <input asp-for="NgaySinh" type="date" class="form-control border-success shadow-sm input-3d" required />
                         <span asp-validation-for="NgaySinh" class="text-danger"></span>
                     </div>
 
                     <div class="form-group mb-3">
-                        <label class="form-label fw-bold">Giới Tính</label>
-                        <select asp-for="GioiTinh" class="form-control shadow-sm">
+                        <label class="form-label fw-bold">Giới tính</label>
+                        <select asp-for="GioiTinh" class="form-control border-success shadow-sm input-3d">
                             <option value="true">Nam</option>
                             <option value="false">Nữ</option>
                         </select>
@@ -36,36 +37,35 @@
                     </div>
                 </div>
 
+                <!-- Cột phải -->
                 <div class="col-md-6">
                     <div class="form-group mb-3">
-                        <label asp-for="QuocTich" class="form-label fw-bold"></label>
-                        <input asp-for="QuocTich" class="form-control shadow-sm" required />
+                        <label for="QuocTich" class="form-label fw-bold">Quốc tịch</label>
+                        <input asp-for="QuocTich" class="form-control border-success shadow-sm input-3d" required maxlength="30" />
                         <span asp-validation-for="QuocTich" class="text-danger"></span>
                     </div>
 
                     <div class="form-group mb-3">
-                        <label asp-for="DiaChi" class="form-label fw-bold"></label>
-                        <input asp-for="DiaChi" class="form-control shadow-sm" />
+                        <label for="DiaChi" class="form-label fw-bold">Địa chỉ</label>
+                        <input asp-for="DiaChi" class="form-control border-success shadow-sm input-3d" maxlength="100" />
                         <span asp-validation-for="DiaChi" class="text-danger"></span>
                     </div>
 
                     <div class="form-group mb-3">
-                        <label asp-for="SoDienThoai" class="form-label fw-bold"></label>
-                        <input asp-for="SoDienThoai" class="form-control shadow-sm" />
+                        <label for="SoDienThoai" class="form-label fw-bold">Số điện thoại</label>
+                        <input asp-for="SoDienThoai" class="form-control border-success shadow-sm input-3d" maxlength="10" />
                         <span asp-validation-for="SoDienThoai" class="text-danger"></span>
                     </div>
                 </div>
             </div>
 
-            <div class="text-center mt-3">
-                <button type="submit" class="btn btn-success btn-lg shadow-sm px-4 rounded-3"
-                        style="background: linear-gradient(145deg, #28a745, #218838); border: none; box-shadow: 3px 3px 6px #aaa;">
-                    <i class="bi bi-save"></i> Lưu
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-success btn-lg px-4 rounded-3 btn-3d">
+                    <i class="bi bi-save2"></i> Lưu Thay Đổi
                 </button>
 
-                <a href="@Url.Action("Index")" class="btn btn-secondary btn-lg shadow-sm px-4 rounded-3"
-                   style="background: linear-gradient(145deg, #f0f0f0, #d6d6d6); border: none; box-shadow: 3px 3px 6px #aaa;">
-                    <i class="bi bi-arrow-left-circle"></i> Hủy
+                <a href="@Url.Action("Index")" class="btn btn-secondary btn-lg px-4 rounded-3 btn-3d">
+                    <i class="bi bi-arrow-left-circle"></i> Quay Về
                 </a>
             </div>
         </form>
@@ -75,3 +75,36 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<!-- Hiệu ứng CSS -->
+<style>
+    .input-3d {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+    }
+
+    .input-3d:focus {
+        transform: scale(1.05);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-3d {
+        background: linear-gradient(145deg, #6ec6ff, #4096ee);
+        border: none;
+        box-shadow: 3px 3px 6px #aaa;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .btn-3d:hover {
+        transform: translateY(-5px);
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+</style>
