@@ -145,16 +145,28 @@ public async Task<IActionResult> Create([Bind("NgayBatDau,NgayKetThuc,DiaDiem,Th
         }
 
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var lopHoc = await _context.LopHocs.FindAsync(id);
-            if (lopHoc != null)
-            {
-                _context.LopHocs.Remove(lopHoc);
-                await _context.SaveChangesAsync();
-            }
-            return RedirectToAction(nameof(Index));
-        }
+public async Task<IActionResult> DeleteConfirmed(int id)
+{
+    var lopHoc = await _context.LopHocs.FindAsync(id);
+    
+    if (lopHoc == null)
+    {
+        return NotFound();
+    }
+
+    try
+    {
+        _context.LopHocs.Remove(lopHoc);
+        await _context.SaveChangesAsync();
+        TempData["SuccessMessage"] = "Xóa lớp học thành công!";
+    }
+    catch (DbUpdateException)
+    {
+        TempData["ErrorMessage"] = "Không thể xóa lớp học vì có khóa học đăng ký liên quan!";
+    }
+
+    return RedirectToAction(nameof(Index));
+}
+
     }
 }

@@ -3,6 +3,15 @@
 @{
     ViewData["Title"] = "Danh sách lớp học";
 }
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
 
 <h1>@ViewData["Title"]</h1>
 

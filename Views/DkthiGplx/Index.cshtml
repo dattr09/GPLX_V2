@@ -2,28 +2,33 @@
 <!-- Thêm thư viện SweetAlert2 để hiển thị thông báo đẹp -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-@if (TempData["Success"] != null)
-{
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Thành công!',
-            showConfirmButton: false,
-            timer: 3000
-        });
-    </script>
-}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        @if (TempData["Error"] != null)
+        {
+            <text>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi!',
+                    text: '@TempData["Error"]',
+                    confirmButtonColor: '#d33'
+                });
+            </text>
+        }
 
-@if (TempData["Error"] != null)
-{
-    <script>
-        Swal.fire({
-            icon: 'error',
-            title: 'Lỗi!',
-            showConfirmButton: true
-        });
-    </script>
-}
+        @if (TempData["Success"] != null)
+        {
+            <text>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thành công!',
+                    text: '@TempData["Success"]',
+                    confirmButtonColor: '#28a745'
+                });
+            </text>
+        }
+    });
+</script>
 
 <h2 class="mb-3 text-primary">📋 Danh Sách Đăng Ký Thi GPLX</h2>
 

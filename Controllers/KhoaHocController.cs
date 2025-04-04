@@ -100,23 +100,32 @@ namespace GPLX.Controllers
             return View(khoaHoc);
         }
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var khoaHoc = await _context.KhoaHocs.FindAsync(id);
-            if (khoaHoc != null)
-            {
-                _context.KhoaHocs.Remove(khoaHoc);
-                await _context.SaveChangesAsync();
-                TempData["SuccessMessage"] = "Xóa thành công!";
-            }
-            else
-            {
-                TempData["ErrorMessage"] = "Không tìm thấy khóa học!";
-            }
-            return RedirectToAction(nameof(Index));
-        }
+   [HttpPost, ActionName("Delete")]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> DeleteConfirmed(int id)
+{
+    var khoaHoc = await _context.KhoaHocs.FindAsync(id);
+
+    if (khoaHoc == null)
+    {
+        TempData["ErrorMessage"] = "Không tìm thấy khóa học!";
+        return RedirectToAction(nameof(Index));
+    }
+
+    try
+    {
+        _context.KhoaHocs.Remove(khoaHoc);
+        await _context.SaveChangesAsync();
+        TempData["SuccessMessage"] = "Xóa khóa học thành công!";
+    }
+    catch (DbUpdateException)
+    {
+        TempData["ErrorMessage"] = "Không thể xóa khóa học vì có dữ liệu liên quan!";
+    }
+
+    return RedirectToAction(nameof(Index));
+}
+
 
         private bool KhoaHocExists(int id)
         {

@@ -165,36 +165,55 @@ namespace GPLX.Controllers
         }
 
         // POST: DkthiGplx/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        
+[HttpPost, ActionName("Delete")]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> DeleteConfirmed(string id)
+{
+    try
+    {
+        // Tìm kết quả thi theo id
+        var ketQuaThi = await _context.KetQuaThiGplxes.FindAsync(id);
+        if (ketQuaThi == null)
         {
-            try
-            {
-                var dktGplx = await _context.DkthiGplxes.FindAsync(id);
-                if (dktGplx == null)
-                {
-                    TempData["Error"] = "Không tìm thấy đăng ký thi để xóa!";
-                    return RedirectToAction(nameof(Index));
-                }
-
-                _context.DkthiGplxes.Remove(dktGplx);
-                await _context.SaveChangesAsync();
-                TempData["Success"] = "Xóa đăng ký thi GPLX thành công!";
-            }
-            catch (DbUpdateException)
-            {
-                // Lỗi do ràng buộc dữ liệu (ví dụ: khóa ngoại)
-                TempData["Error"] = "Không thể xóa đăng ký thi GPLX vì đang có dữ liệu liên quan!";
-            }
-            catch (Exception ex)
-            {
-                // Ghi log lỗi nếu cần
-                TempData["Error"] = "Đã xảy ra lỗi trong quá trình xóa!";
-            }
-
+            // Nếu không tìm thấy kết quả thi, thông báo lỗi
+            TempData["Error"] = "Không tìm thấy kết quả thi để xóa!";
             return RedirectToAction(nameof(Index));
         }
+
+        // Kiểm tra xem có dữ liệu GPLX liên quan đến kết quả thi này không
+        var gplxList = _context.Gplxes.Where(g => g.MaKetQua == id);
+        if (gplxList.Any())
+        {
+            // Nếu có, không thể xóa và thông báo lỗi
+            TempData["Error"] = "Không thể xóa kết quả thi vì đang có dữ liệu GPLX liên quan!";
+            return RedirectToAction(nameof(Index));
+        }
+
+        // Xóa kết quả thi
+        _context.KetQuaThiGplxes.Remove(ketQuaThi);
+        await _context.SaveChangesAsync();
+
+        // Thông báo thành công sau khi xóa
+        TempData["Success"] = "Xóa kết quả thi thành công!";
+    }
+    catch (DbUpdateException)
+    {
+        // Lỗi khi cố gắng xóa do ràng buộc dữ liệu (ví dụ: khóa ngoại)
+        TempData["Error"] = "Không thể xóa kết quả thi vì có dữ liệu liên quan!";
+    }
+    catch (Exception)
+    {
+        // Lỗi tổng quát trong quá trình xóa
+        TempData["Error"] = "Đã xảy ra lỗi trong quá trình xóa!";
+    }
+
+    // Quay lại trang danh sách
+    return RedirectToAction(nameof(Index));
+}
+
+
+
 
 
         private bool DktGplxExists(int id)
