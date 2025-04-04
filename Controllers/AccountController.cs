@@ -133,7 +133,7 @@ namespace WebsiteBanHang.Controllers
           var confirmationLink = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, token = token }, Request.Scheme);
           await _emailSender.SendEmailAsync(user.Email, "Xác nhận email", $"Vui lòng xác nhận tài khoản của bạn bằng cách <a href='{confirmationLink}'>bấm vào đây</a>.");
 
-          return RedirectToAction("EmailVerificationPending");
+          return RedirectToAction("EmailVerificationPending", "Account", new { email = model.Email });
         }
 
         foreach (var error in result.Errors)

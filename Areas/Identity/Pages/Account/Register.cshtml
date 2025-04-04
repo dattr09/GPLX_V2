@@ -35,7 +35,8 @@
         margin-bottom: 20px;
     }
 
-    .form-floating input, .form-floating select {
+    .form-floating input,
+    .form-floating select {
         background: rgba(255, 255, 255, 0.1);
         border: none;
         color: white;
@@ -89,30 +90,34 @@
 
 <div class="register-container">
     <h1><i class="fas fa-user-plus"></i> Đăng ký</h1>
-    
+
     <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
 
         <div class="form-floating">
-            <input asp-for="Input.FullName" class="form-control" autocomplete="fullname" aria-required="true" placeholder="NguyenVanA" />
+            <input asp-for="Input.FullName" class="form-control" autocomplete="fullname" aria-required="true"
+                placeholder="NguyenVanA" />
             <label asp-for="Input.FullName">Họ và tên</label>
             <span asp-validation-for="Input.FullName" class="text-danger"></span>
         </div>
 
         <div class="form-floating">
-            <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+            <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true"
+                placeholder="name@example.com" />
             <label asp-for="Input.Email">Email</label>
             <span asp-validation-for="Input.Email" class="text-danger"></span>
         </div>
 
         <div class="form-floating">
-            <input asp-for="Input.Password" type="password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Mật khẩu" />
+            <input asp-for="Input.Password" type="password" class="form-control" autocomplete="new-password"
+                aria-required="true" placeholder="Mật khẩu" />
             <label asp-for="Input.Password">Mật khẩu</label>
             <span asp-validation-for="Input.Password" class="text-danger"></span>
         </div>
 
         <div class="form-floating">
-            <input asp-for="Input.ConfirmPassword" type="password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Nhập lại mật khẩu" />
+            <input asp-for="Input.ConfirmPassword" type="password" class="form-control" autocomplete="new-password"
+                aria-required="true" placeholder="Nhập lại mật khẩu" />
             <label asp-for="Input.ConfirmPassword">Xác nhận mật khẩu</label>
             <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
         </div>
@@ -136,8 +141,10 @@
         <div>
             @foreach (var provider in Model.ExternalLogins!)
             {
-                <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="d-inline">
-                    <button type="submit" class="social-btn" name="provider" value="@provider.Name" title="Đăng ký bằng @provider.DisplayName">
+                <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post"
+                    class="d-inline">
+                    <button type="submit" class="social-btn" name="provider" value="@provider.Name"
+                        title="Đăng ký bằng @provider.DisplayName">
                         <i class="fab fa-@provider.Name.ToLower()"></i>
                     </button>
                 </form>

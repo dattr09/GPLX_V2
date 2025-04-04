@@ -21,12 +21,12 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     .AddDefaultUI()
     .AddEntityFrameworkStores<AppDBContext>();
 
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    options.LoginPath = "/Identity/Account/Login";
-    options.LogoutPath = "/Identity/Account/Logout";
-    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
-});
+// builder.Services.ConfigureApplicationCookie(options =>
+// {
+//     options.LoginPath = "/Identity/Account/Login";
+//     options.LogoutPath = "/Identity/Account/Logout";
+//     options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+// });
 
 // Add services for Razor Pages and MVC
 builder.Services.AddRazorPages();
