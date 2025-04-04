@@ -1,24 +1,26 @@
 ﻿@model HomeViewModel
 
 <div class="container mt-5">
-    <div class="text-center mb-4">
-        <h1 class="text-primary">Thông Tin Giao Thông</h1>
+    <div class="text-center mb-5">
+        <h1 class="text-primary fw-bold">Thông Tin Giao Thông</h1>
+        <p class="text-muted">Tổng hợp thông tin hữu ích về luật giao thông và tra cứu vi phạm</p>
     </div>
 
-    <div class="row justify-content-center">
+    <div class="row g-4 justify-content-center">
         <!-- Bài viết pháp luật -->
-        <div class="col-md-8">
-            <div class="card shadow-lg">
+        <div class="col-lg-6 col-md-8">
+            <div class="card shadow-lg border-0">
                 <img src="/images/img1.jpg" class="card-img-top" alt="Bài viết pháp luật giao thông">
                 <div class="card-header bg-primary text-white text-center">
-                    <h4>Bài viết pháp luật giao thông</h4>
+                    <h4 class="mb-0">Bài viết pháp luật giao thông</h4>
                 </div>
-                <div class="card-body">
-                    <ul class="list-group">
+                <div class="card-body px-4 py-3">
+                    <ul class="list-group list-group-flush">
                         @foreach (var article in Model.Articles)
                         {
-                            <li class="list-group-item">
-                                <a href="@article.Url" target="_blank" class="text-decoration-none fw-bold text-dark d-block hover-link">
+                            <li class="list-group-item bg-light border-0">
+                                <i class="fas fa-file-alt text-primary me-2"></i>
+                                <a href="@article.Url" target="_blank" class="text-decoration-none text-dark fw-semibold hover-link">
                                     @article.Title
                                 </a>
                             </li>
@@ -29,18 +31,19 @@
         </div>
 
         <!-- Tra cứu phạt nguội -->
-        <div class="col-md-8 mt-4">
-            <div class="card shadow-lg">
+        <div class="col-lg-6 col-md-8">
+            <div class="card shadow-lg border-0">
                 <img src="/images/img2.png" class="card-img-top" alt="Tra cứu phạt nguội">
                 <div class="card-header bg-danger text-white text-center">
-                    <h4>Tra cứu phạt nguội</h4>
+                    <h4 class="mb-0">Tra cứu phạt nguội</h4>
                 </div>
-                <div class="card-body">
-                    <ul class="list-group">
+                <div class="card-body px-4 py-3">
+                    <ul class="list-group list-group-flush">
                         @foreach (var link in Model.TrafficFineLinks)
                         {
-                            <li class="list-group-item">
-                                <a href="@link.Url" target="_blank" class="text-decoration-none fw-bold text-dark d-block hover-link">
+                            <li class="list-group-item bg-light border-0">
+                                <i class="fas fa-search text-danger me-2"></i>
+                                <a href="@link.Url" target="_blank" class="text-decoration-none text-dark fw-semibold hover-link">
                                     @link.Title
                                 </a>
                             </li>
@@ -53,24 +56,35 @@
 </div>
 
 <style>
-    .hover-link:hover {
-        color: #007bff;
-        transform: translateX(5px);
+    .hover-link {
         transition: all 0.3s ease-in-out;
     }
 
+    .hover-link:hover {
+        color: #0d6efd;
+        padding-left: 5px;
+    }
+
     .card {
-        border-radius: 12px;
+        border-radius: 16px;
         overflow: hidden;
     }
 
     .card-header {
-        font-size: 18px;
-        font-weight: bold;
+        font-size: 1.1rem;
+        font-weight: 600;
     }
 
     .card-img-top {
-        height: 200px;
+        height: 220px;
         object-fit: cover;
+    }
+
+    .list-group-item {
+        transition: background-color 0.2s;
+    }
+
+    .list-group-item:hover {
+        background-color: #f1f1f1;
     }
 </style>

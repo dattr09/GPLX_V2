@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,57 +9,91 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/GPLX.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        integrity="sha512-" crossorigin="anonymous" />
 </head>
+
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light navbar-custom shadow-sm">
-            <div class="container">
-                <a class="navbar-brand text-white fw-bold" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="~/images/logo.png" alt="GPLX" height="85" width="85"> Quản Lý GPLX
-                </a>
-                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Trang Chủ</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="CongDan" asp-action="Index">Công Dân</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="DieuKienDatGplx" asp-action="Index">Điều Kiện GPLX</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="DkthiGplx" asp-action="Index">Đăng Ký Thi</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="GPLX" asp-action="Index">Giấy Phép Lái Xe</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="KetQuaThiGPLX" asp-action="Index">Kết Quả Thi</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="LoaiGPLX" asp-action="Index">Loại GPLX</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="LoaiViPham" asp-action="Index">Loại Vi Phạm</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="TrungTamSatHach" asp-action="Index">Trung Tâm Sát Hạch</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="ViPhamGplx" asp-action="Index">Vi Phạm GPLX</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="GiangVien" asp-action="Index">Giảng viên</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="DangKyKhoaHoc" asp-action="Index">Đăng Kí Khóa Học</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="LopHoc" asp-action="Index">Lớp Học</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="KhoaHoc" asp-action="Index">Khóa Học</a></li>
-                    </ul>
-                    </ul>
-                </div>
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <nav class="sidebar shadow-lg p-3 bg-dark text-white min-vh-100" id="sidebar" style="overflow-y: auto;">
+            <div class="text-center mb-4 pb-3 border-bottom border-light">
+                <img src="~/images/logo.png" class="img-fluid rounded-circle" style="width: 80px;" />
+                <h5 class="text-white mt-2">Quản Lý GPLX</h5>
             </div>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link text-white" asp-controller="Home" asp-action="Index"><i
+                            class="fas fa-home me-2"></i>Trang Chủ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed text-white" data-bs-toggle="collapse" href="#submenu1" role="button"
+                        aria-expanded="false">
+                        <i class="fas fa-id-card me-2"></i>Thông Tin
+                    </a>
+                    <div class="collapse ps-3" id="submenu1">
+                        <a class="nav-link text-white" asp-controller="CongDan" asp-action="Index">Công Dân</a>
+                        <a class="nav-link text-white" asp-controller="GiangVien" asp-action="Index">Giảng Viên</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed text-white" data-bs-toggle="collapse" href="#submenu2" role="button"
+                        aria-expanded="false">
+                        <i class="fas fa-book me-2"></i>Khóa Học
+                    </a>
+                    <div class="collapse ps-3" id="submenu2">
+                        <a class="nav-link text-white" asp-controller="KhoaHoc" asp-action="Index">Khóa Học</a>
+                        <a class="nav-link text-white" asp-controller="LopHoc" asp-action="Index">Lớp Học</a>
+                        <a class="nav-link text-white" asp-controller="DangKyKhoaHoc" asp-action="Index">Đăng Ký</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" asp-controller="DieuKienDatGplx" asp-action="Index"><i
+                            class="fas fa-check-circle me-2"></i>Điều Kiện GPLX</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" asp-controller="DkthiGplx" asp-action="Index"><i
+                            class="fas fa-pencil-alt me-2"></i>Đăng Ký Thi</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" asp-controller="KetQuaThiGplx" asp-action="Index"><i
+                            class="fas fa-poll me-2"></i>Kết Quả Thi</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" asp-controller="GPLX" asp-action="Index"><i
+                            class="fas fa-car me-2"></i>GPLX</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" asp-controller="LoaiGplx" asp-action="Index"><i
+                            class="fas fa-list me-2"></i>Loại GPLX</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" asp-controller="TrungTamSatHach" asp-action="Index"><i
+                            class="fas fa-school me-2"></i>Trung Tâm Sát Hạch</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" asp-controller="ViPhamGplx" asp-action="Index"><i
+                            class="fas fa-exclamation-triangle me-2"></i>Vi Phạm</a>
+                </li>
+            </ul>
         </nav>
-    </header>
 
-    <div class="container mt-4">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="footer-custom">
-        <div class="container">
-            <p class="mb-0">&copy; 2025 - Quản Lý GPLX</p>
-            <a asp-controller="Home" asp-action="Privacy" class="text-light">Chính Sách Sử Dụng</a>
+        <!-- Content -->
+        <div class="content flex-grow-1 p-4">
+            <main role="main">
+                @RenderBody()
+            </main>
+            <footer class="mt-4 text-center text-muted">
+                &copy; 2025 - Quản Lý GPLX | <a asp-controller="Home" asp-action="Privacy"
+                    class="text-decoration-none">Chính sách sử dụng</a>
+            </footer>
         </div>
-    </footer>
+    </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>

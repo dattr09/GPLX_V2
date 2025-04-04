@@ -1,43 +1,95 @@
 @model IEnumerable<GPLX.Models.GiangVien>
 
 @{
-    ViewData["Title"] = "Danh sách giảng viên";
+    ViewData["Title"] = "Danh sách Giảng Viên";
 }
 
-<h1>@ViewData["Title"]</h1>
+<!-- Thông báo -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i> @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i> @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 
-<p>
-    <a href="@Url.Action("Create", "GiangVien")" class="btn btn-primary">Thêm giảng viên</a>
-</p>
+<!-- Danh sách Giảng Viên -->
+<div class="container mt-4">
+    <div class="card shadow-lg p-4 rounded-4 border-0">
+        <h2 class="text-primary text-center mb-4"><i class="bi bi-person-workspace me-2"></i>Danh sách Giảng Viên</h2>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Mã giảng viên</th>
-            <th>Họ và tên</th>
-            <th>Ngày sinh</th>
-            <th>Giới tính</th>
-            <th>Số điện thoại</th>
-            <th>Email</th>
-            <th>Hành động</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.MaGv</td>
-                <td>@item.HoTen</td>
-                <td>@item.NgaySinh?.ToString("dd/MM/yyyy")</td>
-                <td>@(item.GioiTinh == true ? "Nam" : "Nữ")</td>
-                <td>@item.Sdt</td>
-                <td>@item.Email</td>
-                <td>
-                    <a href="@Url.Action("Details", "GiangVien", new { id = item.MaGv })" class="btn btn-info">Chi tiết</a>
-                    <a href="@Url.Action("Edit", "GiangVien", new { id = item.MaGv })" class="btn btn-warning">Sửa</a>
-                    <a href="@Url.Action("Delete", "GiangVien", new { id = item.MaGv })" class="btn btn-danger">Xóa</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+        <!-- Tìm kiếm + Thêm -->
+        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+            <input type="text" id="searchInput" class="form-control w-100 w-md-25 shadow-sm"
+                placeholder="🔍 Tìm Mã hoặc Họ tên...">
+            <a href="@Url.Action("Create", "GiangVien")" class="btn btn-success shadow-sm rounded-3">
+                <i class="bi bi-person-plus-fill"></i> Thêm Mới
+            </a>
+        </div>
+
+        <!-- Bảng -->
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle text-center">
+                <thead class="table-primary text-dark">
+                    <tr>
+                        <th>Mã GV</th>
+                        <th>Họ Tên</th>
+                        <th>Ngày Sinh</th>
+                        <th>Giới Tính</th>
+                        <th>SĐT</th>
+                        <th>Email</th>
+                        <th>Hành Động</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.MaGv</td>
+                            <td class="text-start ps-3">@item.HoTen</td>
+                            <td>@item.NgaySinh?.ToString("dd/MM/yyyy")</td>
+                            <td>
+                                <span class="badge bg-@(item.GioiTinh.GetValueOrDefault() ? "info" : "warning") text-dark">
+                                    @(item.GioiTinh.GetValueOrDefault() ? "Nam" : "Nữ")
+                                </span>
+                            </td>
+                            <td>@item.Sdt</td>
+                            <td>@item.Email</td>
+                            <td>
+                                <a href="@Url.Action("Edit", "GiangVien", new { id = item.MaGv })"
+                                    class="btn btn-sm btn-warning rounded-3 shadow-sm me-1">
+                                    <i class="bi bi-pencil-fill"></i> Cập Nhật
+                                </a>
+                                <a href="@Url.Action("Delete", "GiangVien", new { id = item.MaGv })"
+                                    class="btn btn-sm btn-danger rounded-3 shadow-sm delete-btn">
+                                    <i class="bi bi-trash-fill"></i> Xoá
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Tìm kiếm nhanh -->
+<script>
+    document.getElementById("searchInput").addEventListener("keyup", function () {
+        const value = this.value.toLowerCase();
+        const rows = document.querySelectorAll("#tableBody tr");
+
+        rows.forEach(row => {
+            const maGv = row.children[0].textContent.toLowerCase();
+            const hoTen = row.children[1].textContent.toLowerCase();
+            row.style.display = (maGv.includes(value) || hoTen.includes(value)) ? "" : "none";
+        });
+    });
+</script>

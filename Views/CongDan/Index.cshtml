@@ -3,88 +3,92 @@
 @{
     ViewData["Title"] = "Danh sách Công Dân";
 }
+
+<!-- Thông báo -->
 @if (TempData["SuccessMessage"] != null)
 {
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        @TempData["SuccessMessage"]
+    <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i> @TempData["SuccessMessage"]
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 }
-
 @if (TempData["ErrorMessage"] != null)
 {
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        @TempData["ErrorMessage"]
+    <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i> @TempData["ErrorMessage"]
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 }
-<div class="container mt-4">
-    <div class="card shadow-lg p-4 rounded-3">
-        <h1 class="text-primary text-center"><i class="bi bi-people-fill"></i> Danh sách Công Dân</h1>
-        <hr />
 
-        <!-- Thanh tìm kiếm -->
-        <div class="d-flex justify-content-between mb-3">
-            <input type="text" id="searchInput" class="form-control w-25 shadow-sm" placeholder="🔍 Tìm kiếm theo CCCD hoặc Tên...">
+<!-- Danh sách công dân -->
+<div class="container mt-4">
+    <div class="card shadow-lg p-4 rounded-4 border-0">
+        <h2 class="text-primary text-center mb-4"><i class="bi bi-people-fill me-2"></i>Danh sách Công Dân</h2>
+
+        <!-- Thanh tìm kiếm và nút thêm -->
+        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+            <input type="text" id="searchInput" class="form-control w-100 w-md-25 shadow-sm" placeholder="🔍 Tìm CCCD hoặc Họ tên...">
             <a href="@Url.Action("Create")" class="btn btn-success shadow-sm rounded-3">
                 <i class="bi bi-person-plus-fill"></i> Thêm Mới
             </a>
         </div>
 
         <!-- Bảng danh sách -->
-        <table class="table table-hover table-bordered text-center align-middle">
-            <thead class="bg-primary text-white">
-                <tr>
-                    <th>CCCD</th>
-                    <th>Họ Tên</th>
-                    <th>Ngày Sinh</th>
-                    <th>Giới Tính</th>
-                    <th>Quốc Tịch</th>
-                    <th>Địa Chỉ</th>
-                    <th>Số Điện Thoại</th>
-                    <th>Hành Động</th>
-                </tr>
-            </thead>
-            <tbody id="tableBody">
-                @foreach (var congDan in Model)
-                {
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle text-center">
+                <thead class="table-primary text-dark">
                     <tr>
-                        <td>@congDan.Cccd</td>
-                        <td>@congDan.HoTen</td>
-                        <td>@congDan.NgaySinh.ToString("dd/MM/yyyy")</td>
-                        <td>@(congDan.GioiTinh ? "Nam" : "Nữ")</td>
-                        <td>@congDan.QuocTich</td>
-                        <td>@congDan.DiaChi</td>
-                        <td>@congDan.SoDienThoai</td>
-                        <td>
-                            <a href="@Url.Action("Edit", new { id = congDan.Cccd })" class="btn btn-warning btn-sm shadow-sm rounded-3">
-                                <i class="bi bi-pencil-square"></i> Sửa
-                            </a>
-                            <a href="@Url.Action("Delete", new { id = congDan.Cccd })" class="btn btn-danger btn-sm shadow-sm rounded-3 delete-btn">
-                                <i class="bi bi-trash-fill"></i> Xóa
-                            </a>
-                        </td>
+                        <th>CCCD</th>
+                        <th>Họ Tên</th>
+                        <th>Ngày Sinh</th>
+                        <th>Giới Tính</th>
+                        <th>Quốc Tịch</th>
+                        <th>Địa Chỉ</th>
+                        <th>SĐT</th>
+                        <th>Hành Động</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody id="tableBody">
+                    @foreach (var congDan in Model)
+                    {
+                        <tr>
+                            <td>@congDan.Cccd</td>
+                            <td class="text-start ps-3">@congDan.HoTen</td>
+                            <td>@congDan.NgaySinh.ToString("dd/MM/yyyy")</td>
+                            <td>
+                                <span class="badge bg-@(congDan.GioiTinh ? "info" : "warning") text-dark">
+                                    @(congDan.GioiTinh ? "Nam" : "Nữ")
+                                </span>
+                            </td>
+                            <td>@congDan.QuocTich</td>
+                            <td class="text-start ps-3">@congDan.DiaChi</td>
+                            <td>@congDan.SoDienThoai</td>
+                            <td>
+                                <a href="@Url.Action("Edit", new { id = congDan.Cccd })" class="btn btn-sm btn-warning rounded-3 shadow-sm me-1">
+                                    <i class="bi bi-pencil-square"></i>Cập Nhật
+                                </a>
+                                <a href="@Url.Action("Delete", new { id = congDan.Cccd })" class="btn btn-sm btn-danger rounded-3 shadow-sm delete-btn">
+                                    <i class="bi bi-trash-fill"></i>Xoá
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
-<!-- Thêm JavaScript để tìm kiếm nhanh -->
+<!-- JavaScript tìm kiếm nhanh -->
 <script>
     document.getElementById("searchInput").addEventListener("keyup", function () {
-        let searchValue = this.value.toLowerCase();
-        let rows = document.querySelectorAll("#tableBody tr");
+        const value = this.value.toLowerCase();
+        const rows = document.querySelectorAll("#tableBody tr");
 
         rows.forEach(row => {
-            let cccd = row.children[0].textContent.toLowerCase(); // Cột CCCD (Index 0)
-            let hoTen = row.children[1].textContent.toLowerCase(); // Cột Họ Tên (Index 1)
-
-            // Hiển thị hàng nếu CCCD hoặc Họ Tên chứa giá trị tìm kiếm
-            row.style.display = (cccd.includes(searchValue) || hoTen.includes(searchValue)) ? "" : "none";
+            const cccd = row.children[0].textContent.toLowerCase();
+            const hoTen = row.children[1].textContent.toLowerCase();
+            row.style.display = (cccd.includes(value) || hoTen.includes(value)) ? "" : "none";
         });
     });
 </script>
-
-
