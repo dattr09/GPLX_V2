@@ -4,40 +4,83 @@
     ViewData["Title"] = "Chi tiết khóa học";
 }
 
-<div class="container mt-4">
-    <h1 class="text-center mb-4">@Model.TenKhoaHoc</h1>
+<div class="container mt-5">
+    <div class="glass-card p-5 mx-auto" style="max-width: 750px;">
+        <h2 class="text-center text-dark mb-4">
+            <i class="bi bi-book-half me-2 text-primary"></i> Thông Tin Chi Tiết Khóa Học
+        </h2>
 
-    <div class="card">
-        <div class="card-header bg-primary text-white">
-            <h5 class="card-title">Thông tin chi tiết khóa học</h5>
-        </div>
-        <div class="card-body">
-            <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped shadow-sm rounded-3">
+            <tbody>
                 <tr>
-                    <th class="col-sm-3">Mã khóa học</th>
+                    <th class="col-sm-4 text-nowrap">Mã khóa học</th>
                     <td>@Model.MaKhoaHoc</td>
                 </tr>
                 <tr>
-                    <th class="col-sm-3">Tên khóa học</th>
+                    <th class="text-nowrap">Tên khóa học</th>
                     <td>@Model.TenKhoaHoc</td>
                 </tr>
                 <tr>
-                    <th class="col-sm-3">Thời gian học</th>
+                    <th class="text-nowrap">Thời gian học</th>
                     <td>@Model.ThoiGianHoc</td>
                 </tr>
                 <tr>
-                    <th class="col-sm-3">Học phí</th>
-                    <td>@Model.HocPhi.ToString("N0") VNĐ</td> <!-- Sửa định dạng tiền VND -->
+                    <th class="text-nowrap">Học phí</th>
+                    <td>@Model.HocPhi.ToString("N0") VNĐ</td>
                 </tr>
                 <tr>
-                    <th class="col-sm-3">Mô tả</th>
+                    <th class="text-nowrap">Mô tả</th>
                     <td>@Model.MoTa</td>
                 </tr>
-            </table>
+            </tbody>
+        </table>
 
-            <div class="text-center mt-4">
-                <a href="@Url.Action("Index", "KhoaHoc")" class="btn btn-secondary">Quay lại</a>
-            </div>
+        <div class="text-center mt-4">
+            <a href="@Url.Action("Index", "KhoaHoc")" class="btn btn-outline-dark px-4 py-2 rounded-3 shadow-sm">
+                <i class="bi bi-arrow-left-circle"></i> Quay Lại
+            </a>
         </div>
     </div>
 </div>
+
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
+<!-- Hiệu ứng CSS -->
+<style>
+    .glass-card {
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(15px);
+        border-radius: 1.5rem;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        animation: fadeInUp 0.6s ease;
+    }
+
+    @@keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    body {
+        background: linear-gradient(to right, #eef7f8, #ffffff);
+        min-height: 100vh;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    table th {
+        background-color: #f8f9fa;
+        font-weight: 600;
+    }
+
+    table td, table th {
+        vertical-align: middle;
+    }
+</style>

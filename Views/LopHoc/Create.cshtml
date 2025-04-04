@@ -1,122 +1,130 @@
+@model GPLX.Models.LopHoc
+
 @{
-    ViewData["Title"] = "Thêm lớp học";
+    ViewData["Title"] = "Thêm Lớp Học";
 }
 
-<h2>@ViewData["Title"]</h2>
-
-<!-- Hiển thị lỗi nếu ModelState không hợp lệ -->
-@if (!ViewData.ModelState.IsValid)
+<!-- Thông báo -->
+@if (TempData["SuccessMessage"] != null)
 {
-    <div class="alert alert-danger">
-        <ul>
-            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-            {
-                <li>@error.ErrorMessage</li>
-            }
-        </ul>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 }
 
-<form id="createForm" method="post">
-    <div class="form-group">
-        <label for="NgayBatDau">Ngày bắt đầu</label>
-        <input type="date" class="form-control" id="NgayBatDau" name="NgayBatDau" required />
-    </div>
+<div class="container mt-5">
+    <div class="glass-card p-5 mx-auto" style="max-width: 650px;">
+        <h2 class="text-center text-dark mb-4">
+            <i class="bi bi-journal-plus me-2 fs-3 text-primary"></i> Thêm Lớp Học Mới
+        </h2>
 
-    <div class="form-group">
-        <label for="NgayKetThuc">Ngày kết thúc</label>
-        <input type="date" class="form-control" id="NgayKetThuc" name="NgayKetThuc" required />
-    </div>
+        <form id="createForm" method="post">
+            <div class="mb-3">
+                <label for="NgayBatDau" class="form-label fw-semibold">Ngày bắt đầu</label>
+                <input type="date" class="form-control" id="NgayBatDau" name="NgayBatDau" required />
+            </div>
+            <div class="mb-3">
+                <label for="NgayKetThuc" class="form-label fw-semibold">Ngày kết thúc</label>
+                <input type="date" class="form-control" id="NgayKetThuc" name="NgayKetThuc" required />
+            </div>
+            <div class="mb-3">
+                <label for="DiaDiem" class="form-label fw-semibold">Địa điểm</label>
+                <input type="text" class="form-control" id="DiaDiem" name="DiaDiem" required />
+            </div>
+            <div class="mb-3">
+                <label for="ThoiGianHocTrongTuan" class="form-label fw-semibold">Thời gian học</label>
+                <input type="text" class="form-control" id="ThoiGianHocTrongTuan" name="ThoiGianHocTrongTuan" />
+            </div>
+            <div class="mb-3">
+                <label for="SoLuongToiDa" class="form-label fw-semibold">Số lượng tối đa</label>
+                <input type="number" class="form-control" id="SoLuongToiDa" name="SoLuongToiDa" />
+            </div>
+            <div class="mb-3">
+                <label for="GhiChu" class="form-label fw-semibold">Ghi chú</label>
+                <input type="text" class="form-control" id="GhiChu" name="GhiChu" />
+            </div>
+            <div class="mb-3">
+                <label for="TrangThai" class="form-label fw-semibold">Trạng thái</label>
+                <select class="form-select" id="TrangThai" name="TrangThai">
+                    <option value="Đang mở">Đang mở</option>
+                    <option value="Đã đóng">Đã đóng</option>
+                    <option value="Đã huỷ">Đã huỷ</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="IsOnline" class="form-label fw-semibold">Hình thức học</label>
+                <select class="form-select" id="IsOnline" name="IsOnline">
+                    <option value="true">Online</option>
+                    <option value="false">Offline</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="MaGv" class="form-label fw-semibold">Giảng viên</label>
+                <select class="form-select" id="MaGv" name="MaGv">
+                    @foreach (var gv in (List<GPLX.Models.GiangVien>)ViewData["GiangVien"])
+                    {
+                        <option value="@gv.MaGv">@gv.HoTen</option>
+                    }
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="MaKhoaHoc" class="form-label fw-semibold">Khóa học</label>
+                <select class="form-select" id="MaKhoaHoc" name="MaKhoaHoc">
+                    @foreach (var kh in (List<GPLX.Models.KhoaHoc>)ViewData["KhoaHoc"])
+                    {
+                        <option value="@kh.MaKhoaHoc">@kh.TenKhoaHoc</option>
+                    }
+                </select>
+            </div>
 
-    <div class="form-group">
-        <label for="DiaDiem">Địa điểm</label>
-        <input type="text" class="form-control" id="DiaDiem" name="DiaDiem" />
+            <div class="d-flex justify-content-between mt-4">
+                <button type="submit" class="btn btn-gradient px-4 py-2 rounded-3 text-white shadow-sm">
+                    <i class="bi bi-check-circle me-1"></i> Thêm Mới
+                </button>
+                <a href="@Url.Action("Index", "LopHoc")" class="btn btn-outline-dark px-4 py-2 rounded-3 shadow-sm">
+                    <i class="bi bi-arrow-left-circle me-1"></i> Quay Về
+                </a>
+            </div>
+        </form>
     </div>
-
-    <div class="form-group">
-        <label for="ThoiGianHocTrongTuan">Thời gian học trong tuần</label>
-        <input type="text" class="form-control" id="ThoiGianHocTrongTuan" name="ThoiGianHocTrongTuan" />
-    </div>
-
-    <div class="form-group">
-        <label for="SoLuongToiDa">Số lượng tối đa</label>
-        <input type="number" class="form-control" id="SoLuongToiDa" name="SoLuongToiDa" />
-    </div>
-
-    <div class="form-group">
-        <label for="GhiChu">Ghi chú</label>
-        <input type="text" class="form-control" id="GhiChu" name="GhiChu" />
-    </div>
-
-    <div class="form-group">
-        <label for="TrangThai">Trạng thái</label>
-        <select class="form-control" id="TrangThai" name="TrangThai">
-            <option value="Đang mở">Đang mở</option>
-            <option value="Đã đóng">Đã đóng</option>
-            <option value="Đã huỷ">Đã huỷ</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="HinhThucHoc">Hình thức học</label>
-        <select class="form-control" id="HinhThucHoc" name="IsOnline">
-            <option value="true">Online</option>
-            <option value="false">Offline</option>
-        </select>
-    </div>
-
-   <div class="form-group">
-    <label for="MaGv">Giảng viên</label>
-    <select class="form-control" id="MaGv" name="MaGv">
-        @if (ViewData["GiangVien"] is List<GPLX.Models.GiangVien> giangVienList)
-        {
-            foreach (var gv in giangVienList)
-            {
-                <option value="@gv.MaGv">@gv.HoTen</option>
-            }
-        }
-    </select>
 </div>
 
-<div class="form-group">
-    <label for="MaKhoaHoc">Khóa học</label>
-    <select class="form-control" id="MaKhoaHoc" name="MaKhoaHoc">
-        @if (ViewData["KhoaHoc"] is List<GPLX.Models.KhoaHoc> khoaHocList)
-        {
-            foreach (var kh in khoaHocList)
-            {
-                <option value="@kh.MaKhoaHoc">@kh.TenKhoaHoc</option>
-            }
-        }
-    </select>
-</div>
+<style>
+    .glass-card {
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(15px);
+        border-radius: 1.5rem;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
 
+    body {
+        background: linear-gradient(135deg, #eef7f8, #ffffff);
+        font-family: 'Segoe UI', sans-serif;
+    }
+</style>
 
-    <button type="submit" class="btn btn-primary">Lưu</button>
-    <a href="@Url.Action("Index", "LopHoc")" class="btn btn-secondary">Hủy</a>
-</form>
-
-<!-- JavaScript to handle form submission without reloading the page -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
         $("#createForm").submit(function (event) {
-            event.preventDefault(); // Ngăn trang reload
-
-            var formData = $(this).serialize(); // Lấy dữ liệu từ form
-
-            $.ajax({
-                type: "POST",
-                url: "/LopHoc/Create", // URL gửi request đến
-                data: formData,
-                success: function (response) {
-                    alert("Thêm lớp học thành công!");
-                    window.location.href = "/LopHoc/Index"; // Chuyển hướng đến trang index
-                },
-                error: function () {
-                    alert("Có lỗi xảy ra!");
-                }
+            event.preventDefault();
+            var formData = $(this).serialize();
+            $.post("/LopHoc/Create", formData, function (response) {
+                alert("Thêm lớp học thành công!");
+                window.location.href = "/LopHoc/Index";
+            }).fail(function () {
+                alert("Có lỗi xảy ra!");
             });
         });
     });
 </script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
