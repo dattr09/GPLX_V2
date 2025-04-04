@@ -38,7 +38,7 @@ public partial class AppDBContext : DbContext
     public DbSet<DangKyKhoaHoc> DangKyKhoaHocs { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Server=DESKTOP-7B4TMH6\\MSSQLSERVER1;Database=QL_GPLX;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;");
+        => optionsBuilder.UseSqlServer("Server=localhost,1433;Database=QL_GPLX;User Id=sa;Password=Thanhdat53140;Encrypt=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

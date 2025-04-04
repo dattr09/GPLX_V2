@@ -1,35 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GPLX.Models;
-
-public partial class LopHoc
+namespace GPLX.Models
 {
-    public int MaLop { get; set; }
+    public partial class LopHoc
+    {
+        public int MaLop { get; set; } // Khóa chính
 
-    public DateOnly NgayBatDau { get; set; }
+        public DateTime NgayBatDau { get; set; } // Ngày bắt đầu lớp học
 
-    public DateOnly NgayKetThuc { get; set; }
+        public DateTime NgayKetThuc { get; set; } // Ngày kết thúc lớp học
 
-    public string? DiaDiem { get; set; }
+        public string? DiaDiem { get; set; } // Địa điểm lớp học
 
-    public string? ThoiGianHocTrongTuan { get; set; }
+        public string? ThoiGianHocTrongTuan { get; set; } // Thời gian học trong tuần
 
-    public int? SoLuongToiDa { get; set; }
+        public int? SoLuongToiDa { get; set; } // Số lượng học viên tối đa
 
-    public string? GhiChu { get; set; }
+        public string? GhiChu { get; set; } // Ghi chú
 
-    public string? TrangThai { get; set; }
+        public string? TrangThai { get; set; } // Trạng thái lớp học (Đang mở, Đã đóng, Đã huỷ)
 
-    public bool? IsOnline { get; set; }
+        public bool? IsOnline { get; set; } // Hình thức học (Online/Offline)
 
-    public int MaKhoaHoc { get; set; }
+        public int MaKhoaHoc { get; set; } // Khóa ngoại tham chiếu đến bảng KhoaHoc
 
-    public int MaGv { get; set; }
+        public int MaGv { get; set; } // Khóa ngoại tham chiếu đến bảng GiangVien
 
-    public virtual ICollection<DangKyKhoaHoc> DangKyKhoaHocs { get; set; } = new List<DangKyKhoaHoc>();
+        // Navigation properties - Chúng ta không cần gán trực tiếp từ form
+        public virtual GiangVien? MaGvNavigation { get; set; } = null!; // Dùng để ánh xạ thông tin giảng viên từ MaGv
+        public virtual KhoaHoc? MaKhoaHocNavigation { get; set; } = null!; // Dùng để ánh xạ thông tin khóa học từ MaKhoaHoc
 
-    public virtual GiangVien MaGvNavigation { get; set; } = null!;
-
-    public virtual KhoaHoc MaKhoaHocNavigation { get; set; } = null!;
+        public virtual ICollection<DangKyKhoaHoc> DangKyKhoaHocs { get; set; } = new List<DangKyKhoaHoc>(); // Mối quan hệ với bảng DangKyKhoaHoc
+    }
 }

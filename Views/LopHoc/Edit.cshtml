@@ -1,5 +1,4 @@
 @model GPLX.Models.LopHoc
-
 @{
     ViewData["Title"] = "Sửa lớp học";
 }
@@ -29,13 +28,9 @@
     </div>
     <div class="form-group">
         <label for="MaGv">Giảng viên</label>
-        <select class="form-control" id="MaGv" name="MaGv">
-            @foreach (var giangVien in ViewData["GiangVien"] as IEnumerable<GPLX.Models.GiangVien>)
-            {
-                var isSelected = giangVien.MaGv == Model.MaGv ? "selected" : "";
-                <option value="@giangVien.MaGv" @isSelected>@giangVien.HoTen</option>
-            }
-        </select>
+        @Html.DropDownListFor(model => model.MaGv, 
+            new SelectList(ViewData["GiangVien"] as IEnumerable<GPLX.Models.GiangVien>, "MaGv", "HoTen", Model.MaGv), 
+            "Chọn giảng viên", new { @class = "form-control" })
     </div>
     <button type="submit" class="btn btn-primary">Cập nhật</button>
     <a href="@Url.Action("Index", "LopHoc")" class="btn btn-secondary">Hủy</a>
