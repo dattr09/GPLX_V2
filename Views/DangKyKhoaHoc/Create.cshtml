@@ -2,66 +2,63 @@
 
 @{
     ViewData["Title"] = "Thêm đăng ký khóa học";
+    var congDanList = ViewData["CongDanList"] as List<GPLX.Models.CongDan>;
+    var maLopSelectList = ViewData["MaLop"] as SelectList;
 }
 
 <h1>@ViewData["Title"]</h1>
 
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
 <form asp-action="Create" method="post">
-    <div class="form-group">
-        <label for="Cccd">CCCD</label>
-        @if (ViewData["CongDanList"] != null)
-        {
-            var congDanList = ViewData["CongDanList"] as IEnumerable<GPLX.Models.CongDan>;
-            @Html.DropDownListFor(m => m.Cccd, 
-                new SelectList(congDanList, "Cccd", "HoTen"), 
-                "-- Chọn CCCD --", 
-                new { @class = "form-control" })
-        }
-        else
-        {
-            <p>Không có dữ liệu công dân để chọn.</p>
-        }
+    <div class="form-group mb-3">
+        <label asp-for="Cccd" class="form-label">Công dân</label>
+        @Html.DropDownListFor(m => m.Cccd,
+            new SelectList(congDanList, "Cccd", "HoTen"),
+            "-- Chọn CCCD --",
+            new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Cccd, "", new { @class = "text-danger" })
     </div>
 
-    <div class="form-group">
-        <label for="MaLop">Mã lớp</label>
-        @if (ViewData["MaLop"] != null)
-        {
-            // Thay vì dynamic, sử dụng IEnumerable<LopHoc> cụ thể
-            var lopHocList = ViewData["MaLop"] as IEnumerable<GPLX.Models.LopHoc>;
-            if (lopHocList != null && lopHocList.Any())
-            {
-                @Html.DropDownListFor(m => m.MaLop, 
-                    new SelectList(lopHocList, "MaLop", "DiaDiem"), 
-                    "-- Chọn lớp --", 
-                    new { @class = "form-control" })
-            }
-            else
-            {
-                <p>Không có dữ liệu lớp học để chọn.</p>
-            }
-        }
-        else
-        {
-            <p>Không có dữ liệu lớp học để chọn.</p>
-        }
+    <div class="form-group mb-3">
+        <label asp-for="MaLop" class="form-label">Lớp học</label>
+        @Html.DropDownListFor(m => m.MaLop,
+            maLopSelectList,
+            "-- Chọn lớp --",
+            new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.MaLop, "", new { @class = "text-danger" })
     </div>
 
-    <div class="form-group">
-        <label for="NgayDangKy">Ngày đăng ký</label>
-        <input type="date" class="form-control" id="NgayDangKy" name="NgayDangKy" value="@Model.NgayDangKy.ToString("yyyy-MM-dd")" />
+    <div class="form-group mb-3">
+        <label asp-for="NgayDangKy" class="form-label">Ngày đăng ký</label>
+        <input type="date" asp-for="NgayDangKy" class="form-control" value="@Model.NgayDangKy.ToString("yyyy-MM-dd")" />
+        @Html.ValidationMessageFor(m => m.NgayDangKy, "", new { @class = "text-danger" })
     </div>
 
-    <div class="form-group">
-        <label for="TrangThaiDangKy">Trạng thái</label>
-        <input type="text" class="form-control" id="TrangThaiDangKy" name="TrangThaiDangKy" value="@Model.TrangThaiDangKy" />
-    </div>
+<div class="form-group">
+    <label for="TrangThaiDangKy">Trạng thái</label>
+    @Html.DropDownListFor(
+        m => m.TrangThaiDangKy, 
+        new SelectList(
+            new[] { "Đã đăng ký", "Đã huỷ", "Chờ xác nhận" }, null),
+        "-- Chọn trạng thái --", 
+        new { @class = "form-control" })
+</div>
 
-    <div class="form-group">
-        <label for="GhiChu">Ghi chú</label>
-        <textarea class="form-control" id="GhiChu" name="GhiChu">@Model.GhiChu</textarea>
+
+    <div class="form-group mb-3">
+        <label asp-for="GhiChu" class="form-label">Ghi chú</label>
+        <textarea asp-for="GhiChu" class="form-control"></textarea>
+        @Html.ValidationMessageFor(m => m.GhiChu, "", new { @class = "text-danger" })
     </div>
 
     <button type="submit" class="btn btn-primary">Lưu</button>
-    <a href="@Url.Action("Index", "DangKyKhoaHoc")" class="btn btn-secondary">Hủy</a>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
 </form>
