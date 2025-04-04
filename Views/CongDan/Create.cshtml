@@ -1,8 +1,9 @@
 @model GPLX.Models.CongDan
 
 @{
-    ViewData["Title"] = "Create CongDan";
+    ViewData["Title"] = "Thêm Công Dân";
 }
+
 @if (TempData["SuccessMessage"] != null)
 {
     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -21,34 +22,33 @@
 
 <div class="container mt-4">
     <div class="card shadow-lg p-4 rounded-3">
-        <h1 class="text-primary text-center">Thêm công dân</h1>
-        @* <h4 class="text-muted text-center">Create a new CongDan</h4> *@
+        <h1 class="text-primary text-center"><i class="bi bi-person-plus"></i> Thêm Công Dân Mới</h1>
         <hr />
 
         <form asp-action="Create" method="post">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group mb-3">
-                        <label class="fw-bold" for="Cccd">CCCD</label>
-                        <input type="text" class="form-control border-primary shadow-sm" id="Cccd" name="Cccd" asp-for="Cccd" required maxlength="12" />
+                        <label asp-for="Cccd" class="form-label fw-bold"></label>
+                        <input asp-for="Cccd" class="form-control shadow-sm" maxlength="12" required />
                         <span asp-validation-for="Cccd" class="text-danger"></span>
                     </div>
 
                     <div class="form-group mb-3">
-                        <label class="fw-bold" for="HoTen">Họ và Tên</label>
-                        <input type="text" class="form-control border-primary shadow-sm" id="HoTen" name="HoTen" asp-for="HoTen" required maxlength="50" />
+                        <label asp-for="HoTen" class="form-label fw-bold"></label>
+                        <input asp-for="HoTen" class="form-control shadow-sm" maxlength="50" required />
                         <span asp-validation-for="HoTen" class="text-danger"></span>
                     </div>
 
                     <div class="form-group mb-3">
-                        <label class="fw-bold" for="NgaySinh">Ngày,tháng,năm sinh</label>
-                        <input type="date" class="form-control border-primary shadow-sm" id="NgaySinh" name="NgaySinh" asp-for="NgaySinh" required />
+                        <label asp-for="NgaySinh" class="form-label fw-bold"></label>
+                        <input asp-for="NgaySinh" type="date" class="form-control shadow-sm" required />
                         <span asp-validation-for="NgaySinh" class="text-danger"></span>
                     </div>
 
                     <div class="form-group mb-3">
-                        <label class="fw-bold" for="GioiTinh">Giới tính</label>
-                        <select class="form-control border-primary shadow-sm" id="GioiTinh" name="GioiTinh" asp-for="GioiTinh">
+                        <label class="form-label fw-bold">Giới Tính</label>
+                        <select asp-for="GioiTinh" class="form-control shadow-sm">
                             <option value="true">Nam</option>
                             <option value="false">Nữ</option>
                         </select>
@@ -58,20 +58,20 @@
 
                 <div class="col-md-6">
                     <div class="form-group mb-3">
-                        <label class="fw-bold" for="QuocTich">Quốc tịch</label>
-                        <input type="text" class="form-control border-primary shadow-sm" id="QuocTich" name="QuocTich" asp-for="QuocTich" required maxlength="30" />
+                        <label asp-for="QuocTich" class="form-label fw-bold"></label>
+                        <input asp-for="QuocTich" class="form-control shadow-sm" maxlength="30" required />
                         <span asp-validation-for="QuocTich" class="text-danger"></span>
                     </div>
 
                     <div class="form-group mb-3">
-                        <label class="fw-bold" for="DiaChi">Địa chỉ</label>
-                        <input type="text" class="form-control border-primary shadow-sm" id="DiaChi" name="DiaChi" asp-for="DiaChi" maxlength="100" />
+                        <label asp-for="DiaChi" class="form-label fw-bold"></label>
+                        <input asp-for="DiaChi" class="form-control shadow-sm" maxlength="100" />
                         <span asp-validation-for="DiaChi" class="text-danger"></span>
                     </div>
 
                     <div class="form-group mb-3">
-                        <label class="fw-bold" for="SoDienThoai">Số điện thoại</label>
-                        <input type="text" class="form-control border-primary shadow-sm" id="SoDienThoai" name="SoDienThoai" asp-for="SoDienThoai" maxlength="10" />
+                        <label asp-for="SoDienThoai" class="form-label fw-bold"></label>
+                        <input asp-for="SoDienThoai" class="form-control shadow-sm" maxlength="10" />
                         <span asp-validation-for="SoDienThoai" class="text-danger"></span>
                     </div>
                 </div>
@@ -79,12 +79,12 @@
 
             <div class="text-center mt-3">
                 <button type="submit" class="btn btn-primary btn-lg shadow-sm px-4 rounded-3"
-                        style="background: linear-gradient(145deg, #6ec6ff, #4096ee); border: none; box-shadow: 3px 3px 6px #aaa;">
-                    <i class="bi bi-check-circle"></i> Thêm công dân mới 
+                        style="background: linear-gradient(145deg, #0d6efd, #0a58ca); border: none; box-shadow: 3px 3px 6px #aaa;">
+                    <i class="bi bi-check-circle"></i> Thêm Mới
                 </button>
                 <a href="@Url.Action("Index")" class="btn btn-secondary btn-lg shadow-sm px-4 rounded-3"
                    style="background: linear-gradient(145deg, #f0f0f0, #d6d6d6); border: none; box-shadow: 3px 3px 6px #aaa;">
-                    <i class="bi bi-arrow-left-circle"></i> Quay về
+                    <i class="bi bi-arrow-left-circle"></i> Quay Về
                 </a>
             </div>
         </form>
