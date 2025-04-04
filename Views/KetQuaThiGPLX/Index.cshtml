@@ -4,73 +4,99 @@
     ViewData["Title"] = "Danh sách kết quả thi GPLX";
 }
 
-<h1 class="text-center text-primary">@ViewData["Title"]</h1>
-<hr />
+<!-- Thông báo -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i> @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i> @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 
-<div class="d-flex justify-content-between mb-3">
-    <a href="@Url.Action("Create")" class="btn btn-success">
-        <i class="bi bi-plus-circle"></i> Tạo mới kết quả thi GPLX
-    </a>
-    <form class="d-flex">
-        <input type="text" id="searchInput" class="form-control me-2" placeholder="🔍 Tìm kiếm theo Mã...">
-    </form>
+<!-- Danh sách kết quả -->
+<div class="container-fluid mt-5">
+    <div class="card shadow-lg p-4 rounded-4 border-0">
+        <h2 class="text-primary text-center mb-4">
+            <i class="bi bi-journal-check me-2"></i>Danh sách Kết Quả Thi GPLX
+        </h2>
+
+        <!-- Thanh tìm kiếm và nút thêm -->
+        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+            <input type="text" id="searchInput" class="form-control w-100 w-md-25 shadow-sm"
+                placeholder="🔍 Tìm kiếm theo Mã, Tên CCCD...">
+            <a href="@Url.Action("Create")" class="btn btn-success shadow-sm rounded-3">
+                <i class="bi bi-plus-circle"></i> Tạo mới kết quả thi
+            </a>
+        </div>
+
+        <!-- Bảng danh sách -->
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered shadow-sm text-center align-middle" id="ketQuaTable">
+                <thead class="table-primary text-dark">
+                    <tr>
+                        <th class="text-nowrap">Mã KQ</th>
+                        <th class="text-nowrap">Tên - CCCD</th>
+                        <th class="text-nowrap">Lý Thuyết</th>
+                        <th class="text-nowrap">Thực Hành</th>
+                        <th class="text-nowrap">Mô Phỏng</th>
+                        <th class="text-nowrap">Đường Trường</th>
+                        <th class="text-nowrap">Kết Quả</th>
+                        <th class="text-nowrap">Ghi Chú</th>
+                        <th class="text-nowrap">Hành Động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-nowrap"><strong>@item.MaKetQua</strong></td>
+                            <td class="text-nowrap">
+                                @if (item.MaDkthiGplxNavigation?.CccdNavigation != null)
+                                {
+                                    <span>@item.MaDkthiGplxNavigation.CccdNavigation.HoTen - @item.MaDkthiGplxNavigation.CccdNavigation.Cccd</span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">Không có dữ liệu</span>
+                                }
+                            </td>
+                            <td class="text-nowrap">@item.DiemLyThuyet</td>
+                            <td class="text-nowrap">@item.DiemThucHanh</td>
+                            <td class="text-nowrap">@(item.DiemMoPhong.HasValue ? item.DiemMoPhong.Value.ToString() : "N/A")</td>
+                            <td class="text-nowrap">@(item.DiemDuongTruong.HasValue ? item.DiemDuongTruong.Value.ToString() : "N/A")</td>
+                            <td class="text-nowrap">
+                                <span class="badge @(item.KetQua == "Đậu" ? "bg-success" : "bg-danger")">
+                                    @item.KetQua
+                                </span>
+                            </td>
+                            <td class="text-nowrap">@(string.IsNullOrEmpty(item.GhiChu) ? "Không có" : item.GhiChu)</td>
+                            <td class="text-nowrap">
+                                <a href="@Url.Action("Details", new { id = item.MaKetQua })" class="btn btn-info btn-sm">
+                                    <i class="bi bi-eye"></i> Chi tiết
+                                </a>
+                                <a href="@Url.Action("Edit", new { id = item.MaKetQua })" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil"></i> Cập nhật
+                                </a>
+                                <a href="@Url.Action("Delete", new { id = item.MaKetQua })" class="btn btn-danger btn-sm">
+                                    <i class="bi bi-trash"></i> Xóa
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
-<table class="table table-hover table-bordered shadow-sm text-center align-middle" id="ketQuaTable">
-    <thead class="table-dark">
-        <tr>
-            <th class="text-nowrap">Mã KQ</th>
-            <th class="text-nowrap">Tên - CCCD</th>
-            <th class="text-nowrap">Lý Thuyết</th>
-            <th class="text-nowrap">Thực Hành</th>
-            <th class="text-nowrap">Mô Phỏng</th>
-            <th class="text-nowrap">Đường Trường</th>
-            <th class="text-nowrap">Kết Quả</th>
-            <th class="text-nowrap">Ghi Chú</th>
-            <th class="text-nowrap">Hành Động</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td class="text-nowrap"><strong>@item.MaKetQua</strong></td>
-                <td class="text-nowrap">
-                    @if (item.MaDkthiGplxNavigation?.CccdNavigation != null)
-                    {
-                        <span>@item.MaDkthiGplxNavigation.CccdNavigation.HoTen - @item.MaDkthiGplxNavigation.CccdNavigation.Cccd</span>
-                    }
-                    else
-                    {
-                        <span class="text-muted">Không có dữ liệu</span>
-                    }
-                </td>
-                <td class="text-nowrap">@item.DiemLyThuyet</td>
-                <td class="text-nowrap">@item.DiemThucHanh</td>
-                <td class="text-nowrap">@(item.DiemMoPhong.HasValue ? item.DiemMoPhong.Value.ToString() : "N/A")</td>
-                <td class="text-nowrap">@(item.DiemDuongTruong.HasValue ? item.DiemDuongTruong.Value.ToString() : "N/A")</td>
-                <td class="text-nowrap">
-                    <span class="badge @(item.KetQua == "Đậu" ? "bg-success" : "bg-danger")">
-                        @item.KetQua
-                    </span>
-                </td>
-                <td class="text-nowrap">@(string.IsNullOrEmpty(item.GhiChu) ? "Không có" : item.GhiChu)</td>
-                <td class="text-nowrap">
-                    <a href="@Url.Action("Details", new { id = item.MaKetQua })" class="btn btn-info btn-sm">
-                        <i class="bi bi-eye"></i> Xem
-                    </a>
-                    <a href="@Url.Action("Edit", new { id = item.MaKetQua })" class="btn btn-warning btn-sm">
-                        <i class="bi bi-pencil"></i> Sửa
-                    </a>
-                    <a href="@Url.Action("Delete", new { id = item.MaKetQua })" class="btn btn-danger btn-sm">
-                        <i class="bi bi-trash"></i> Xóa
-                    </a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
+<!-- JavaScript tìm kiếm nhanh -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const searchInput = document.getElementById("searchInput");
@@ -88,3 +114,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
+
+<!-- Bootstrap Icons nếu chưa có -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />

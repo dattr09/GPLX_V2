@@ -4,12 +4,103 @@
     ViewData["Title"] = "Xóa lớp học";
 }
 
-<h1>@ViewData["Title"]</h1>
+<style>
+    .delete-card {
+        background: #fff;
+        border: 1px solid #f5c6cb;
+        border-left: 6px solid #dc3545;
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+        border-radius: 1rem;
+        animation: fadeIn 0.5s ease;
+    }
 
-<p>Bạn có chắc chắn muốn xóa lớp học <strong>@Model.MaLop</strong>?</p>
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
 
-<form method="post">
-    <input type="hidden" name="id" value="@Model.MaLop" />
-    <button type="submit" class="btn btn-danger">Xóa</button>
-    <a href="@Url.Action("Index", "LopHoc")" class="btn btn-secondary">Hủy</a>
-</form>
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    body {
+        background: #fff6f6;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .btn-danger {
+        background: linear-gradient(to right, #dc3545, #ff6b6b);
+        border: none;
+    }
+
+    .btn-danger:hover {
+        background: #c82333;
+    }
+
+    .btn-outline-secondary {
+        background: linear-gradient(145deg, #e0e0e0, #cfcfcf);
+        border: none;
+        color: #333;
+    }
+
+    .btn-outline-secondary:hover {
+        background: #d6d6d6;
+    }
+
+    .info-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+
+    .info-label {
+        font-weight: bold;
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="delete-card p-5 mx-auto" style="max-width: 600px;">
+        <h2 class="text-danger text-center mb-4">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i> Xóa lớp học
+        </h2>
+
+        <p class="text-center fs-5">Bạn có chắc chắn muốn xóa lớp học <strong>@Model.MaLop</strong>?</p>
+
+        <div class="mt-4">
+            <div class="info-row">
+                <div class="info-label">Mã lớp:</div>
+                <div>@Model.MaLop</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Khóa học:</div>
+                <div>@Model.MaKhoaHocNavigation?.TenKhoaHoc</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Sĩ số:</div>
+                <div>@Model.SoLuongToiDa</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Giảng viên:</div>
+                <div>@Model.MaGvNavigation?.HoTen</div>
+            </div>
+        </div>
+
+        <form method="post" class="mt-4 d-flex justify-content-center gap-3">
+            <input type="hidden" name="id" value="@Model.MaLop" />
+
+            <button type="submit" class="btn btn-danger px-4 py-2 rounded-3 shadow-sm">
+                <i class="bi bi-trash3-fill me-1"></i> Xóa
+            </button>
+
+            <a href="@Url.Action("Index", "LopHoc")" class="btn btn-outline-secondary px-4 py-2 rounded-3 shadow-sm">
+                <i class="bi bi-x-circle me-1"></i> Hủy
+            </a>
+        </form>
+    </div>
+</div>
+
+<!-- Bootstrap Icons nếu chưa có -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />

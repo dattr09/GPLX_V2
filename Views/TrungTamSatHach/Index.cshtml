@@ -3,54 +3,90 @@
 @{
     ViewData["Title"] = "Danh sách Trung Tâm Sát Hạch";
 }
+
+<!-- Thông báo -->
 @if (TempData["SuccessMessage"] != null)
 {
-    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i> @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
 }
-
 @if (TempData["ErrorMessage"] != null)
 {
-    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i> @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
 }
 
-<h1><i class="bi bi-list-ul"></i> @ViewData["Title"]</h1>
+<!-- Danh sách Trung Tâm -->
+<div class="container mt-5">
+    <div class="card shadow-lg p-4 rounded-4 border-0">
+        <h2 class="text-primary text-center mb-4">
+            <i class="bi bi-list-ul me-2"></i>@ViewData["Title"]
+        </h2>
 
-<div class="mb-3">
-    <a href="@Url.Action("Create", "TrungTamSatHach")" class="btn btn-primary">
-        <i class="bi bi-plus-circle"></i> Tạo mới Trung Tâm
-    </a>
+        <!-- Thanh tìm kiếm và nút thêm -->
+        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+            <input type="text" id="searchInput" class="form-control w-100 w-md-25 shadow-sm" placeholder="🔍 Tìm tên trung tâm hoặc địa chỉ...">
+            <a href="@Url.Action("Create", "TrungTamSatHach")" class="btn btn-success shadow-sm rounded-3">
+                <i class="bi bi-plus-circle"></i> Thêm trung tâm
+            </a>
+        </div>
+
+        <!-- Bảng danh sách -->
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle text-center">
+                <thead class="table-primary text-dark">
+                    <tr>
+                        <th>Tên Trung Tâm</th>
+                        <th>Địa Chỉ</th>
+                        <th>Số Điện Thoại</th>
+                        <th class="text-center">Hành Động</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.TenTrungTam</td>
+                            <td>@(string.IsNullOrEmpty(item.DiaChi) ? "Chưa cập nhật" : item.DiaChi)</td>
+                            <td>@(string.IsNullOrEmpty(item.SoDt) ? "Chưa có" : item.SoDt)</td>
+                            <td class="text-center">
+                                <a href="@Url.Action("Details", "TrungTamSatHach", new { id = item.MaTtsh })" class="btn btn-info btn-sm rounded-3 shadow-sm me-1">
+                                    <i class="bi bi-eye-fill"></i> Chi tiết
+                                </a>
+                                <a href="@Url.Action("Edit", "TrungTamSatHach", new { id = item.MaTtsh })" class="btn btn-warning btn-sm rounded-3 shadow-sm me-1">
+                                    <i class="bi bi-pencil-fill"></i> Cập nhật
+                                </a>
+                                <a href="@Url.Action("Delete", "TrungTamSatHach", new { id = item.MaTtsh })" class="btn btn-danger btn-sm rounded-3 shadow-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa trung tâm này?');">
+                                    <i class="bi bi-trash-fill"></i> Xóa
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
-<table class="table table-hover table-bordered shadow-sm">
-    <thead class="table-dark">
-        <tr>
-            <!-- Xóa cột Mã TTSH -->
-            <th>Tên Trung Tâm</th>
-            <th>Địa Chỉ</th>
-            <th>Số Điện Thoại</th>
-            <th class="text-center">Hành Động</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Select((value, index) => new { Value = value, Index = index + 1 }))
-        {
-            <tr>
-                <!-- Xóa cột Mã TTSH -->
-                <td>@item.Value.TenTrungTam</td>
-                <td>@(string.IsNullOrEmpty(item.Value.DiaChi) ? "Chưa cập nhật" : item.Value.DiaChi)</td>
-                <td>@(string.IsNullOrEmpty(item.Value.SoDt) ? "Chưa có" : item.Value.SoDt)</td>
-                <td class="text-center">
-                    <a href="@Url.Action("Details", "TrungTamSatHach", new { id = item.Value.MaTtsh })" class="btn btn-info btn-sm">
-                        <i class="bi bi-eye"></i> Chi tiết
-                    </a>
-                    <a href="@Url.Action("Edit", "TrungTamSatHach", new { id = item.Value.MaTtsh })" class="btn btn-warning btn-sm">
-                        <i class="bi bi-pencil-square"></i> Sửa
-                    </a>
-                    <a href="@Url.Action("Delete", "TrungTamSatHach", new { id = item.Value.MaTtsh })" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa trung tâm này?');">
-                        <i class="bi bi-trash"></i> Xóa
-                    </a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<!-- JavaScript tìm kiếm nhanh -->
+<script>
+    document.getElementById("searchInput").addEventListener("keyup", function () {
+        const value = this.value.toLowerCase();
+        const rows = document.querySelectorAll("#tableBody tr");
+
+        rows.forEach(row => {
+            const tenTrungTam = row.children[0].textContent.toLowerCase();
+            const diaChi = row.children[1].textContent.toLowerCase();
+
+            row.style.display = (tenTrungTam.includes(value) || diaChi.includes(value))
+                ? "" : "none";
+        });
+    });
+</script>
+
+<!-- Bootstrap Icons nếu chưa có -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />

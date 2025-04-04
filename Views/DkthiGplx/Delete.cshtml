@@ -1,29 +1,110 @@
 @model GPLX.Models.DkthiGplx
 
-<h2 class="mb-3 text-danger">❌ Xóa Đăng Ký Thi GPLX</h2>
-<p class="alert alert-warning">⚠️ Bạn có chắc chắn muốn xóa đăng ký này không?</p>
+@{
+    ViewData["Title"] = "Xóa Đăng Ký Thi GPLX";
+}
 
-<table class="table table-bordered">
-    <tr>
-        <th>CCCD</th>
-        <td>@Model.CccdNavigation.HoTen (@Model.Cccd)</td>
-    </tr>
-    <tr>
-        <th>Loại GPLX</th>
-        <td>@Model.MaLoaiNavigation.TenLoai</td>
-    </tr>
-    <tr>
-        <th>📅 Ngày Thi</th>
-        <td>@Model.NgayThi.ToString("dd/MM/yyyy")</td>
-    </tr>
-    <tr>
-        <th>🏛️ Trung Tâm</th>
-        <td>@Model.MaTtshNavigation.TenTrungTam</td>
-    </tr>
-</table>
+<style>
+    .delete-card {
+        background: #fff;
+        border: 1px solid #f5c6cb;
+        border-left: 6px solid #dc3545;
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+        border-radius: 1rem;
+        animation: fadeIn 0.5s ease;
+    }
 
-<form asp-action="Delete" onsubmit="return confirm('Bạn có chắc chắn muốn xóa đăng ký này không?');">
-    <input type="hidden" asp-for="MaDkthiGplx" />
-    <button type="submit" class="btn btn-danger">❌ Xóa</button>
-    <a asp-action="Index" class="btn btn-secondary">🔙 Quay lại</a>
-</form>
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    body {
+        background: #fff6f6;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .btn-danger {
+        background: linear-gradient(to right, #dc3545, #ff6b6b);
+        border: none;
+    }
+
+    .btn-danger:hover {
+        background: #c82333;
+    }
+
+    .btn-outline-secondary {
+        background: linear-gradient(145deg, #e0e0e0, #cfcfcf);
+        border: none;
+        color: #333;
+    }
+
+    .btn-outline-secondary:hover {
+        background: #d6d6d6;
+    }
+
+    .info-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+
+    .info-label {
+        font-weight: bold;
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="delete-card p-5 mx-auto" style="max-width: 600px;">
+        <h2 class="text-danger text-center mb-4">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i> Xóa Đăng Ký Thi GPLX
+        </h2>
+
+        <p class="text-center fs-5">Bạn có chắc chắn muốn xóa đăng ký thi GPLX của công dân <strong>@Model.CccdNavigation.HoTen</strong> - @Model.Cccd cho loại GPLX <strong>@Model.MaLoaiNavigation.TenLoai</strong> tại trung tâm <strong>@Model.MaTtshNavigation.TenTrungTam</strong> vào ngày <strong>@Model.NgayThi.ToString("dd/MM/yyyy")</strong>?</p>
+
+        <div class="mt-4">
+            <div class="info-row">
+                <div class="info-label">Mã đăng ký thi:</div>
+                <div>@Model.MaDkthiGplx</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Công dân - CCCD:</div>
+                <div>@Model.CccdNavigation.HoTen - @Model.Cccd</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Loại GPLX:</div>
+                <div>@Model.MaLoaiNavigation.TenLoai</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Ngày thi:</div>
+                <div>@Model.NgayThi.ToString("dd/MM/yyyy")</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Trung tâm sát hạch:</div>
+                <div>@Model.MaTtshNavigation.TenTrungTam</div>
+            </div>
+        </div>
+
+        <form method="post" class="mt-4 d-flex justify-content-center gap-3" onsubmit="return confirm('Bạn có chắc chắn muốn xóa đăng ký này không?');">
+            <input type="hidden" name="id" value="@Model.MaDkthiGplx" />
+
+            <button type="submit" class="btn btn-danger px-4 py-2 rounded-3 shadow-sm">
+                <i class="bi bi-trash3-fill me-1"></i> Xóa
+            </button>
+
+            <a href="@Url.Action("Index", "DkthiGplx")" class="btn btn-outline-secondary px-4 py-2 rounded-3 shadow-sm">
+                <i class="bi bi-x-circle me-1"></i> Hủy
+            </a>
+        </form>
+    </div>
+</div>
+
+<!-- Bootstrap Icons nếu chưa có -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />

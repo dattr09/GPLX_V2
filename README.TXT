@@ -16,6 +16,5 @@ Server=localhost,1433;Database=QL_GPLX;User Id=sa;Password=Thanhdat53140;Encrypt
 PC's Dat
 Server=DESKTOP-E9VB407\\MSSQLSERVER01;Database=QL_GPLX;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;
 ---------------------
-*Đăng kí khóa học
--Create
+*Lớp học
 -Edit

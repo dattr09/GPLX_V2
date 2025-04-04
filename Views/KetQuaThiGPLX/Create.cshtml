@@ -4,67 +4,126 @@
     ViewData["Title"] = "Tạo mới kết quả thi GPLX";
 }
 
-<h1 class="text-center text-primary">@ViewData["Title"]</h1>
-<hr />
-
-<form asp-action="Create" method="post">
-    <div asp-validation-summary="All" class="text-danger"></div>
-
-    <!-- Mã kết quả tự động tạo -->
-    <div class="form-group">
-        <label>Mã Kết Quả</label>
-        <input asp-for="MaKetQua" class="form-control" value="@ViewBag.NewMaKetQua" readonly="readonly" />
-        <input type="hidden" asp-for="MaKetQua" />
-        <span asp-validation-for="MaKetQua" class="text-danger"></span>
+<!-- Thông báo -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-
-    <!-- Chọn Đăng ký thi GPLX -->
-    <div class="form-group">
-        <label>Đăng ký thi GPLX</label>
-        <select asp-for="MaDkthiGplx" class="form-control" asp-items="ViewBag.MaDkthiGplx">
-            <option value="">-- Chọn đăng ký thi --</option>
-        </select>
-        <span asp-validation-for="MaDkthiGplx" class="text-danger"></span>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
+}
 
-    <!-- Nhập điểm -->
-    <div class="row">
-        <div class="col-md-6">
-            <label asp-for="DiemLyThuyet">Điểm Lý Thuyết</label>
-            <input asp-for="DiemLyThuyet" class="form-control" type="number" min="0" max="100" required />
-        </div>
-        <div class="col-md-6">
-            <label asp-for="DiemThucHanh">Điểm Thực Hành</label>
-            <input asp-for="DiemThucHanh" class="form-control" type="number" min="0" max="100" required />
-        </div>
+<div class="container mt-5">
+    <div class="glass-card p-5 mx-auto" style="max-width: 650px;">
+        <h2 class="text-center text-dark mb-4">
+            <i class="bi bi-file-earmark-check me-2 fs-3 text-primary"></i> @ViewData["Title"]
+        </h2>
+
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <!-- Mã kết quả tự động tạo -->
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Mã Kết Quả</label>
+                <input asp-for="MaKetQua" class="form-control" value="@ViewBag.NewMaKetQua" readonly="readonly" />
+                <input type="hidden" asp-for="MaKetQua" />
+                <span asp-validation-for="MaKetQua" class="text-danger"></span>
+            </div>
+
+            <!-- Chọn Đăng ký thi GPLX -->
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Đăng ký thi GPLX</label>
+                <select asp-for="MaDkthiGplx" class="form-select" asp-items="ViewBag.MaDkthiGplx">
+                    <option value="">-- Chọn đăng ký thi --</option>
+                </select>
+                <span asp-validation-for="MaDkthiGplx" class="text-danger"></span>
+            </div>
+
+            <!-- Nhập điểm -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label asp-for="DiemLyThuyet" class="form-label fw-semibold">Điểm Lý Thuyết</label>
+                    <input asp-for="DiemLyThuyet" class="form-control" type="number" min="0" max="100" required />
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="DiemThucHanh" class="form-label fw-semibold">Điểm Thực Hành</label>
+                    <input asp-for="DiemThucHanh" class="form-control" type="number" min="0" max="100" required />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label asp-for="DiemMoPhong" class="form-label fw-semibold">Điểm Mô Phỏng</label>
+                    <input asp-for="DiemMoPhong" class="form-control" type="number" min="0" max="100" />
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="DiemDuongTruong" class="form-label fw-semibold">Điểm Đường Trường</label>
+                    <input asp-for="DiemDuongTruong" class="form-control" type="number" min="0" max="100" />
+                </div>
+            </div>
+
+            <!-- Dropdown chọn Kết quả -->
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Kết Quả</label>
+                <select asp-for="KetQua" class="form-select">
+                    <option value="Đậu">Đậu</option>
+                    <option value="Rớt">Rớt</option>
+                </select>
+            </div>
+
+            <!-- Ghi chú -->
+            <div class="mb-3">
+                <label asp-for="GhiChu" class="form-label fw-semibold">Ghi Chú</label>
+                <textarea asp-for="GhiChu" class="form-control" rows="3"></textarea>
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+                <button type="submit" class="btn btn-gradient px-4 py-2 rounded-3 text-white shadow-sm">
+                    <i class="bi bi-check-circle me-1"></i> Lưu
+                </button>
+                <a asp-action="Index" class="btn btn-outline-dark px-4 py-2 rounded-3 shadow-sm">
+                    <i class="bi bi-arrow-left-circle me-1"></i> Hủy
+                </a>
+            </div>
+        </form>
     </div>
+</div>
 
-    <div class="row">
-        <div class="col-md-6">
-            <label asp-for="DiemMoPhong">Điểm Mô Phỏng</label>
-            <input asp-for="DiemMoPhong" class="form-control" type="number" min="0" max="100" />
-        </div>
-        <div class="col-md-6">
-            <label asp-for="DiemDuongTruong">Điểm Đường Trường</label>
-            <input asp-for="DiemDuongTruong" class="form-control" type="number" min="0" max="100" />
-        </div>
-    </div>
+<!-- Style đẹp -->
+<style>
+    .glass-card {
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(15px);
+        border-radius: 1.5rem;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
 
-    <!-- Dropdown chọn Kết quả -->
-    <div class="form-group">
-        <label>Kết Quả</label>
-        <select asp-for="KetQua" class="form-control">
-            <option value="Đậu">Đậu</option>
-            <option value="Rớt">Rớt</option>
-        </select>
-    </div>
+    body {
+        background: linear-gradient(135deg, #eef7f8, #ffffff);
+        font-family: 'Segoe UI', sans-serif;
+    }
 
-    <!-- Ghi chú -->
-    <div class="form-group">
-        <label asp-for="GhiChu">Ghi Chú</label>
-        <textarea asp-for="GhiChu" class="form-control" rows="3"></textarea>
-    </div>
+    .btn-gradient {
+        background-image: linear-gradient(135deg, #00b894, #0984e3);
+        border: none;
+        color: white;
+        transition: background-position 0.3s ease-in-out, box-shadow 0.2s;
+        background-size: 200% auto;
+        background-position: left center;
+    }
 
-    <button type="submit" class="btn btn-success">💾 Lưu</button>
-    <a asp-action="Index" class="btn btn-secondary">❌ Hủy</a>
-</form>
+    .btn-gradient:hover {
+        background-position: right center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+</style>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">

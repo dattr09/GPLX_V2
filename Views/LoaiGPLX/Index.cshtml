@@ -4,42 +4,102 @@
     ViewData["Title"] = "Danh sách loại GPLX";
 }
 
-<h1 class="text-primary">@ViewData["Title"]</h1>
-<hr />
+<!-- Thông báo -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i> @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i> @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 
-<div class="d-flex justify-content-between mb-3">
-    <a href="@Url.Action("Create")" class="btn btn-success">
-        <i class="bi bi-plus-lg"></i> Thêm loại GPLX
-    </a>
+<!-- Danh sách loại GPLX -->
+<div class="container">
+    <div class="card shadow-lg p-4 rounded-4 border-0">
+        <h2 class="text-primary text-center mb-4">
+            <i class="bi bi-card-checklist me-2"></i>Danh sách Loại GPLX
+        </h2>
+
+        <!-- Thanh tìm kiếm và nút thêm -->
+        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+            <input type="text" id="searchInput" class="form-control w-100 w-md-25 shadow-sm"
+                placeholder="🔍 Tìm mã loại hoặc tên loại...">
+        </div>
+
+        <!-- Bảng danh sách -->
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle text-center">
+                <thead class="table-primary text-dark">
+                    <tr>
+                        <th>Mã Loại</th>
+                        <th>Tên Loại</th>
+                        <th>Mô Tả</th>
+                        <th>Độ Tuổi Được Cấp</th>
+                        <th>Hành Động</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.MaLoai</td>
+                            <td>@item.TenLoai</td>
+                            <td class="description-column">@(
+                                string.IsNullOrEmpty(item.MoTa) ? "Không có mô tả" : item.MoTa)
+                        </td>
+                        <td>@item.DoTuoiDuocCap tuổi</td>
+                        <td>
+                            <a href="@Url.Action("Details", "LoaiGplx", new { id = item.MaLoai })"
+                                class="btn btn-sm btn-info rounded-3 shadow-sm me-1">
+                                <i class="bi bi-eye-fill"></i> Xem
+                            </a>
+                            <a href="@Url.Action("Edit", "LoaiGplx", new { id = item.MaLoai })"
+                                class="btn btn-sm btn-warning rounded-3 shadow-sm me-1">
+                                <i class="bi bi-pencil-fill"></i> Cập Nhật
+                            </a>
+                        </td>
+                    </tr>
+                                        }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
-<table class="table table-hover shadow-sm rounded">
-    <thead class="table-dark">
-        <tr>
-            <th>Mã Loại</th> 
-            <th>Tên Loại</th> 
-            <th>Mô Tả</th> 
-            <th>Độ Tuổi Được Cấp</th> 
-            <th>Hành Động</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.MaLoai</td>
-                <td>@item.TenLoai</td>
-                <td>@(string.IsNullOrEmpty(item.MoTa) ? "Không có mô tả" : item.MoTa)</td>
-                <td>@item.DoTuoiDuocCap tuổi</td>
-                <td>
-                    <a href="@Url.Action("Edit", "LoaiGplx", new { id = item.MaLoai })" class="btn btn-warning btn-sm">
-                        <i class="bi bi-pencil-square"></i> Sửa
-                    </a>
-                    <a href="@Url.Action("Details", "LoaiGplx", new { id = item.MaLoai })" class="btn btn-info btn-sm">
-                        <i class="bi bi-eye"></i> Xem
-                    </a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<!-- JavaScript tìm kiếm nhanh -->
+<script>
+    document.getElementById("searchInput").addEventListener("keyup", function () {
+        const value = this.value.toLowerCase();
+        const rows = document.querySelectorAll("#tableBody tr");
+
+        rows.forEach(row => {
+            const maLoai = row.children[0].textContent.toLowerCase();
+            const tenLoai = row.children[1].textContent.toLowerCase();
+
+            row.style.display = (maLoai.includes(value) || tenLoai.includes(value))
+                ? "" : "none";
+        });
+    });
+</script>
+
+<!-- Bootstrap Icons nếu chưa có -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
+<!-- CSS cho mô tả -->
+<style>
+    .description-column {
+        max-width: 250px;
+        /* Kích thước tối đa của cột mô tả */
+        white-space: normal;
+        /* Cho phép xuống dòng */
+        word-wrap: break-word;
+        /* Tự động chia từ khi quá dài */
+    }
+</style>

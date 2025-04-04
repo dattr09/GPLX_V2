@@ -101,7 +101,7 @@ public async Task<IActionResult> Edit(int id, DangKyKhoaHoc model)
     {
         // Kiểm tra nếu giá trị của TrangThaiDangKy hợp lệ
         var validStatusValues = new List<string> { "Đã đăng ký", "Đã huỷ", "Chờ xác nhận" };
-        if (!validStatusValues.Contains(model.TrangThaiDangKy))
+        if (model.TrangThaiDangKy == null || !validStatusValues.Contains(model.TrangThaiDangKy))
         {
             ModelState.AddModelError("TrangThaiDangKy", "Trạng thái không hợp lệ.");
             return View(model);

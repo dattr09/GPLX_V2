@@ -1,38 +1,43 @@
-@model GPLX.Models.TrungTamSatHach
+@model GPLX.Models.DkthiGplx
 
 @{
-    ViewData["Title"] = "Chi tiết Trung Tâm Sát Hạch";
+    ViewData["Title"] = "Chi tiết đăng ký thi GPLX";
 }
 
 <div class="container mt-5">
     <div class="glass-card p-5 mx-auto" style="max-width: 800px;">
         <h2 class="text-center text-dark mb-4">
-            <i class="bi bi-building me-2 text-success"></i> Thông Tin Chi Tiết Trung Tâm Sát Hạch
+            <i class="bi bi-journal-check me-2 text-success"></i> Thông Tin Chi Tiết Đăng Ký Thi GPLX
         </h2>
 
         <table class="table table-bordered table-striped shadow-sm rounded-3">
             <tbody>
                 <tr>
-                    <th class="col-sm-4 text-nowrap">Tên Trung Tâm</th>
-                    <td>@Model.TenTrungTam</td>
+                    <th class="col-sm-4 text-nowrap">Mã đăng ký thi</th>
+                    <td>@Model.MaDkthiGplx</td>
                 </tr>
                 <tr>
-                    <th class="text-nowrap">Địa Chỉ</th>
-                    <td>@(string.IsNullOrEmpty(Model.DiaChi) ? "Chưa cập nhật" : Model.DiaChi)</td>
+                    <th class="text-nowrap">Công dân (CCCD)</th>
+                    <td>@Model.CccdNavigation.HoTen - @Model.Cccd</td>
                 </tr>
                 <tr>
-                    <th class="text-nowrap">Số Điện Thoại</th>
-                    <td>@(string.IsNullOrEmpty(Model.SoDt) ? "Chưa cập nhật" : Model.SoDt)</td>
+                    <th class="text-nowrap">Loại GPLX</th>
+                    <td>@Model.MaLoaiNavigation.TenLoai</td>
+                </tr>
+                <tr>
+                    <th class="text-nowrap">Ngày thi</th>
+                    <td>@Model.NgayThi.ToString("dd/MM/yyyy")</td>
+                </tr>
+                <tr>
+                    <th class="text-nowrap">Trung tâm sát hạch</th>
+                    <td>@Model.MaTtshNavigation.TenTrungTam</td>
                 </tr>
             </tbody>
         </table>
 
         <div class="text-center mt-4">
-            <a asp-action="Edit" asp-route-id="@Model.MaTtsh" class="btn btn-warning px-4 py-2 rounded-3 shadow-sm me-2">
-                <i class="bi bi-pencil-fill"></i> Chỉnh sửa
-            </a>
-            <a asp-action="Index" class="btn btn-outline-dark px-4 py-2 rounded-3 shadow-sm">
-                <i class="bi bi-arrow-left-circle"></i> Quay lại
+            <a href="@Url.Action("Index")" class="btn btn-outline-dark px-4 py-2 rounded-3 shadow-sm">
+                <i class="bi bi-arrow-left-circle"></i> Trở lại danh sách
             </a>
         </div>
     </div>

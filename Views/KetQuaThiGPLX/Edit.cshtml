@@ -4,58 +4,142 @@
     ViewData["Title"] = "Chỉnh sửa kết quả thi GPLX";
 }
 
-<h1 class="text-primary">@ViewData["Title"]</h1>
-<hr />
+<!-- Thông báo thành công -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 
-<div class="card shadow p-4">
-    <form asp-action="Edit" method="post" >
-        <input type="hidden" asp-for="MaKetQua" />
+<!-- Thông báo lỗi -->
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 
-        <div class="form-group">
-            <label asp-for="MaDkthiGplx" class="font-weight-bold"></label>
-            <select asp-for="MaDkthiGplx" class="form-control" asp-items="ViewBag.MaDkthiGplx"></select>
-        </div>
+<div class="container mt-5">
+    <div class="glass-card p-5 mx-auto" style="max-width: 650px;">
+        <h2 class="text-center text-dark mb-4">
+            <i class="bi bi-pencil-square me-2 text-primary"></i> Chỉnh sửa kết quả thi GPLX
+        </h2>
 
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label asp-for="DiemLyThuyet" class="font-weight-bold"></label>
-                <input asp-for="DiemLyThuyet" class="form-control" type="number" placeholder="Nhập điểm lý thuyết" min="0" max="100" />
+        <form asp-action="Edit" method="post">
+            <input type="hidden" asp-for="MaKetQua" />
+
+            <div class="form-group mb-3">
+                <label asp-for="MaDkthiGplx" class="form-label fw-bold">Đăng ký thi GPLX</label>
+                <select asp-for="MaDkthiGplx" class="form-control border-primary shadow-sm input-3d" asp-items="ViewBag.MaDkthiGplx">
+                    <option value="">-- Chọn đăng ký thi --</option>
+                </select>
+                <span asp-validation-for="MaDkthiGplx" class="text-danger"></span>
             </div>
 
-            <div class="form-group col-md-6">
-                <label asp-for="DiemThucHanh" class="font-weight-bold"></label>
-                <input asp-for="DiemThucHanh" class="form-control" type="number" placeholder="Nhập điểm thực hành" min="0" max="100" />
+            <div class="form-row mb-3">
+                <div class="form-group col-md-6">
+                    <label asp-for="DiemLyThuyet" class="form-label fw-bold">Điểm lý thuyết</label>
+                    <input asp-for="DiemLyThuyet" class="form-control border-primary shadow-sm input-3d" type="number" placeholder="Nhập điểm lý thuyết" min="0" max="100" />
+                    <span asp-validation-for="DiemLyThuyet" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label asp-for="DiemThucHanh" class="form-label fw-bold">Điểm thực hành</label>
+                    <input asp-for="DiemThucHanh" class="form-control border-primary shadow-sm input-3d" type="number" placeholder="Nhập điểm thực hành" min="0" max="100" />
+                    <span asp-validation-for="DiemThucHanh" class="text-danger"></span>
+                </div>
             </div>
-        </div>
 
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label asp-for="DiemMoPhong" class="font-weight-bold"></label>
-                <input asp-for="DiemMoPhong" class="form-control" type="number" placeholder="Nhập điểm mô phỏng" min="0" max="100" />
+            <div class="form-row mb-3">
+                <div class="form-group col-md-6">
+                    <label asp-for="DiemMoPhong" class="form-label fw-bold">Điểm mô phỏng</label>
+                    <input asp-for="DiemMoPhong" class="form-control border-primary shadow-sm input-3d" type="number" placeholder="Nhập điểm mô phỏng" min="0" max="100" />
+                    <span asp-validation-for="DiemMoPhong" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label asp-for="DiemDuongTruong" class="form-label fw-bold">Điểm đường trường</label>
+                    <input asp-for="DiemDuongTruong" class="form-control border-primary shadow-sm input-3d" type="number" placeholder="Nhập điểm đường trường" min="0" max="100" />
+                    <span asp-validation-for="DiemDuongTruong" class="text-danger"></span>
+                </div>
             </div>
 
-            <div class="form-group col-md-6">
-                <label asp-for="DiemDuongTruong" class="font-weight-bold"></label>
-                <input asp-for="DiemDuongTruong" class="form-control" type="number" placeholder="Nhập điểm đường trường" min="0" max="100" />
+            <div class="form-group mb-3">
+                <label asp-for="KetQua" class="form-label fw-bold">Kết quả</label>
+                <select asp-for="KetQua" class="form-control border-primary shadow-sm input-3d">
+                    <option value="Đậu" class="text-success">Đậu</option>
+                    <option value="Rớt" class="text-danger">Rớt</option>
+                </select>
+                <span asp-validation-for="KetQua" class="text-danger"></span>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label asp-for="KetQua" class="font-weight-bold"></label>
-            <select asp-for="KetQua" class="form-control">
-                <option value="Đậu" class="text-success">Đậu</option>
-                <option value="Rớt" class="text-danger">Rớt</option>
-            </select>
-        </div>
+            <div class="form-group mb-4">
+                <label asp-for="GhiChu" class="form-label fw-bold">Ghi chú</label>
+                <textarea asp-for="GhiChu" class="form-control border-primary shadow-sm input-3d" placeholder="Ghi chú thêm nếu có..."></textarea>
+                <span asp-validation-for="GhiChu" class="text-danger"></span>
+            </div>
 
-        <div class="form-group">
-            <label asp-for="GhiChu" class="font-weight-bold"></label>
-            <textarea asp-for="GhiChu" class="form-control" placeholder="Ghi chú thêm nếu có..."></textarea>
-        </div>
-
-        <div class="d-flex justify-content-between">
-            <button type="submit" class="btn btn-primary">Cập nhật</button>
-            <a asp-action="Index" class="btn btn-secondary">Hủy</a>
-        </div>
-    </form>
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn text-white btn-lg px-4 py-2 rounded-3 shadow-sm" style="background: linear-gradient(to right, #4facfe, #00f2fe); border: none;">
+                    <i class="bi bi-check-circle me-1"></i> Cập nhật
+                </button>
+                <a asp-action="Index" class="btn btn-outline-dark px-4 py-2 rounded-3 shadow-sm ms-2">
+                    <i class="bi bi-arrow-left-circle"></i> Hủy
+                </a>
+            </div>
+        </form>
+    </div>
 </div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
+
+<!-- CSS hiệu ứng đẹp -->
+<style>
+    .input-3d {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+    }
+
+    .input-3d:focus {
+        transform: scale(1.05);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .glass-card {
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(15px);
+        border-radius: 1.5rem;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        animation: fadeInUp 0.6s ease;
+    }
+
+    @@keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    body {
+        background: linear-gradient(to right, #eef7f8, #ffffff);
+        min-height: 100vh;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    label {
+        font-weight: 600;
+    }
+</style>
+
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />

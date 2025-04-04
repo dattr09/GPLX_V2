@@ -14,10 +14,24 @@ namespace GPLX.Controllers
         }
 
         // GET: LoaiGplx
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string MaLoai, int? DoTuoiDuocCap)
         {
-            var loaiGplxList = await _context.LoaiGplxes.ToListAsync();
-            return View(loaiGplxList);
+            var loaiGplxQuery = _context.LoaiGplxes.AsQueryable();
+
+            // Tìm kiếm theo Mã Loại nếu có
+            if (!string.IsNullOrEmpty(MaLoai))
+            {
+                loaiGplxQuery = loaiGplxQuery.Where(l => l.MaLoai.Contains(MaLoai));
+            }
+
+            // Tìm kiếm theo Độ Tuổi nếu có
+            if (DoTuoiDuocCap.HasValue)
+            {
+                loaiGplxQuery = loaiGplxQuery.Where(l => l.DoTuoiDuocCap == DoTuoiDuocCap);
+            }
+
+            var loaiGplxes = await loaiGplxQuery.ToListAsync();
+            return View(loaiGplxes);
         }
 
         // GET: LoaiGplx/Details/5

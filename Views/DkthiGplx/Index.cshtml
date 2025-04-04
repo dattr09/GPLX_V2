@@ -25,56 +25,69 @@
     </script>
 }
 
-<h2 class="mb-3 text-primary">📋 Danh Sách Đăng Ký Thi GPLX</h2>
+<!-- Thông báo -->
+<div class="container mt-5">
+    <div class="card shadow-lg p-4 rounded-4 border-0">
+        <h2 class="text-primary text-center mb-4">
+            <i class="bi bi-journal-check me-2"></i>Danh Sách Đăng Ký Thi GPLX
+        </h2>
 
-<!-- Ô tìm kiếm CCCD -->
-<div class="mb-3">
-    <input type="text" id="searchCccd" class="form-control" placeholder="🔍 Nhập CCCD để tìm kiếm...">
+        <!-- Thanh tìm kiếm và nút thêm -->
+        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+            <input type="text" id="searchCccd" class="form-control w-100 w-md-25 shadow-sm"
+                placeholder="🔍 Nhập CCCD để tìm kiếm...">
+            <a href="@Url.Action("Create", "DkthiGplx")" class="btn btn-success shadow-sm rounded-3">
+                <i class="bi bi-plus-circle"></i> Thêm Mới
+            </a>
+        </div>
+
+        <!-- Bảng danh sách -->
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle text-center">
+                <thead class="table-primary text-dark">
+                    <tr>
+                        <th>👤 Họ Tên & CCCD</th>
+                        <th>🔢 Mã Loại</th>
+                        <th>📅 Ngày Thi</th>
+                        <th>🏛 Trung Tâm</th>
+                        <th class="text-center">⚙️ Hành Động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="cccd">@item.CccdNavigation.HoTen - @item.Cccd</td>
+                            <td>@item.MaLoai</td>
+                            <td>@item.NgayThi.ToString("dd/MM/yyyy")</td>
+                            <td>@item.MaTtshNavigation.TenTrungTam</td>
+                            <td class="text-center">
+                                <a href="@Url.Action("Details", "DkthiGplx", new { id = item.MaDkthiGplx })"
+                                    class="btn btn-info btn-sm">
+                                    👁️ Chi tiết
+                                </a>
+                                <a href="@Url.Action("Delete", "DkthiGplx", new { id = item.MaDkthiGplx })"
+                                    class="btn btn-danger btn-sm delete-btn">
+                                    🗑️ Xóa
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
-<a asp-action="Create" class="btn btn-success mb-3">➕ Thêm Mới</a>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
 
-<table class="table table-bordered" id="dataTable">
-    <thead class="thead-dark">
-        <tr>
-            <th>👤 Họ Tên & CCCD</th>
-            <th>🔢 Mã Loại</th>
-            <th>📅 Ngày Thi</th>
-            <th>🏛 Trung Tâm</th>
-            <th class="text-center">⚙️ Hành Động</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td class="cccd">@item.CccdNavigation.HoTen - @item.Cccd</td>
-                <td>@item.MaLoai</td>
-                <td>@item.NgayThi.ToString("dd/MM/yyyy")</td>
-                <td>@item.MaTtshNavigation.TenTrungTam</td>
-                <td class="text-center">
-                    <a asp-action="Edit" asp-route-id="@item.MaDkthiGplx" class="btn btn-warning btn-sm">✏️ Sửa</a>
-                    <a asp-action="Delete" asp-route-id="@item.MaDkthiGplx" class="btn btn-danger btn-sm delete-btn">🗑️ Xóa</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
 
 <!-- Thêm xác nhận khi xóa -->
 <script>
-    document.querySelectorAll(".delete-btn").forEach(button => {
-        button.addEventListener("click", function (e) {
-            if (!confirm("Bạn có chắc chắn muốn xóa đăng ký này không?")) {
-                e.preventDefault();
-            }
-        });
-    });
-
     // Lọc dữ liệu theo CCCD
     document.getElementById("searchCccd").addEventListener("keyup", function () {
         let searchValue = this.value.toLowerCase();
-        let rows = document.querySelectorAll("#dataTable tbody tr");
+        let rows = document.querySelectorAll("table tbody tr");
 
         rows.forEach(row => {
             let cccdText = row.querySelector(".cccd").innerText.toLowerCase();

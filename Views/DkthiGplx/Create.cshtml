@@ -55,8 +55,7 @@
             </div>
 
             <div class="d-flex justify-content-between mt-4">
-                <button type="submit" class="btn btn-gradient px-4 py-2 rounded-3 text-white shadow-sm"
-                        style="background: linear-gradient(to right, #00c6ff, #0072ff); border: none;">
+                <button type="submit" class="btn btn-gradient px-4 py-2 rounded-3 text-white shadow-sm">
                     <i class="bi bi-check-circle me-1"></i> Lưu
                 </button>
                 <a asp-action="Index" class="btn btn-outline-dark px-4 py-2 rounded-3 shadow-sm">
@@ -122,6 +121,20 @@
 
     label {
         color: #333;
+    }
+
+    .btn-gradient {
+        background-image: linear-gradient(135deg, #00b894, #0984e3);
+        border: none;
+        color: white;
+        transition: background-position 0.3s ease-in-out, box-shadow 0.2s;
+        background-size: 200% auto;
+        background-position: left center;
+    }
+
+    .btn-gradient:hover {
+        background-position: right center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 </style>
 

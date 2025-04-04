@@ -1,37 +1,135 @@
 @model GPLX.Models.LopHoc
+
 @{
     ViewData["Title"] = "Sửa lớp học";
 }
 
-<h1>@ViewData["Title"]</h1>
+<!-- Thông báo thành công -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 
-<form asp-action="Edit" asp-route-id="@Model.MaLop">
-    <div class="form-group">
-        <label for="MaLop">Mã lớp</label>
-        <input type="text" class="form-control" id="MaLop" name="MaLop" value="@Model.MaLop" readonly />
+<!-- Thông báo lỗi -->
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-    <div class="form-group">
-        <label for="NgayBatDau">Ngày bắt đầu</label>
-        <input type="date" class="form-control" id="NgayBatDau" name="NgayBatDau" value="@Model.NgayBatDau.ToString("yyyy-MM-dd")" />
+}
+
+<div class="container mt-5">
+    <div class="glass-card p-5 mx-auto" style="max-width: 650px;">
+        <h2 class="text-center text-dark mb-4">
+            <i class="bi bi-pencil-square me-2 text-warning"></i> Sửa Thông Tin Lớp Học
+        </h2>
+
+        <form asp-action="Edit" asp-route-id="@Model.MaLop">
+            <div class="form-group mb-3">
+                <label for="MaLop" class="form-label fw-bold">Mã lớp</label>
+                <input type="text" class="form-control border-success shadow-sm input-3d" id="MaLop" name="MaLop"
+                    value="@Model.MaLop" readonly />
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="NgayBatDau" class="form-label fw-bold">Ngày bắt đầu</label>
+                <input type="date" class="form-control border-success shadow-sm input-3d" id="NgayBatDau"
+                    name="NgayBatDau" value="@Model.NgayBatDau.ToString("yyyy-MM-dd")" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="NgayKetThuc" class="form-label fw-bold">Ngày kết thúc</label>
+                <input type="date" class="form-control border-success shadow-sm input-3d" id="NgayKetThuc"
+                    name="NgayKetThuc" value="@Model.NgayKetThuc.ToString("yyyy-MM-dd")" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="DiaDiem" class="form-label fw-bold">Địa điểm</label>
+                <input type="text" class="form-control border-success shadow-sm input-3d" id="DiaDiem" name="DiaDiem"
+                    value="@Model.DiaDiem" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="TrangThai" class="form-label fw-bold">Trạng thái</label>
+                <input type="text" class="form-control border-success shadow-sm input-3d" id="TrangThai"
+                    name="TrangThai" value="@Model.TrangThai" />
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="MaGv" class="form-label fw-bold">Giảng viên</label>
+                @Html.DropDownListFor(model => model.MaGv,
+                new SelectList(ViewData["GiangVien"] as IEnumerable<GPLX.Models.GiangVien>, "MaGv", "HoTen",
+                Model.MaGv),
+                                "Chọn giảng viên", new { @class = "form-control border-success shadow-sm input-3d" })
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn text-white btn-lg px-4 py-2 rounded-3 shadow-sm"
+                    style="background: linear-gradient(to right, #00b09b, #96c93d); border: none;">
+                    <i class="bi bi-check-circle me-1"></i> Cập nhật
+                </button>
+
+                <a href="@Url.Action("Index", "LopHoc")"
+                    class="btn btn-outline-dark px-4 py-2 rounded-3 shadow-sm ms-2">
+                    <i class="bi bi-arrow-left-circle"></i> Hủy
+                </a>
+            </div>
+        </form>
     </div>
-    <div class="form-group">
-        <label for="NgayKetThuc">Ngày kết thúc</label>
-        <input type="date" class="form-control" id="NgayKetThuc" name="NgayKetThuc" value="@Model.NgayKetThuc.ToString("yyyy-MM-dd")" />
-    </div>
-    <div class="form-group">
-        <label for="DiaDiem">Địa điểm</label>
-        <input type="text" class="form-control" id="DiaDiem" name="DiaDiem" value="@Model.DiaDiem" />
-    </div>
-    <div class="form-group">
-        <label for="TrangThai">Trạng thái</label>
-        <input type="text" class="form-control" id="TrangThai" name="TrangThai" value="@Model.TrangThai" />
-    </div>
-    <div class="form-group">
-        <label for="MaGv">Giảng viên</label>
-        @Html.DropDownListFor(model => model.MaGv, 
-            new SelectList(ViewData["GiangVien"] as IEnumerable<GPLX.Models.GiangVien>, "MaGv", "HoTen", Model.MaGv), 
-            "Chọn giảng viên", new { @class = "form-control" })
-    </div>
-    <button type="submit" class="btn btn-primary">Cập nhật</button>
-    <a href="@Url.Action("Index", "LopHoc")" class="btn btn-secondary">Hủy</a>
-</form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<!-- CSS hiệu ứng đẹp -->
+<style>
+    .input-3d {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+    }
+
+    .input-3d:focus {
+        transform: scale(1.05);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .glass-card {
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(15px);
+        border-radius: 1.5rem;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        animation: fadeInUp 0.6s ease;
+    }
+
+    @@keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    body {
+        background: linear-gradient(to right, #eef7f8, #ffffff);
+        min-height: 100vh;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    label {
+        font-weight: 600;
+    }
+</style>
+
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />

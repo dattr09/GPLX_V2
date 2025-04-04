@@ -4,33 +4,105 @@
     ViewData["Title"] = "Chỉnh Sửa Loại Vi Phạm";
 }
 
-<h1><i class="bi bi-pencil-square"></i> @ViewData["Title"]</h1>
-<hr />
+<!-- Thông báo thành công -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 
-<div class="card shadow-sm p-4">
-    <h4 class="text-primary"><i class="bi bi-exclamation-triangle"></i> Thông Tin Loại Vi Phạm</h4>
-    <hr />
+<!-- Thông báo lỗi -->
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 
-    <form asp-action="Edit">
-        <input type="hidden" asp-for="MaLoaiViPham" />
+<div class="container mt-5">
+    <div class="glass-card p-5 mx-auto" style="max-width: 650px;">
+        <h2 class="text-center text-dark mb-4">
+            <i class="bi bi-pencil-square me-2 text-primary"></i> Chỉnh Sửa Loại Vi Phạm
+        </h2>
 
-        <div class="mb-3">
-            <label for="TenViPham" class="form-label"><i class="bi bi-exclamation-circle-fill"></i> Tên Vi Phạm</label>
-            <input type="text" class="form-control" id="TenViPham" asp-for="TenViPham" required placeholder="Nhập tên vi phạm..." />
-        </div>
+        <form asp-action="Edit">
+            <input type="hidden" asp-for="MaLoaiViPham" />
 
-        <div class="mb-3">
-            <label for="MucPhat" class="form-label"><i class="bi bi-cash-stack"></i> Mức Phạt</label>
-            <input type="number" class="form-control" id="MucPhat" asp-for="MucPhat" step="0.01" required placeholder="Nhập mức phạt..." />
-        </div>
+            <div class="form-group mb-3">
+                <label asp-for="TenViPham" class="form-label fw-bold"><i class="bi bi-exclamation-circle-fill"></i> Tên Vi Phạm</label>
+                <input asp-for="TenViPham" class="form-control border-primary shadow-sm input-3d" required placeholder="Nhập tên vi phạm..." />
+                <span asp-validation-for="TenViPham" class="text-danger"></span>
+            </div>
 
-        <div class="d-flex justify-content-between">
-            <button type="submit" class="btn btn-success">
-                <i class="bi bi-save"></i> Cập Nhật
-            </button>
-            <a href="@Url.Action("Index")" class="btn btn-secondary">
-                <i class="bi bi-arrow-left"></i> Hủy
-            </a>
-        </div>
-    </form>
+            <div class="form-group mb-3">
+                <label asp-for="MucPhat" class="form-label fw-bold"><i class="bi bi-cash-stack"></i> Mức Phạt</label>
+                <input asp-for="MucPhat" type="number" step="0.01" class="form-control border-primary shadow-sm input-3d" required placeholder="Nhập mức phạt..." />
+                <span asp-validation-for="MucPhat" class="text-danger"></span>
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn text-white btn-lg px-4 py-2 rounded-3 shadow-sm"
+                        style="background: linear-gradient(to right, #4facfe, #00f2fe); border: none;">
+                    <i class="bi bi-save me-1"></i> Cập Nhật
+                </button>
+
+                <a href="@Url.Action("Index")" class="btn btn-outline-dark px-4 py-2 rounded-3 shadow-sm ms-2">
+                    <i class="bi bi-arrow-left-circle"></i> Hủy
+                </a>
+            </div>
+        </form>
+    </div>
 </div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
+
+<!-- CSS hiệu ứng đẹp -->
+<style>
+    .input-3d {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+    }
+
+    .input-3d:focus {
+        transform: scale(1.05);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .glass-card {
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(15px);
+        border-radius: 1.5rem;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        animation: fadeInUp 0.6s ease;
+    }
+
+    @@keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    body {
+        background: linear-gradient(to right, #eef7f8, #ffffff);
+        min-height: 100vh;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    label {
+        font-weight: 600;
+    }
+</style>
+
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
