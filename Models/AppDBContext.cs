@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using GPLX.Models;
 
 namespace GPLX.Models;
 
-public partial class AppDBContext : DbContext
+public partial class AppDBContext : IdentityDbContext<ApplicationUser>
 {
-    public AppDBContext()
-    {
-    }
-
     public AppDBContext(DbContextOptions<AppDBContext> options)
         : base(options)
     {
@@ -42,6 +40,7 @@ public partial class AppDBContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<CongDan>(entity =>
         {
             entity.HasKey(e => e.Cccd).HasName("PK__CongDan__A955A0ABA6F2BB53");
