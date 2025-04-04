@@ -1,45 +1,78 @@
 @model IEnumerable<GPLX.Models.DieuKienDatGplx>
 
-<h2 class="mb-3">Danh sách Điều Kiện Đạt GPLX</h2>
+@{
+    ViewData["Title"] = "Danh sách Điều Kiện Đạt GPLX";
+}
 
-<!-- Ô tìm kiếm -->
-<input type="text" id="searchInput" class="form-control mb-3" placeholder="🔍 Tìm kiếm theo Mã Loại...">
+<!-- Thông báo -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i> @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i> @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 
-<table class="table table-hover table-bordered">
-    <thead class="table-primary">
-        <tr>
-            <th>Mã Loại</th>
-            <th>Điểm Lý Thuyết</th>
-            <th>Điểm Thực Hành</th>
-            <th>Điểm Mô Phỏng</th>
-            <th>Điểm Đường Trường</th>
-            <th>Ghi Chú</th>
-        </tr>
-    </thead>
-    <tbody id="tableBody">
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.MaLoai</td>
-                <td>@item.DiemLyThuyetDat</td>
-                <td>@item.DiemThucHanhDat</td>
-                <td>@item.DiemMoPhongDat</td>
-                <td>@item.DiemDuongTruongDat</td>
-                <td>@item.GhiChu</td>
-            </tr>
-        }
-    </tbody>
-</table>
+<!-- Danh sách điều kiện đạt GPLX -->
+<div class="container mt-5">
+    <div class="card shadow-lg p-4 rounded-4 border-0">
+        <h2 class="text-primary text-center mb-4"><i class="bi bi-card-checklist me-2"></i>Danh sách Điều Kiện Đạt GPLX</h2>
 
-<!-- JavaScript Tìm kiếm -->
+        <!-- Thanh tìm kiếm -->
+        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+            <input type="text" id="searchInput" class="form-control w-100 w-md-25 shadow-sm" placeholder="🔍 Tìm kiếm theo Mã Loại...">
+        </div>
+
+        <!-- Bảng danh sách -->
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle text-center">
+                <thead class="table-primary text-dark">
+                    <tr>
+                        <th>Mã Loại</th>
+                        <th>Điểm Lý Thuyết</th>
+                        <th>Điểm Thực Hành</th>
+                        <th>Điểm Mô Phỏng</th>
+                        <th>Điểm Đường Trường</th>
+                        <th>Ghi Chú</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.MaLoai</td>
+                            <td>@item.DiemLyThuyetDat</td>
+                            <td>@item.DiemThucHanhDat</td>
+                            <td>@(item.DiemMoPhongDat.HasValue ? item.DiemMoPhongDat : "-")</td>
+                            <td>@(item.DiemDuongTruongDat.HasValue ? item.DiemDuongTruongDat : "-")</td>
+                            <td class="text-start ps-3">@(string.IsNullOrEmpty(item.GhiChu) ? "Không có" : item.GhiChu)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript tìm kiếm nhanh -->
 <script>
     document.getElementById("searchInput").addEventListener("keyup", function () {
-        let searchValue = this.value.toLowerCase();
-        let rows = document.querySelectorAll("#tableBody tr");
+        const value = this.value.toLowerCase();
+        const rows = document.querySelectorAll("#tableBody tr");
 
         rows.forEach(row => {
-            let maLoai = row.children[0].textContent.toLowerCase(); // Lấy nội dung cột "Mã Loại"
-            row.style.display = maLoai.includes(searchValue) ? "" : "none";
+            const maLoai = row.children[0].textContent.toLowerCase();
+            row.style.display = maLoai.includes(value) ? "" : "none";
         });
     });
 </script>
+
+<!-- Optional: Bootstrap Icons nếu chưa có -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />

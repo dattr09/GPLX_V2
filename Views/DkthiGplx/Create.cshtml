@@ -1,68 +1,128 @@
 @model GPLX.Models.DkthiGplx
 
-<h2 class="mb-3">📝 Thêm Đăng Ký Thi GPLX</h2>
+@{
+    ViewData["Title"] = "Thêm Đăng Ký Thi GPLX";
+}
+
+<!-- Thông báo lỗi từ ModelState -->
 @if (!ViewData.ModelState.IsValid)
 {
-    <div class="alert alert-danger">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Có lỗi xảy ra:</strong>
         @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
         {
-            <p>@error.ErrorMessage</p>
+            <div>@error.ErrorMessage</div>
         }
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 }
 
-<form asp-action="Create">
-    <div class="form-group">
-        <label asp-for="Cccd">👤 Công Dân (Tên - CCCD)</label>
-        <select asp-for="Cccd" asp-items="ViewBag.Cccd" class="form-control" required>
-            <option value="">-- Chọn công dân --</option>
-        </select>
-        <span asp-validation-for="Cccd" class="text-danger"></span>
-    </div>
+<div class="container mt-5">
+    <div class="glass-card p-5 mx-auto" style="max-width: 650px;">
+        <h2 class="text-center text-dark mb-4">
+            <i class="bi bi-journal-plus me-2 fs-3 text-success"></i> Thêm Đăng Ký Thi GPLX
+        </h2>
 
-    <div class="form-group">
-        <label asp-for="MaLoai">📌 Mã Loại GPLX</label>
-        <select asp-for="MaLoai" asp-items="ViewBag.MaLoai" class="form-control" required>
-            <option value="">-- Chọn mã loại GPLX --</option>
-        </select>
-        <span asp-validation-for="MaLoai" class="text-danger"></span>
-    </div>
+        <form asp-action="Create" method="post">
+            <div class="mb-3">
+                <label asp-for="Cccd" class="form-label fw-semibold">👤 Công Dân (Họ Tên - CCCD)</label>
+                <select asp-for="Cccd" asp-items="ViewBag.Cccd" class="form-select" required>
+                    <option value="">-- Chọn công dân --</option>
+                </select>
+                <span asp-validation-for="Cccd" class="text-danger"></span>
+            </div>
 
-    <div class="form-group">
-        <label asp-for="NgayThi">📅 Ngày Thi</label>
-        <input asp-for="NgayThi" type="date" class="form-control" required />
-        <span asp-validation-for="NgayThi" class="text-danger"></span>
-    </div>
+            <div class="mb-3">
+                <label asp-for="MaLoai" class="form-label fw-semibold">📌 Mã Loại GPLX</label>
+                <select asp-for="MaLoai" asp-items="ViewBag.MaLoai" class="form-select" required>
+                    <option value="">-- Chọn loại GPLX --</option>
+                </select>
+                <span asp-validation-for="MaLoai" class="text-danger"></span>
+            </div>
 
-    <div class="form-group">
-        <label asp-for="MaTtsh">🏛️ Trung Tâm Sát Hạch</label>
-        <select asp-for="MaTtsh" asp-items="ViewBag.MaTtsh" class="form-control" required>
-            <option value="">-- Chọn trung tâm --</option>
-        </select>
-        <span asp-validation-for="MaTtsh" class="text-danger"></span>
-    </div>
+            <div class="mb-3">
+                <label asp-for="NgayThi" class="form-label fw-semibold">📅 Ngày Thi</label>
+                <input asp-for="NgayThi" type="date" class="form-control" required />
+                <span asp-validation-for="NgayThi" class="text-danger"></span>
+            </div>
 
-    <button type="submit" class="btn btn-success mt-3">✅ Lưu</button>
-    <a asp-action="Index" class="btn btn-secondary mt-3">🔙 Quay lại</a>
-</form>
+            <div class="mb-3">
+                <label asp-for="MaTtsh" class="form-label fw-semibold">🏛️ Trung Tâm Sát Hạch</label>
+                <select asp-for="MaTtsh" asp-items="ViewBag.MaTtsh" class="form-select" required>
+                    <option value="">-- Chọn trung tâm --</option>
+                </select>
+                <span asp-validation-for="MaTtsh" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+                <button type="submit" class="btn btn-gradient px-4 py-2 rounded-3 text-white shadow-sm"
+                        style="background: linear-gradient(to right, #00c6ff, #0072ff); border: none;">
+                    <i class="bi bi-check-circle me-1"></i> Lưu
+                </button>
+                <a asp-action="Index" class="btn btn-outline-dark px-4 py-2 rounded-3 shadow-sm">
+                    <i class="bi bi-arrow-left-circle me-1"></i> Quay Về
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
 
 @section Scripts {
-    @{
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const ngayThiInput = document.getElementById("NgayThi");
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const ngayThiInput = document.getElementById("NgayThi");
 
-                ngayThiInput.addEventListener("change", function () {
-                    const selectedDate = new Date(this.value);
-                    const today = new Date();
-                    today.setHours(0, 0, 0, 0);
+            ngayThiInput.addEventListener("change", function () {
+                const selectedDate = new Date(this.value);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
 
-                    if (selectedDate < today) {
-                        alert("Ngày thi không được ở quá khứ.");
-                        this.value = "";
-                    }
-                });
+                if (selectedDate < today) {
+                    alert("Ngày thi không được ở quá khứ.");
+                    this.value = "";
+                }
             });
-        </script>
-    }
+        });
+    </script>
 }
+
+<style>
+    .glass-card {
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(15px);
+        border-radius: 1.5rem;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        animation: floatIn 0.6s ease-out;
+    }
+
+    @@keyframes floatIn {
+        0% {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .glass-card input:focus,
+    .glass-card select:focus {
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        transition: all 0.3s;
+    }
+
+    body {
+        background: linear-gradient(135deg, #eef7f8, #ffffff);
+        min-height: 100vh;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    label {
+        color: #333;
+    }
+</style>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />

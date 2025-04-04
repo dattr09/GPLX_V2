@@ -187,15 +187,13 @@ namespace GPLX.Controllers
                 // Lỗi do ràng buộc dữ liệu (ví dụ: khóa ngoại)
                 TempData["Error"] = "Không thể xóa đăng ký thi GPLX vì đang có dữ liệu liên quan!";
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // Ghi log lỗi nếu cần
                 TempData["Error"] = "Đã xảy ra lỗi trong quá trình xóa!";
             }
 
             return RedirectToAction(nameof(Index));
         }
-
 
         private bool DktGplxExists(int id)
         {
