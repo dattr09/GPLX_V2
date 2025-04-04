@@ -1,4 +1,23 @@
-<form asp-action="Create">
+@{
+    ViewData["Title"] = "Thêm lớp học";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<!-- Hiển thị lỗi nếu ModelState không hợp lệ -->
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
+
+<form id="createForm" method="post">
     <div class="form-group">
         <label for="NgayBatDau">Ngày bắt đầu</label>
         <input type="date" class="form-control" id="NgayBatDau" name="NgayBatDau" required />
@@ -46,32 +65,58 @@
         </select>
     </div>
 
-    <div class="form-group">
-        <label for="MaGv">Giảng viên</label>
-        <select class="form-control" id="MaGv" name="MaGv">
-            @if (ViewData["GiangVien"] is List<GPLX.Models.GiangVien> giangVienList)
+   <div class="form-group">
+    <label for="MaGv">Giảng viên</label>
+    <select class="form-control" id="MaGv" name="MaGv">
+        @if (ViewData["GiangVien"] is List<GPLX.Models.GiangVien> giangVienList)
+        {
+            foreach (var gv in giangVienList)
             {
-                foreach (var gv in giangVienList)
-                {
-                    <option value="@gv.MaGv">@gv.HoTen</option>
-                }
+                <option value="@gv.MaGv">@gv.HoTen</option>
             }
-        </select>
-    </div>
+        }
+    </select>
+</div>
 
-    <div class="form-group">
-        <label for="MaKhoaHoc">Khóa học</label>
-        <select class="form-control" id="MaKhoaHoc" name="MaKhoaHoc">
-            @if (ViewData["KhoaHoc"] is List<GPLX.Models.KhoaHoc> khoaHocList)
+<div class="form-group">
+    <label for="MaKhoaHoc">Khóa học</label>
+    <select class="form-control" id="MaKhoaHoc" name="MaKhoaHoc">
+        @if (ViewData["KhoaHoc"] is List<GPLX.Models.KhoaHoc> khoaHocList)
+        {
+            foreach (var kh in khoaHocList)
             {
-                foreach (var kh in khoaHocList)
-                {
-                    <option value="@kh.MaKhoaHoc">@kh.TenKhoaHoc</option>
-                }
+                <option value="@kh.MaKhoaHoc">@kh.TenKhoaHoc</option>
             }
-        </select>
-    </div>
+        }
+    </select>
+</div>
+
 
     <button type="submit" class="btn btn-primary">Lưu</button>
     <a href="@Url.Action("Index", "LopHoc")" class="btn btn-secondary">Hủy</a>
 </form>
+
+<!-- JavaScript to handle form submission without reloading the page -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#createForm").submit(function (event) {
+            event.preventDefault(); // Ngăn trang reload
+
+            var formData = $(this).serialize(); // Lấy dữ liệu từ form
+
+            $.ajax({
+                type: "POST",
+                url: "/LopHoc/Create", // URL gửi request đến
+                data: formData,
+                success: function (response) {
+                    alert("Thêm lớp học thành công!");
+                    window.location.href = "/LopHoc/Index"; // Chuyển hướng đến trang index
+                },
+                error: function () {
+                    alert("Có lỗi xảy ra!");
+                }
+            });
+        });
+    });
+</script>
